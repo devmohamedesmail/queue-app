@@ -1,0 +1,118 @@
+import React, { useState } from 'react'
+import { Drawer, Button, Div, Text, Modal, Icon } from 'react-native-magnus'
+import Octicons from '@expo/vector-icons/Octicons';
+import CustomDrawerBoxIcon from '../CustomComponents/CustomDrawerBoxIcon';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import CustomDrawerItem from '../CustomComponents/CustomDrawerItem';
+import colors from '../config/colors';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Entypo from '@expo/vector-icons/Entypo';
+import { useNavigation } from '@react-navigation/native';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import AccountComponent from './AccountComponent';
+import FavouriteComponent from './FavouriteComponent';
+import { useTranslation } from 'react-i18next';
+import { I18nManager } from 'react-native';
+import { useTheme } from '../context/ThemeContext';
+import CustomIconBtn from '../CustomComponents/CustomIconBtn';
+
+
+
+const drawerRef = React.createRef();
+export default function DrawerComponent() {
+    const { t, i18n } = useTranslation()
+    const navigation = useNavigation();
+    const [accountModalVisible, setAccountModalVisible] = useState(false);
+    const [favouriteModalVisible, setFavouriteModalVisible] = useState(false)
+    const { theme, toggleTheme } = useTheme()
+
+
+
+
+
+
+
+    const toggleLanguage = () => {
+        const newLang = i18n.language === 'en' ? 'ar' : 'en';
+        i18n.changeLanguage(newLang)
+            .then(() => {
+                I18nManager.forceRTL(newLang === 'ar');
+
+            })
+            .catch(err => console.error('Failed to change language', err));
+    };
+
+
+    return (
+        <Div>
+            <CustomIconBtn
+                icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
+                onPress={() => {
+                    if (drawerRef.current) {
+                        drawerRef.current.open();
+                    }
+                }}
+            />
+
+            <Drawer ref={drawerRef} direction="right" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} animationTime={400} drawerPercentage={85} >
+                <Div position='relative' h="100%">
+                    <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} px={5}>
+                        <CustomDrawerBoxIcon icon={<AntDesign name="user" size={27} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('account')} onPress={() => setAccountModalVisible(true)} />
+                        <CustomDrawerBoxIcon icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('favourite')} onPress={() => setFavouriteModalVisible(true)} />
+                        <CustomDrawerBoxIcon icon={<MaterialIcons name="history-toggle-off" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('history')} onPress={() => navigation.navigate('History')} />
+                        <CustomDrawerBoxIcon icon={<MaterialCommunityIcons name="human-queue" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('my-queue')} onPress={() => navigation.navigate('MyQueue')} />
+
+                    </Div>
+
+
+                    <Div px={10} mt={20}>
+                        <Button w="100%" bg={colors.lightTheme.primary} fontWeight='bold'>
+                            {t('notifications')}
+                        </Button>
+                        <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg={colors.lightTheme.secondary} w={30} h={30} rounded="circle" top={-18}>
+                            <Text >3</Text>
+                        </Div>
+
+                    </Div>
+
+
+
+
+                    <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} gap={5}>
+                        <CustomDrawerItem title={t('home')} icon={<AntDesign name="home" size={20} color={colors.lightTheme.primary} />} onPress={() => navigation.navigate('Home')} />
+
+                        <CustomDrawerItem title={t('business')} icon={<MaterialIcons name="business-center" size={20} color={colors.lightTheme.primary} />} />
+                        <CustomDrawerItem title={t('help')} icon={<Entypo name="help" size={20} color={colors.lightTheme.primary} />} />
+                        <CustomDrawerItem title={t('inbox')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} />
+                        <CustomDrawerItem title={t('theme')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} onPress={toggleTheme} />
+                        <CustomDrawerItem
+                            title={i18n.language === "ar" ? 'English' : ' عربي '}
+                            icon={<MaterialIcons
+                                name="language" size={20} color={colors.lightTheme.primary} />}
+                            onPress={toggleLanguage} />
+                    </Div>
+
+
+                    <Div px={10} position='absolute' bottom={60} right={0} left={0}>
+                        <Button w="100%" bg={colors.primary}>
+                            <Div flexDir='row' alignItems='center'>
+                                <Ionicons name="videocam-outline" size={24} color="white" />
+                                <Text fontWeight='bold' color='white' mx={20}>{t('how-to-use')}</Text>
+                            </Div>
+                        </Button>
+                    </Div>
+                </Div>
+            </Drawer>
+
+
+
+            <AccountComponent accountModalVisible={accountModalVisible} setAccountModalVisible={setAccountModalVisible} />
+            <FavouriteComponent favouriteModalVisible={favouriteModalVisible} setFavouriteModalVisible={setFavouriteModalVisible} />
+
+
+
+        </Div>
+
+    )
+}

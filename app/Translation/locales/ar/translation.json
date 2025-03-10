@@ -1,0 +1,20 @@
+{
+    "account":" الملف الشخصي",
+    "favourite":" المفضلة ",
+    "history":" سجل الطلبات",
+    "my-queue" : " قائمة الانتظار ",
+    "notifications":" الاشعارات ",
+    "home":" الرئيسية ",
+    "business":" الاعمال ",
+    "help":" المساعدة ",
+    "settings":" الاعدادات ",
+    "inbox":" الرسائل ",
+    "how-to-use":" كيفية استخدام التطبيق ",
+    "my-queues": " قائمة الانتظار ",
+    "moveQueue":" تحويل الانتظار ",
+    "exitQueue":" خروج من الانتظار ",
+    "head-of-queue":" الانتظار ",
+    "your-number":" رقمك ",
+    "now-serving":" الان يخدم ",
+    "estimate-time":" الوقت المقدر "
+}

@@ -1,0 +1,8 @@
+"primary":"#57cc99",
+    "secondary":"#80ed99",
+    "dark":"#38a3a5",
+    "voilet":"#22577a",
+    "light":"#e7ecef",
+    "screen":"#ffffff",
+    "white":"#ffffff",
+    "black":"#000000",

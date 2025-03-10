@@ -1,0 +1,20 @@
+{
+    "account":"Account",
+    "favourite":"Favourite",
+    "history":"History Log",
+    "my-queue" : "My Queue",
+    "notifications":"Notifications",
+    "home":"Home",
+    "business":"Business",
+    "help":"Help",
+    "settings":"Settings",
+    "inbox":"Inbox",
+    "how-to-use":"How to use",
+    "my-queues":"My Queues",
+    "moveQueue":"Move Queue",
+    "exitQueue":"Exit Queue",
+    "head-of-queue":"AHEAD OF QUEUE",
+    "your-number":"Your Number",
+    "now-serving":"Now Serving",
+    "estimate-time":"Estimate Time"
+}
