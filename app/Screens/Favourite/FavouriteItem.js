@@ -22,7 +22,9 @@ export default function FavouriteItem({item}) {
             borderColor='gray300' 
             overflow='hidden' 
             pr={10} 
-            // shadow={"md"}
+            // shadow="md"
+            // shadowColor='white'
+
             borderWidth={theme === 'light' ? 1 : 0}
             >
            

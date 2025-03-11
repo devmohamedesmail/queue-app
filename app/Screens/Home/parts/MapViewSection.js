@@ -118,7 +118,7 @@ const MapViewSection = () => {
                 showsUserLocation={true}
                 showsMyLocationButton={true}
                 followUserLocation={true}
-                customMapStyle={mapStyle} 
+                // customMapStyle={mapStyle} 
             >
                 {places.map((marker, index) => (
                     <>

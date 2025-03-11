@@ -10,7 +10,7 @@ import { StyleSheet, View } from 'react-native'
 
 const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
     const { theme } = useTheme();
-    const { t } = useTranslation();
+    const { t,i18n } = useTranslation();
     return (
         <Modal isVisible={queueModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
 
@@ -25,7 +25,9 @@ const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20}>{t('my-queue')}
+                        mb={20}
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        >{t('my-queue')}
                     </Text>
 
 

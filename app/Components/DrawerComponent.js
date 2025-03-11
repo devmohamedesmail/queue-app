@@ -78,7 +78,7 @@ export default function DrawerComponent() {
                     {/* ************************************** Boxes section End ************************************** */}
 
                     <Div px={10} mt={20}>
-                        <Button w="100%" bg={colors.lightTheme.primary} fontWeight='bold'>
+                        <Button w="100%" bg={colors.lightTheme.primary} fontWeight='bold' fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}>
                             {t('notifications')}
                         </Button>
                         <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg={colors.lightTheme.secondary} w={30} h={30} rounded="circle" top={-18}>
@@ -93,23 +93,11 @@ export default function DrawerComponent() {
                     {/* ************************************** Items section start ************************************** */}
                     <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} gap={5}>
                         <CustomDrawerItem title={t('home')} icon={<AntDesign name="home" size={20} color={colors.lightTheme.primary} />} onPress={() => navigation.navigate('Home')} />
-
                         <CustomDrawerItem title={t('business')} icon={<MaterialIcons name="business-center" size={20} color={colors.lightTheme.primary} />} />
                         <CustomDrawerItem title={t('help')} icon={<Entypo name="help" size={20} color={colors.lightTheme.primary} />} />
                         <CustomDrawerItem title={t('inbox')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} />
-                        <CustomDrawerItem title={t('theme')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} onPress={toggleTheme} />
                         <CustomDrawerItem title={t('setting')} icon={<AntDesign name="setting" size={24} color={colors.lightTheme.primary} />} onPress={()=>setSettingModalVisible(true)} />
-                        
-                        
-                        
-                        
-                        
-                        
-                        <CustomDrawerItem
-                            title={i18n.language === "ar" ? 'English' : ' عربي '}
-                            icon={<MaterialIcons
-                                name="language" size={20} color={colors.lightTheme.primary} />}
-                            onPress={toggleLanguage} />
+                        <CustomDrawerItem title={i18n.language === "ar" ? 'English' : ' عربي '} icon={<MaterialIcons name="language" size={20} color={colors.lightTheme.primary} />} onPress={toggleLanguage} />
                     </Div>
                     {/* ************************************** Items section End ************************************** */}
 

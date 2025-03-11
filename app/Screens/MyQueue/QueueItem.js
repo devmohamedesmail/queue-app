@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next';
 const QueueItem = () => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
     const [existModalVisible, setExistModalVisible] = useState(false);
-    const {theme}=useTheme();
-    const{t}=useTranslation()
+    const { theme } = useTheme();
+    const { t, i18n } = useTranslation()
 
 
 
@@ -46,9 +46,16 @@ const QueueItem = () => {
 
 
 
-            <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} mt={50} py={20}>
+            <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} mt={50} py={20}>
                 <Div flexDir='column' justifyContent='center' alignItems='center' pb={20}>
-                    <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('head-of-queue')}</Text>
+                    <Text 
+                      fontWeight='bold' 
+                      fontSize={20} 
+                      color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
+                      fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                      mb={10}
+                      >{t('head-of-queue')}
+                      </Text>
                     <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >10</Text>
                 </Div>
 
@@ -57,19 +64,37 @@ const QueueItem = () => {
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center' borderRightColor='gray500' borderRightWidth={1}>
-                        <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('your-number')}</Text>
+                        <Text 
+                        fontWeight='bold' 
+                        fontSize={15} 
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        mb={10}
+                        >{t('your-number')}</Text>
                         <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >100</Text>
                     </Div>
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center'>
-                        <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('now-serving')}</Text>
+                        <Text 
+                          fontWeight='bold' 
+                          fontSize={15} 
+                          color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
+                          fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                           mb={10}
+                          >{t('now-serving')}</Text>
                         <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >90</Text>
                     </Div>
                 </Div>
 
                 <Div flexDir='column' justifyContent='center' alignItems='center' pt={20}>
-                    <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('estimate-time')}</Text>
+                    <Text 
+                      fontWeight='bold' 
+                      fontSize={15} 
+                      color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
+                      fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                      mb={10}
+                      >{t('estimate-time')}</Text>
                     <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >1:50 H</Text>
                 </Div>
 
@@ -83,34 +108,38 @@ const QueueItem = () => {
 
                 <Button
                     onPress={queueToggleModal}
-                    w="90%" 
-                    alignSelf='center' 
-                    my={20} 
-                    h={65} 
-                    bg={colors.lightTheme.primary} 
+                    w="90%"
+                    alignSelf='center'
+                    my={20}
+                    h={65}
+                    bg={colors.lightTheme.primary}
                     shadow="md"
-                    color="white" 
-                    fontWeight='bold' 
-                    fontSize={20} 
-                    rounded={15}>
-                        {t('moveQueue')}
+                    color="white"
+                    fontWeight='bold'
+                    fontSize={20}
+                    rounded={15}
+                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                    >
+                    {t('moveQueue')}
                 </Button>
 
 
 
                 <Button
                     onPress={exitToggleModal}
-                    w="90%" 
-                    alignSelf='center' 
-                    my={7} 
-                    h={65} 
+                    w="90%"
+                    alignSelf='center'
+                    my={7}
+                    h={65}
                     bg="red600"
                     shadow="md"
-                    color="white" 
-                    fontWeight='bold' 
-                    fontSize={20} 
-                    rounded={15}>
-                        {t('exitQueue')}
+                    color="white"
+                    fontWeight='bold'
+                    fontSize={20}
+                    rounded={15}
+                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                    >
+                    {t('exitQueue')}
                 </Button>
             </Div>
 
@@ -121,8 +150,15 @@ const QueueItem = () => {
 
             {/* queue choose modal start */}
             <Modal isVisible={queueModalVisible}>
-                <Div bg='white' rounded={10} px={10} py={40}>
-                    <Text textAlign='center' fontWeight='bold' mb={30}>Select Your New Turn  ? </Text>
+                <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
+                    <Text
+                        textAlign='center'
+                        fontWeight='bold'
+                        fontSize={20}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                        mb={30}>
+                        Select Your New Turn  ?
+                    </Text>
                     <Slider
                         style={{ width: '100%', height: 40 }}
                         minimumValue={0}
@@ -134,8 +170,8 @@ const QueueItem = () => {
                         value={20}
                     />
                     <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                        <CustomButton onPress={queueToggleModal} title="ok" bg={colors.primary} w="48%" />
-                        <CustomButton onPress={queueToggleModal} title="cancel" bg="red600" w="48%" />
+                        <CustomButton onPress={queueToggleModal} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                        <CustomButton onPress={queueToggleModal} title={t('close')} bg="red600" w="48%" />
 
                     </Div>
 
@@ -152,12 +188,21 @@ const QueueItem = () => {
 
             {/* ********************************* Exit Queue  modal start ****************************** */}
             <Modal isVisible={existModalVisible}>
-                <Div bg='white' rounded={10} px={10} py={40}>
-                    <Text textAlign='center' fontWeight='bold' mb={30}>Are You Sure To Exist Queue  ? </Text>
-                    
+                <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
+                    <Text
+                        textAlign='center'
+                        fontWeight='bold'
+                        mb={30}
+                        fontSize={20}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                    >
+                        {t('exist-alert')}
+
+                    </Text>
+
                     <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                        <CustomButton onPress={exitToggleModal} title="ok" bg={colors.primary} w="48%" />
-                        <CustomButton onPress={exitToggleModal} title="cancel" bg="red600" w="48%" />
+                        <CustomButton onPress={exitToggleModal} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                        <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" />
 
                     </Div>
 

@@ -10,7 +10,7 @@ import HistoryItem from '../Screens/HistoryLog/HistoryItem';
 
 const HistoryComponent = ({historyModalVisible, setHistoryModalVisible}) => {
     const { theme } = useTheme();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     return (
         <Modal isVisible={historyModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
 
@@ -25,7 +25,9 @@ const HistoryComponent = ({historyModalVisible, setHistoryModalVisible}) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20}>{t('history')}
+                        mb={20}
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        >{t('history')}
                     </Text>
 
 

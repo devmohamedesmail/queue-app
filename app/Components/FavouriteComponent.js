@@ -9,7 +9,7 @@ import { useTheme } from '../context/ThemeContext';
 import ModalCloseBtn from './ModalCloseBtn';
 
 const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible }) => {
-    const { t } = useTranslation();
+    const { t,i18n } = useTranslation();
     const { theme } = useTheme();
     return (
         <Modal isVisible={favouriteModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
@@ -19,7 +19,14 @@ const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible })
                 
                 <Div mt={80}>
                     <Text 
-                      fontSize={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} textAlign='center' fontWeight='bold' mb={20}>{t('favourite')}</Text>
+                      fontSize={20} 
+                      color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
+                      textAlign='center' 
+                      fontWeight='bold' 
+                      mb={20} 
+                      fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                      >
+                        {t('favourite')}</Text>
                     <FlatList
                         data={places}
                         keyExtractor={item => item.id}

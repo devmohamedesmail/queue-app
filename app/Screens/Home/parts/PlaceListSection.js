@@ -27,7 +27,7 @@ export default function PlaceListSection() {
         {places.map((place, index) => (
           <Button bg='transparent' onPress={() => navigation.navigate("BankQueue")} key={index} flexDir='row' alignItems='center' px={15} my={5} borderBottomWidth={1} borderBottomColor='gray300' h={70}>
             <Div flex={1}>
-              <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} mb={5}>{place.title}</Text>
+              <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} mb={5} fontFamily='poppins-bold'>{place.title}</Text>
               <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>{place.address}</Text>
             </Div>
             <Div>

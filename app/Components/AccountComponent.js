@@ -13,7 +13,7 @@ import ModalCloseBtn from './ModalCloseBtn';
 
 const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
     const { theme } = useTheme();
-    const { t } = useTranslation();
+    const { t , i18n} = useTranslation();
     return (
         <Modal isVisible={accountModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
             
@@ -28,7 +28,11 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20}>{t('account')}
+                        mb={20} 
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}>
+                            
+                            {t('account')}
+                        
                     </Text>
 
 

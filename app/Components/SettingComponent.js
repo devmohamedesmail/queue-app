@@ -8,7 +8,7 @@ import ModalCloseBtn from './ModalCloseBtn'
 
 const SettingComponent = ({ settingModalVisible, setSettingModalVisible }) => {
     const { theme ,toggleTheme } = useTheme();
-    const { t } = useTranslation()
+    const { t ,i18n} = useTranslation()
     
  
     
@@ -27,12 +27,18 @@ const SettingComponent = ({ settingModalVisible, setSettingModalVisible }) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20}>{t('setting')}
+                        mb={20}
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        >{t('setting')}
                     </Text>
 
                     <Div px={10}>
                         <Div flexDir='row' justifyContent='space-between' alignItems='center'>
-                            <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>
+                            <Text 
+                               fontWeight='bold' 
+                               color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                               fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                               >
                                 {theme === 'light' ? t('change_to_dark') : t('change_to_light')}
                             </Text>
                             <Toggle

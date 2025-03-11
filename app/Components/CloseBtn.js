@@ -11,7 +11,7 @@ const CloseBtn = () => {
     const {theme}=useTheme()
 
   return (
-    <Div flexDir='row' justifyContent='flex-end' px={20} mt={20} mb={10}>
+    <Div flexDir='row' justifyContent='flex-end' px={20} mt={50} mb={10}>
      <Button onPress={()=>navigation.navigate("Home")} bg='transparent'>
         <AntDesign name="close" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
         </Button>

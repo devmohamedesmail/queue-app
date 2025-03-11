@@ -21,6 +21,11 @@
     "logout": " تسجيل الخروج ",
     "delete-account": " حذف الحساب ",
     "setting": " الاعدادات ",
-     "change_to_dark":" تغيير الوضع الليلي ",
-    "change_to_light":" تغيير الوضع النهاري "
+    "change_to_dark": " تغيير الوضع الليلي ",
+    "change_to_light": " تغيير الوضع النهاري ",
+    "clients-in-queue": " العملاء في الانتظار ",
+    "book": " حجز ",
+    "ok": " موافق ",
+    "close": " اغلاق ",
+    "exist-alert": "Are You Sure To Exist Queue ?"
 }
