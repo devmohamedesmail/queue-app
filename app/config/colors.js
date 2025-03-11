@@ -8,7 +8,7 @@ const colors = {
         "dark":"#38a3a5",
         "white":"#ffffff",
         "black":"#000000",
-        "background":"#011e38",
+        "background":"#ffffff",
         
     },
     "darkTheme":{
@@ -19,7 +19,7 @@ const colors = {
         "dark":"#222424",
         "white":"#ffffff",
         "black":"#000000",
-        "background":"#011e38",
+        "background":"#000000",
     }
 }
 

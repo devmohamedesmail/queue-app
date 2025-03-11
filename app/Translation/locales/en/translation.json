@@ -16,5 +16,11 @@
     "head-of-queue":"AHEAD OF QUEUE",
     "your-number":"Your Number",
     "now-serving":"Now Serving",
-    "estimate-time":"Estimate Time"
+    "estimate-time":"Estimate Time",
+    "update-your-information":"Update information",
+    "logout":"Logout",
+    "delete-account":"Delete Account",
+    "setting":"Setting",
+    "change_to_dark":"Change to Dark Mode",
+    "change_to_light":"Change to Light Mode"
 }

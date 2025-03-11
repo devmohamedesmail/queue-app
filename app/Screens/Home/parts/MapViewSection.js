@@ -123,7 +123,8 @@ const MapViewSection = () => {
                 {places.map((marker, index) => (
                     <>
                         <Marker
-                            key={index}
+                        
+                            key={marker.id}
                             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
                             title={marker.title}
                             onPress={() => { toggleModal(marker) }}

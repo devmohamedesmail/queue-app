@@ -6,81 +6,63 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomAccountButton from '../CustomComponents/CustomAccountButton';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import colors from '../config/colors';
+import { useTheme } from '../context/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import CustomButton from '../CustomComponents/CustomButton';
+import ModalCloseBtn from './ModalCloseBtn';
 
 const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
+    const { theme } = useTheme();
+    const { t } = useTranslation();
     return (
-        <Modal isVisible={accountModalVisible}>
-            <Button
-                bg="gray400"
-                h={35}
-                w={35}
-                flexDir='row'
-                justifyContent='center'
-                alignItems='center'
-                position="absolute"
-                top={30}
-                right={15}
-                p={0}
-                rounded="circle"
-                onPress={() => {
-                    setAccountModalVisible(false);
-                }}
-            >
-                <AntDesign name="close" size={20} color="black" />
-            </Button>
-
-
-           <Div h="100%"  position='relative'>
+        <Modal isVisible={accountModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
             
-           <Div mt={100}>
-               <Text fontWeight='bold' fontSize={20} textAlign='center' mb={20}>My Account</Text>
-                <CustomAccountButton icon={<FontAwesome name="edit" size={24} color="black" />} title="update your information" />
-                <CustomAccountButton icon={<MaterialIcons name="history" size={24} color="black" />} title="Histroy Log" />
-                <CustomAccountButton icon={<AntDesign name="hearto" size={24} color="black" />} title="My Favourite" />
-                <CustomAccountButton icon={<Feather name="help-circle" size={24} color="black" />} title="Need Help" />
+            <ModalCloseBtn onPress={() => setAccountModalVisible(false)} />
+
+
+            <Div h="100%" position='relative'>
+
+                <Div mt={100}>
+                    <Text
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                        fontWeight='bold'
+                        fontSize={20}
+                        textAlign='center'
+                        mb={20}>{t('account')}
+                    </Text>
+
+
+                    <CustomAccountButton
+                        icon={<FontAwesome name="edit" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                        title={t('update-your-information')} />
+
+                    <CustomAccountButton
+                        icon={<MaterialIcons name="history" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                        title={t('history')} />
+
+
+                    <CustomAccountButton
+                        icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                        title={t('favourite')} />
+
+
+                    <CustomAccountButton icon={<Feather name="help-circle" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />} title="Need Help" />
+                </Div>
+
+
+
+                <Div px={10} bottom={20} position='absolute' right={0} left={0}>
+
+                    <Div mb={10}>
+                        <CustomButton title={t('logout')} w="100%" bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+                    </Div>
+
+
+                    <Div mb={20}>
+                        <CustomButton title={t('delete-account')} w="100%" bg="red600" />
+                    </Div>
+                </Div>
             </Div>
-
-
-
-            <Div px={10} bottom={20} position='absolute' right={0} left={0}>
-
-
-                <Button
-                    mt="lg"
-                    px="xl"
-                    py="lg"
-                    bg="white"
-                    w="100%"
-                    h={60}
-                    borderWidth={1}
-                    borderColor={colors.primary}
-                    color={colors.primary}
-                    underlayColor="red100"
-                    fontWeight='bold'
-                >
-                    Logout
-                </Button>
-
-
-                <Button
-                    mt="lg"
-                    px="xl"
-                    py="lg"
-                    bg="red600"
-                    w="100%"
-                    h={60}
-                    color="white"
-                    underlayColor="red100"
-                    fontWeight='bold'
-                >
-                    Delete Account
-                </Button>
-
-
-
-
-            </Div>
-           </Div>
 
 
 

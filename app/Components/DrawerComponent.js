@@ -16,6 +16,10 @@ import { useTranslation } from 'react-i18next';
 import { I18nManager } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import CustomIconBtn from '../CustomComponents/CustomIconBtn';
+import HistoryComponent from './HistoryComponent';
+import MyQueueComponent from './MyQueueComponent';
+import SettingComponent from './SettingComponent';
+import CustomButton from '../CustomComponents/CustomButton';
 
 
 
@@ -25,6 +29,9 @@ export default function DrawerComponent() {
     const navigation = useNavigation();
     const [accountModalVisible, setAccountModalVisible] = useState(false);
     const [favouriteModalVisible, setFavouriteModalVisible] = useState(false)
+    const [historyModalVisible, setHistoryModalVisible] = useState(false)
+    const [queueModalVisible, setQueueModalVisible] = useState(false)
+    const[settingModalVisible, setSettingModalVisible] = useState(false)
     const { theme, toggleTheme } = useTheme()
 
 
@@ -57,14 +64,18 @@ export default function DrawerComponent() {
 
             <Drawer ref={drawerRef} direction="right" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} animationTime={400} drawerPercentage={85} >
                 <Div position='relative' h="100%">
+
+
+
+                    {/* ************************************** Boxes section start ************************************** */}
                     <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} px={5}>
                         <CustomDrawerBoxIcon icon={<AntDesign name="user" size={27} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('account')} onPress={() => setAccountModalVisible(true)} />
                         <CustomDrawerBoxIcon icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('favourite')} onPress={() => setFavouriteModalVisible(true)} />
-                        <CustomDrawerBoxIcon icon={<MaterialIcons name="history-toggle-off" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('history')} onPress={() => navigation.navigate('History')} />
-                        <CustomDrawerBoxIcon icon={<MaterialCommunityIcons name="human-queue" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('my-queue')} onPress={() => navigation.navigate('MyQueue')} />
+                        <CustomDrawerBoxIcon icon={<MaterialIcons name="history-toggle-off" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('history')} onPress={() => setHistoryModalVisible(true)} />
+                        <CustomDrawerBoxIcon icon={<MaterialCommunityIcons name="human-queue" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('my-queue')} onPress={() => setQueueModalVisible(true)} />
 
                     </Div>
-
+                    {/* ************************************** Boxes section End ************************************** */}
 
                     <Div px={10} mt={20}>
                         <Button w="100%" bg={colors.lightTheme.primary} fontWeight='bold'>
@@ -79,6 +90,7 @@ export default function DrawerComponent() {
 
 
 
+                    {/* ************************************** Items section start ************************************** */}
                     <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} gap={5}>
                         <CustomDrawerItem title={t('home')} icon={<AntDesign name="home" size={20} color={colors.lightTheme.primary} />} onPress={() => navigation.navigate('Home')} />
 
@@ -86,22 +98,32 @@ export default function DrawerComponent() {
                         <CustomDrawerItem title={t('help')} icon={<Entypo name="help" size={20} color={colors.lightTheme.primary} />} />
                         <CustomDrawerItem title={t('inbox')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} />
                         <CustomDrawerItem title={t('theme')} icon={<AntDesign name="message1" size={20} color={colors.lightTheme.primary} />} onPress={toggleTheme} />
+                        <CustomDrawerItem title={t('setting')} icon={<AntDesign name="setting" size={24} color={colors.lightTheme.primary} />} onPress={()=>setSettingModalVisible(true)} />
+                        
+                        
+                        
+                        
+                        
+                        
                         <CustomDrawerItem
                             title={i18n.language === "ar" ? 'English' : ' عربي '}
                             icon={<MaterialIcons
                                 name="language" size={20} color={colors.lightTheme.primary} />}
                             onPress={toggleLanguage} />
                     </Div>
+                    {/* ************************************** Items section End ************************************** */}
 
 
-                    <Div px={10} position='absolute' bottom={60} right={0} left={0}>
-                        <Button w="100%" bg={colors.primary}>
-                            <Div flexDir='row' alignItems='center'>
-                                <Ionicons name="videocam-outline" size={24} color="white" />
-                                <Text fontWeight='bold' color='white' mx={20}>{t('how-to-use')}</Text>
-                            </Div>
-                        </Button>
+
+
+                    {/* ************************************** How To use section Start ************************************** */}
+                    <Div px={10} position='absolute' bottom={70} right={0} left={0}>
+                        <CustomButton bg={colors.lightTheme.primary} title={t('how-to-use')} w="98%" />
                     </Div>
+                    {/* ************************************** How To use section End ************************************** */}
+
+
+
                 </Div>
             </Drawer>
 
@@ -109,6 +131,9 @@ export default function DrawerComponent() {
 
             <AccountComponent accountModalVisible={accountModalVisible} setAccountModalVisible={setAccountModalVisible} />
             <FavouriteComponent favouriteModalVisible={favouriteModalVisible} setFavouriteModalVisible={setFavouriteModalVisible} />
+            <HistoryComponent historyModalVisible={historyModalVisible} setHistoryModalVisible={setHistoryModalVisible} />
+            <MyQueueComponent queueModalVisible={queueModalVisible} setQueueModalVisible={setQueueModalVisible} />
+            <SettingComponent settingModalVisible={settingModalVisible} setSettingModalVisible={setSettingModalVisible} />
 
 
 

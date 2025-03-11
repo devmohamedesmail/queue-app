@@ -4,14 +4,27 @@ import Animated, { Easing, useSharedValue, useAnimatedStyle, withSpring } from '
 import {  Div, Text } from 'react-native-magnus'
 import { Image } from "react-native-magnus";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTheme } from '../../context/ThemeContext';
+import colors from '../../config/colors';
 
 
 
 export default function FavouriteItem({item}) {
-
-
+    const {theme}=useTheme();
     return (
-        <Div flexDir='row' w="98%" m="auto"  my={10} bg='white' rounded="md" borderColor='gray300' overflow='hidden' pr={10} borderWidth={1}>
+        <Div 
+            flexDir='row' 
+            w="98%" 
+            m="auto"  
+            my={5} 
+            bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} 
+            rounded="md" 
+            borderColor='gray300' 
+            overflow='hidden' 
+            pr={10} 
+            // shadow={"md"}
+            borderWidth={theme === 'light' ? 1 : 0}
+            >
            
             <Div>
                 <Image
@@ -25,12 +38,19 @@ export default function FavouriteItem({item}) {
             </Div>
 
             <Div  flexDir='column' justifyContent="center" flex={1} px={10}>
-                <Text fontWeight='bold' fontSize={15}>{item.title}</Text>
+                <Text 
+                  fontWeight='bold' 
+                  fontSize={15}
+                  color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                  >{item.title}</Text>
              
 
                 <Div flexDir='row' alignItems='center' mt={5}>
-                <Ionicons name="location-outline" size={14} color="black" />
-                <Text  numberOfLines={3} pr={20} ellipsizeMode='tail' fontSize={12} ml={5}>
+                <Ionicons name="location-outline" size={14}  
+                  color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />
+                <Text  
+                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                numberOfLines={3} pr={20} ellipsizeMode='tail' fontSize={10} ml={5}>
                      {item.address}
                 </Text>
                 </Div>

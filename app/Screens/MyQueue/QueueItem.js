@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { Button, Div, Text } from 'react-native-magnus'
 import colors from '../../config/colors'
 import Modal from 'react-native-modal';
-import { Alert } from 'react-native';
-import { View } from 'react-native';
 import Slider from '@react-native-community/slider';
 import CustomButton from '../../CustomComponents/CustomButton';
 import { useTheme } from '../../context/ThemeContext';
@@ -38,7 +36,7 @@ const QueueItem = () => {
 
 
     return (
-        <Div borderColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.black} borderWidth={1} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.voilet} m='auto' rounded={20} mx={10}>
+        <Div borderColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} borderWidth={1} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.voilet} m='auto' rounded={20} mx={10}>
 
             <Div flexDir='column' justifyContent='center' alignItems='center' mt={50}>
                 <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>Bank of Dubai</Text>
@@ -50,8 +48,8 @@ const QueueItem = () => {
 
             <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} mt={50} py={20}>
                 <Div flexDir='column' justifyContent='center' alignItems='center' pb={20}>
-                    <Text fontWeight='bold' fontSize={20}>{t('head-of-queue')}</Text>
-                    <Text fontWeight='bold' fontSize={14}>10</Text>
+                    <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('head-of-queue')}</Text>
+                    <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >10</Text>
                 </Div>
 
 
@@ -59,20 +57,20 @@ const QueueItem = () => {
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center' borderRightColor='gray500' borderRightWidth={1}>
-                        <Text fontWeight='bold' fontSize={15}>{t('your-number')}</Text>
-                        <Text fontWeight='bold'>100</Text>
+                        <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('your-number')}</Text>
+                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >100</Text>
                     </Div>
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center'>
-                        <Text fontWeight='bold' fontSize={15}>{t('now-serving')}</Text>
-                        <Text fontWeight='bold'>90</Text>
+                        <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('now-serving')}</Text>
+                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >90</Text>
                     </Div>
                 </Div>
 
                 <Div flexDir='column' justifyContent='center' alignItems='center' pt={20}>
-                    <Text fontWeight='bold' fontSize={15}>{t('estimate-time')}</Text>
-                    <Text fontWeight='bold'>1:50 H</Text>
+                    <Text fontWeight='bold' fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >{t('estimate-time')}</Text>
+                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >1:50 H</Text>
                 </Div>
 
             </Div>
@@ -82,16 +80,16 @@ const QueueItem = () => {
 
             {/* Action Buttons */}
             <Div flexDir='column' justifyContent='center' alignItems='center' w="100%" my={20}>
+
                 <Button
                     onPress={queueToggleModal}
                     w="90%" 
                     alignSelf='center' 
-                    my={7} 
+                    my={20} 
                     h={65} 
-                    bg='transparent' 
-                    borderColor={colors.primary} 
-                    borderWidth={2} 
-                    color={colors.primary} 
+                    bg={colors.lightTheme.primary} 
+                    shadow="md"
+                    color="white" 
                     fontWeight='bold' 
                     fontSize={20} 
                     rounded={15}>
@@ -106,9 +104,8 @@ const QueueItem = () => {
                     alignSelf='center' 
                     my={7} 
                     h={65} 
-                    bg={colors.darkTheme.primary} 
-                    borderColor={colors.primary} 
-                    borderWidth={2} 
+                    bg="red600"
+                    shadow="md"
                     color="white" 
                     fontWeight='bold' 
                     fontSize={20} 

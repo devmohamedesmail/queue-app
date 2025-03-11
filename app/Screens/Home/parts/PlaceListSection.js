@@ -20,7 +20,7 @@ export default function PlaceListSection() {
     <Div w="100%" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} position='absolute' shadow="lg" zIndex={1000} bottom={0} m="auto" h={height} roundedTopLeft={20} roundedTopRight={20} >
 
       <Div flexDir='row' justifyContent='center'>
-        <Button bg={colors.primary} h={5} w={70} p={0}></Button>
+        <Button bg={colors.lightTheme.primary} h={5} w={70} p={0}></Button>
       </Div>
 
       <ScrollDiv roundedTopLeft={20} roundedTopRight={20} >
