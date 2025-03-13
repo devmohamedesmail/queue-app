@@ -27,5 +27,6 @@
     "book": "BOOK",
     "ok": "OK",
     "close": "CLOSE",
-    "exist-alert": "Are You Sure To Exist Queue ?"
+    "exist-alert": "Are You Sure To Exist Queue ?",
+    "search": "Search For Place"
 }

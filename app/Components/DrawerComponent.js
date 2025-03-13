@@ -20,6 +20,7 @@ import HistoryComponent from './HistoryComponent';
 import MyQueueComponent from './MyQueueComponent';
 import SettingComponent from './SettingComponent';
 import CustomButton from '../CustomComponents/CustomButton';
+import NotificationComponent from './NotificationComponent';
 
 
 
@@ -32,6 +33,7 @@ export default function DrawerComponent() {
     const [historyModalVisible, setHistoryModalVisible] = useState(false)
     const [queueModalVisible, setQueueModalVisible] = useState(false)
     const[settingModalVisible, setSettingModalVisible] = useState(false)
+    const[notificationsModalVisible, setNotificationsModalVisible] = useState(false)
     const { theme, toggleTheme } = useTheme()
 
 
@@ -78,7 +80,13 @@ export default function DrawerComponent() {
                     {/* ************************************** Boxes section End ************************************** */}
 
                     <Div px={10} mt={20}>
-                        <Button w="100%" bg={colors.lightTheme.primary} fontWeight='bold' fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}>
+                        <Button 
+                           w="100%" 
+                           bg={colors.lightTheme.primary} 
+                           fontWeight='bold' 
+                           fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}
+                           onPress={() => setNotificationsModalVisible(true)}
+                           >
                             {t('notifications')}
                         </Button>
                         <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg={colors.lightTheme.secondary} w={30} h={30} rounded="circle" top={-18}>
@@ -122,6 +130,7 @@ export default function DrawerComponent() {
             <HistoryComponent historyModalVisible={historyModalVisible} setHistoryModalVisible={setHistoryModalVisible} />
             <MyQueueComponent queueModalVisible={queueModalVisible} setQueueModalVisible={setQueueModalVisible} />
             <SettingComponent settingModalVisible={settingModalVisible} setSettingModalVisible={setSettingModalVisible} />
+            <NotificationComponent notificationsModalVisible={notificationsModalVisible} setNotificationsModalVisible={setNotificationsModalVisible} />
 
 
 
