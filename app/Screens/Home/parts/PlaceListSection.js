@@ -1,20 +1,20 @@
 
 import React, { useState } from 'react'
 import { Div, Button, Text, ScrollDiv } from 'react-native-magnus'
-import places from '../../../config/places'
+
 import colors from '../../../config/colors'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../context/ThemeContext'
+import PlaceItem from './PlaceItem'
+import { useTranslation } from 'react-i18next'
 
 
 
-
-
-export default function PlaceListSection() {
+export default function PlaceListSection({ places }) {
   const [height, setHeight] = useState(300)
   const navigation = useNavigation();
-  const { theme, toggleTheme } = useTheme();
-
+  const { theme } = useTheme();
+  const {t,i18n}=useTranslation()
   return (
 
     <Div w="100%" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} position='absolute' shadow="lg" zIndex={1000} bottom={0} m="auto" h={height} roundedTopLeft={20} roundedTopRight={20} >
@@ -24,16 +24,12 @@ export default function PlaceListSection() {
       </Div>
 
       <ScrollDiv roundedTopLeft={20} roundedTopRight={20} >
-        {places.map((place, index) => (
-          <Button bg='transparent' onPress={() => navigation.navigate("BankQueue")} key={index} flexDir='row' alignItems='center' px={15} my={5} borderBottomWidth={1} borderBottomColor='gray300' h={70}>
-            <Div flex={1}>
-              <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} mb={5} fontFamily='poppins-bold'>{place.title}</Text>
-              <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>{place.address}</Text>
-            </Div>
-            <Div>
-              <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} fontSize={16}>2.2 Km</Text>
-            </Div>
-          </Button>
+        {places.map((place) => (
+          <PlaceItem 
+           key={place._id} 
+           name={i18n.language === 'en' ? place.nameEn : place.nameAr} 
+           address={i18n.language === 'en' ? place.addressEn : place.addressAr} 
+           onPress={() => navigation.navigate("BankQueue",{ place })} />
         ))}
       </ScrollDiv>
 

@@ -87,9 +87,13 @@ export default function DrawerComponent() {
                            fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}
                            onPress={() => setNotificationsModalVisible(true)}
                            >
-                            {t('notifications')}
+                            <Div flexDir='row'>
+                            <AntDesign name="bells" size={20} color="black" /> 
+                            <Text mx={5} fontWeight='bold'>{t('notifications')}</Text>
+                            </Div>
+                           
                         </Button>
-                        <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg={colors.lightTheme.secondary} w={30} h={30} rounded="circle" top={-18}>
+                        <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg="gray500" w={30} h={30} rounded="circle" top={-18}>
                             <Text >3</Text>
                         </Div>
 

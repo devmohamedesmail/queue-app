@@ -1,7 +1,7 @@
 const colors = {
     
     "lightTheme":{
-        "primary":"#57cc99",
+        "primary":"#a6808c",
         "secondary":"#80ed99",
         "tertiary": "#a0d8b3",
         "light":"#e7ecef",
@@ -12,7 +12,7 @@ const colors = {
         
     },
     "darkTheme":{
-        "primary":"#57cc99",
+        "primary":"#a6808c",
         "secondary":"#80ed99",
         "tertiary": "#a0d8b3",
         "light":"#e7ecef",
