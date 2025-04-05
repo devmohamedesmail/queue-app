@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Div, Text, Button } from 'react-native-magnus'
 import colors from '../../config/colors'
-import { ActivityIndicator, SafeAreaView } from 'react-native'
+import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import CloseBtn from '../../Components/CloseBtn'
 import { useTheme } from '../../context/ThemeContext'
@@ -9,10 +9,12 @@ import { useTranslation } from 'react-i18next'
 import Ball from '../../Components/Ball'
 import axios from 'axios'
 import PlaceDetails from './parts/PlaceDetails'
+import AnimatedLoader from 'react-native-animated-loader';
+import CustomLoading from '../../CustomComponents/CustomLoading'
 
 export default function BankQueue({ route }) {
     const navigation = useNavigation()
-    const { theme, toggleTheme } = useTheme()
+    const { theme } = useTheme()
     const { t, i18n } = useTranslation();
     const { place } = route.params;
     const [placeServices, setPlaceServices] = useState(null)
@@ -54,7 +56,7 @@ export default function BankQueue({ route }) {
         try {
             const response = await axios.get(`https://queue-app-express-js.onrender.com/api/v1/services/last/queue/${place._id}/${service._id}`)
             const queue = response.data.queue;
-
+            console.log(queue)
             navigation.navigate("BookQueue", { queue: queue, place: place, service: service })
         } catch (error) {
             console.log(error)
@@ -62,9 +64,9 @@ export default function BankQueue({ route }) {
     }
 
 
+  
 
-
-
+    
 
     // book_new_queue
     const book_new_queue = async () => {
@@ -72,7 +74,8 @@ export default function BankQueue({ route }) {
             setLoading(true)
             const response = await axios.post(`https://queue-app-express-js.onrender.com/api/v1/queues/book/new/queue/${place._id}`)
             setLoading(false)
-            const data = response.data
+            const queue = response.data.queue
+            navigation.navigate("MyQueue", { queue: queue, place: place })
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -96,7 +99,7 @@ export default function BankQueue({ route }) {
                 <CloseBtn />
 
                 {/* Bank name And Address Start */}
-               <PlaceDetails place={place} />
+                <PlaceDetails place={place} />
 
                 {/* Bank name And Address Start */}
 
@@ -116,11 +119,11 @@ export default function BankQueue({ route }) {
                                 bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}>
 
 
-                                <Text 
-                                  fontWeight='bold' 
-                                  fontSize={15} 
-                                  fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                  color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.white} textAlign='center'>
+                                <Text
+                                    fontWeight='bold'
+                                    fontSize={15}
+                                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                                    color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.white} textAlign='center'>
                                     {i18n.language === "ar" ? service.nameAr : service.nameEn}
                                 </Text>
                             </Button>
@@ -146,7 +149,7 @@ export default function BankQueue({ route }) {
 
                             {
                                 loading ? (
-                                    <ActivityIndicator size="large" color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+                                    <CustomLoading loading={loading} />
                                 ) : (
                                     <Button
                                         onPress={() => book_new_queue()}
@@ -200,3 +203,8 @@ export default function BankQueue({ route }) {
 
     )
 }
+
+
+
+
+

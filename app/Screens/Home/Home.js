@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Div } from 'react-native-magnus'
 import SearchComponent from '../../Components/SearchComponent'
 import DrawerComponent from '../../Components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
 import MapViewSection from './parts/MapViewSection';
 import { SafeAreaView } from 'react-native';
+import { InfoContext } from '../../context/InfoContext';
+
 
 
 
 
 export default function Home() {
   const [places, setPlaces] = useState([]);
-
-
-
-
+  const {info}=useContext(InfoContext)
 
   const fetchPlaces = async () => {
     try {

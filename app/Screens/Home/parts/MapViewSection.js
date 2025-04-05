@@ -1,27 +1,28 @@
 import MapView, { Marker, Callout } from 'react-native-maps'
-import { Div, Text, Button } from 'react-native-magnus'
-import Modal from "react-native-modal";
-import React, { useState, useEffect } from 'react'
-import AntDesign from '@expo/vector-icons/AntDesign';
-import colors from '../../../config/colors';
-import CustomButton from '../../../CustomComponents/CustomButton';
+import { Div, Text } from 'react-native-magnus'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { useTheme } from '../../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import PlaceModal from './PlaceModal';
+import { View } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const MapViewSection = ({ places }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
-
+  const { theme } = useTheme()
   const { t, i18n } = useTranslation();
+  const [selectedPlace, setSelectedPlace] = useState()
 
 
 
 
 
   const toggleModal = (place) => {
+    setSelectedPlace(place)
     setModalVisible(!isModalVisible);
+
 
   };
 
@@ -71,12 +72,29 @@ const MapViewSection = ({ places }) => {
         {places && places.length > 0 && places.map((place, index) => (
           <Marker
             key={place._id}
+            title={place.nameAr}
             coordinate={{ latitude: parseFloat(place.location.lat), longitude: parseFloat(place.location.lng) }}
+            onPress={() => toggleModal(place)}
+            style={{ width: 200, height: 200 }}
           >
+            {/* <Callout>
+              <Text w={20} h={20}>{place.nameAr}</Text>
+            </Callout> */}
+            <Div bg="white" w={50} h={50} rounded={10} p={10} position='relative'>
+              {/* <Text mb={20} bg="red" position='absolute' top={-10} right={10} zIndex={100}> {place.nameAr}</Text> */}
+              <FontAwesome name="building-o" size={24} color="black" />
 
+            </Div>
           </Marker>
         ))}
       </MapView>
+
+
+
+
+      {/* modal Start */}
+      <PlaceModal isModalVisible={isModalVisible} toggleModal={toggleModal} selectedPlace={selectedPlace} />
+      {/* modal End */}
 
     </Div>
   )
