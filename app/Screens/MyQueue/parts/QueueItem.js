@@ -1,18 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Div, Text } from 'react-native-magnus'
-import colors from '../../config/colors'
 import Modal from 'react-native-modal';
 import Slider from '@react-native-community/slider';
-import CustomButton from '../../CustomComponents/CustomButton';
-import { useTheme } from '../../context/ThemeContext';
+import CustomButton from '../../../CustomComponents/CustomButton';
+
 import { useTranslation } from 'react-i18next';
+import colors from '../../../config/colors';
+import { useTheme } from '../../../context/ThemeContext';
+import axios from 'axios';
+import { InfoContext } from '../../../context/InfoContext';
 
-
-const QueueItem = () => {
+const QueueItem = ({queue}) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
     const [existModalVisible, setExistModalVisible] = useState(false);
     const { theme } = useTheme();
     const { t, i18n } = useTranslation()
+    const [queueId, setQueueId] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const {info}=useContext(InfoContext)
 
 
 
@@ -28,19 +33,70 @@ const QueueItem = () => {
 
 
     // ************************************ Exit queue Start function ******************************
-    const exitToggleModal = () => {
+    const exitToggleModal = (queue) => {
+        setQueueId(queue._id)
         setExistModalVisible(!existModalVisible);
     };
     // ************************************ Exit queue End function ******************************
 
 
 
+    // ************************************ Cancel queue Start function ******************************
+
+    const cancel_queue = async (queueId) => {
+        try {
+            console.log(queueId)
+            setLoading(true)
+            const response = await axios.post(`${info.appUrl}/api/v1/queues/cancel/queue/${queueId}`)
+            const data = response.data
+            if (data.status === "success") {
+                setLoading(false)
+                setExistModalVisible(false)
+                setQueueId(null)
+            }
+            if (data.status === "fail") {
+                setLoading(false)
+                setExistModalVisible(false)
+                setQueueId(null)
+            }
+        } catch (error) {
+            console.log( error)
+            setLoading(false)
+            setExistModalVisible(false)
+            setQueueId(null)
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    // ****************************** Cancel queue End function *************************************
+
+
+
     return (
         <Div borderColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} borderWidth={1} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.voilet} m='auto' rounded={20} mx={10}>
 
+
+
+
+
+
             <Div flexDir='column' justifyContent='center' alignItems='center' mt={50}>
-                <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>Bank of Dubai</Text>
-                <Text mt={4} fontSize={12} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>Dubai, United Arab Emirates</Text>
+                <Text 
+                  fontWeight='bold' 
+                  fontSize={15} 
+                  textAlign='center'
+                  color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+                    {i18n.language === "ar" ? queue.place.nameAr : queue.place.nameEn}
+                </Text>
+
+
+                <Text 
+                mt={4} 
+                fontSize={12} 
+                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+                    {i18n.language === "ar" ? queue.place.addressAr : queue.place.addressEn}
+                </Text>
             </Div>
 
 
@@ -71,7 +127,7 @@ const QueueItem = () => {
                         fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                         mb={10}
                         >{t('your-number')}</Text>
-                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >100</Text>
+                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.queue}</Text>
                     </Div>
 
 
@@ -126,7 +182,9 @@ const QueueItem = () => {
 
 
                 <Button
-                    onPress={exitToggleModal}
+                    onPress={()=> {
+                        exitToggleModal(queue._id)
+                    }}
                     w="90%"
                     alignSelf='center'
                     my={7}
@@ -201,7 +259,7 @@ const QueueItem = () => {
                     </Text>
 
                     <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                        <CustomButton onPress={exitToggleModal} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                        <CustomButton onPress={() => cancel_queue(queueId)} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
                         <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" />
 
                     </Div>

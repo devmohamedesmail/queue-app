@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next';
 import PlaceModal from './PlaceModal';
 import { View } from 'react-native';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+// import { Callout } from 'react-native-maps';
+import Entypo from '@expo/vector-icons/Entypo';
+import colors from '../../../config/colors';
 
 const MapViewSection = ({ places }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -77,14 +80,7 @@ const MapViewSection = ({ places }) => {
             onPress={() => toggleModal(place)}
             style={{ width: 200, height: 200 }}
           >
-            {/* <Callout>
-              <Text w={20} h={20}>{place.nameAr}</Text>
-            </Callout> */}
-            <Div bg="white" w={50} h={50} rounded={10} p={10} position='relative'>
-              {/* <Text mb={20} bg="red" position='absolute' top={-10} right={10} zIndex={100}> {place.nameAr}</Text> */}
-              <FontAwesome name="building-o" size={24} color="black" />
-
-            </Div>
+           
           </Marker>
         ))}
       </MapView>

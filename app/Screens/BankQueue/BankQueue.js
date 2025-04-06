@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Div, Text, Button } from 'react-native-magnus'
 import colors from '../../config/colors'
 import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native'
@@ -11,6 +11,12 @@ import axios from 'axios'
 import PlaceDetails from './parts/PlaceDetails'
 import AnimatedLoader from 'react-native-animated-loader';
 import CustomLoading from '../../CustomComponents/CustomLoading'
+import { InfoContext } from '../../context/InfoContext'
+import Modal from 'react-native-modal';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import QueueDetails from './parts/QueueDetails'
+import * as Device from 'expo-device';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BankQueue({ route }) {
     const navigation = useNavigation()
@@ -19,63 +25,113 @@ export default function BankQueue({ route }) {
     const { place } = route.params;
     const [placeServices, setPlaceServices] = useState(null)
     const [loading, setLoading] = useState(false)
+    const { info } = useContext(InfoContext)
+
+    const [serviceId, setServiceId] = useState(null)
+    const [servicesModalVisible, setServicesModalVisible] = useState(false)
+    const [last_queue, setLastQueue] = useState(null)
+    const [loadingFetchData, setLoadingFetchData] = useState(false)
+    const [userId, setUserId] = useState(null);
+    const [waitingQueues, setWaitingQueues] = useState(null);
+
+
+    const toggleServicesModal = () => {
+        setServicesModalVisible(!servicesModalVisible);
+    };
 
 
 
-
-
-
-    // Fetch Place Services 
+    // ********************************* Fetch Place Services Start **********************************
     const fetch_place_services = async () => {
         try {
-            const response = await axios.get(`https://queue-app-express-js.onrender.com/api/v1/services/place/services/${place._id}`)
-
+            setLoadingFetchData(true);
+            const response = await axios.get(`${info.appUrl}/api/v1/services/place/services/${place._id}`)
             const data = response.data.services
             if (data.length > 0) {
                 setPlaceServices(data)
+                setServicesModalVisible(true)
             } else {
-                setPlaceServices(0)
+                setPlaceServices([]);
             }
         } catch (error) {
-            console.log(error)
+            console.log("Error Fetching Place Services" + error)
+        } finally {
+            setLoadingFetchData(false);
         }
     }
-
-
-
     useEffect(() => {
         fetch_place_services()
     }, [])
 
+    // ********************************* Fetch Place Services End **********************************
 
 
 
-
-    // Get Last Quaue
+    // ******************************* Get Last Quaue Start **********************************************
     const get_last_queue = async (service) => {
         try {
-            const response = await axios.get(`https://queue-app-express-js.onrender.com/api/v1/services/last/queue/${place._id}/${service._id}`)
+            const response = await axios.get(`${info.appUrl}/api/v1/services/last/queue/${place._id}/${service._id}`)
             const queue = response.data.queue;
-            console.log(queue)
-            navigation.navigate("BookQueue", { queue: queue, place: place, service: service })
+            const lastQueue = response.data.queue;
+            setLastQueue(lastQueue)
+
+            // navigation.navigate("BookQueue", { queue: queue, place: place, service: service })
         } catch (error) {
             console.log(error)
         }
     }
 
+    if (placeServices && placeServices.length === 0) {
+        const get_last_queue_for_place = async () => {
+            try {
+                const response = await axios.get(`${info.appUrl}/api/v1/services/last/queue/${place._id}`)
+                const lastQueue = response.data.queue;
+                setLastQueue(lastQueue)
+                console.log(lastQueue)
+            } catch (error) {
+                console.log(error)
 
-  
+            }
+        }
+        get_last_queue_for_place()
+    }
 
-    
+    // ******************************* Get Last Quaue End **********************************************
 
-    // book_new_queue
+
+
+    // ******************************** Get All Waiting Queues Start ********************************
+    const get_all_waiting_queues = async () => {
+        try {
+            console.log("Fetching All Waiting Queues")
+            const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`)
+            setWaitingQueues(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // ******************************** Get All Waiting Queues End ********************************
+
+
+
+
+    // *********************************  book_new_queue Start *******************************************
     const book_new_queue = async () => {
         try {
+            if (!userId) {
+                console.log("User ID is not available yet. Fetching...");
+                // Fetch device ID if userId is not available
+                await fetchDeviceId(); // Wait for the userId to be set
+            }
+            console.log("User ID: ", userId)
             setLoading(true)
-            const response = await axios.post(`https://queue-app-express-js.onrender.com/api/v1/queues/book/new/queue/${place._id}`)
+             fetchDeviceId()
+            const response = await axios.post(`${info.appUrl}/api/v1/queues/book/new/queue/${userId}/${place._id}/${serviceId}`)
             setLoading(false)
-            const queue = response.data.queue
-            navigation.navigate("MyQueue", { queue: queue, place: place })
+            const queue = response.data
+            
+           navigation.navigate("MyQueue", { queue: queue, place: place })
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -84,10 +140,36 @@ export default function BankQueue({ route }) {
         }
     }
 
+    // *********************************  book_new_queue End *******************************************
 
 
 
 
+
+
+
+
+
+    // ********************************* Get Device ID Start *******************************************
+    const fetchDeviceId = async () => {
+        const storedDeviceId = await AsyncStorage.getItem('deviceId');
+    
+        if (storedDeviceId) {
+            setUserId(storedDeviceId); // Use the stored device ID
+        } else {
+            // Generate a unique ID using Device information
+            const uniqueDeviceId = `${Device.deviceId || Device.modelName}-${Date.now()}`;
+            await AsyncStorage.setItem('deviceId', uniqueDeviceId); // Store the generated ID
+            setUserId(uniqueDeviceId); // Update the state with the new ID
+        }
+    };
+
+
+    useEffect(()=>{
+        fetchDeviceId()
+    },[userId])
+
+    // ******************************* Get Device ID End *******************************************
 
 
 
@@ -100,104 +182,78 @@ export default function BankQueue({ route }) {
 
                 {/* Bank name And Address Start */}
                 <PlaceDetails place={place} />
-
                 {/* Bank name And Address Start */}
 
 
 
-
+                 
                 {placeServices !== null && placeServices.length > 0 ? (
-                    <Div px={10} mt={50}>
-                        {placeServices.map((service) => (
-                            <Button
-                                w="100%"
-                                h={70}
-                                onPress={() => get_last_queue(service)}
-                                key={service._id}
-                                rounded={10}
-                                my={5}
-                                bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}>
-
-
-                                <Text
-                                    fontWeight='bold'
-                                    fontSize={15}
-                                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                    color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.white} textAlign='center'>
-                                    {i18n.language === "ar" ? service.nameAr : service.nameEn}
-                                </Text>
-                            </Button>
-                        ))}
-                    </Div>) : (
-
                     <>
-                        <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} py={20} my={60} w="97%" m="auto" rounded={10}>
-                            <Div flexDir='column' justifyContent='center' alignItems='center'>
-                                <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}>{t('clients-in-queue')}</Text>
-                                <Text my={10} fontWeight='bold' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>20</Text>
-                            </Div>
-
-                            <Div w="100%" h={2} bg='white'></Div>
-                            <Div flexDir='row' justifyContent='space-between' alignItems='center' pt={20} px={20}>
-                                <Text fontWeight='bold' fontSize={16} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>{t('estimate-time')}</Text>
-                                <Text fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.primary}>1:30 H</Text>
-                            </Div>
-                        </Div>
-
-
-                        <Div flexDir='row' justifyContent='center' alignItems='center' position='absolute' left="50%" bottom={110} style={{ transform: [{ translateX: "-50%" }] }}>
-
-                            {
-                                loading ? (
-                                    <CustomLoading loading={loading} />
-                                ) : (
-                                    <Button
-                                        onPress={() => book_new_queue()}
-                                        bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                                        h={200}
-                                        w={200}
-                                        fontWeight='bold'
-                                        fontSize={30}
-                                        rounded="circle"
-                                        shadow="md"
-                                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                        shadowColor={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.white}>
-                                        {t('book')}
-                                    </Button>
-                                )
-                            }
-                        </Div>
+                        <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
+                    </>) : (
+                    <>
+                        <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
                     </>)}
 
-
-
-
-
-
-
-
-
-
-
-
-
-                <>
-
-
-
-
-
-
-
-
-
-
-                    {/* Queue status   */}
-
-
-                </>
             </Div>
 
+
+
+
+
+            {/* Modal Services  */}
+            <Modal isVisible={servicesModalVisible}>
+                <Div bg='white' rounded={20} p={10} position='relative' >
+                    {placeServices !== null && placeServices.length > 0 ? (
+                        <Div px={10} py={10} mt={70}>
+                            <Text textAlign='center' fontWeight='bold' fontSize={20} mb={20}>{t('select-your-service')}</Text>
+                            {placeServices.map((service) => (
+                                <Button
+                                    w="100%"
+                                    h={70}
+                                    onPress={() => {
+                                        setServiceId(service._id)
+                                        get_last_queue(service)
+                                        get_all_waiting_queues()
+
+                                        setServicesModalVisible(false)
+
+                                    }}
+                                    key={service._id}
+                                    rounded={10}
+                                    my={5}
+                                    bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}>
+
+
+                                    <Text
+                                        fontWeight='bold'
+                                        fontSize={15}
+                                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                                        color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.white} textAlign='center'>
+                                        {i18n.language === "ar" ? service.nameAr : service.nameEn}
+                                    </Text>
+                                </Button>
+                            ))}
+                        </Div>
+                    ) : (<Text>no</Text>)}
+
+
+                    <Button
+                        onPress={toggleServicesModal} bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                        h={40}
+                        w={40}
+                        mt={20}
+                        rounded={10}
+                        position='absolute'
+                        right={10}
+                        top={10}
+                        p={0}
+
+                    >
+                        <AntDesign name="close" size={20} color="white" />
+                    </Button>
+                </Div>
+            </Modal>
 
         </SafeAreaView>
 

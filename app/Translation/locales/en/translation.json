@@ -28,5 +28,6 @@
     "ok": "OK",
     "close": "CLOSE",
     "exist-alert": "Are You Sure To Exist Queue ?",
-    "search": "Search For Place"
+    "search": "Search For Place",
+    "select-your-service": "Select Your Service"
 }

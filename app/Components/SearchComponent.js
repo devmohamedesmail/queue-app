@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Dropdown, Button, Text, Div, Input, Icon, ScrollDiv } from "react-native-magnus";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import colors from '../config/colors';
-import places from '../config/places';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
 import CustomIconBtn from '../CustomComponents/CustomIconBtn';
@@ -13,10 +12,25 @@ import { useTranslation } from 'react-i18next';
 
 const dropdownRef = React.createRef();
 
-export default function SearchComponent() {
+export default function SearchComponent({ places }) {
     const navigation = useNavigation()
-    const { theme, toggleTheme } = useTheme();
-    const { t } = useTranslation();
+    const { theme } = useTheme();
+    const { t, i18n } = useTranslation();
+    const [searchQuery, setSearchQuery] = useState('');
+
+
+
+    // Function to filter places based on the search query
+    const filteredPlaces = places.filter((place) => {
+        const name = i18n.language === 'ar' ? place.nameAr : place.nameEn;
+        return name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
+
+
+
+
+
     return (
         <Div >
 
@@ -42,39 +56,53 @@ export default function SearchComponent() {
                         p={10}
                         h={60}
                         w="100%"
+                        onChangeText={(text) => setSearchQuery(text)}
                         focusBorderColor={colors.primary}
                         suffix={<Icon name="search" color="gray900" fontFamily="Feather" />}
                     />
                 </Dropdown.Option>
 
                 <Div >
-                    <ScrollDiv >
-                        {places.map((place, index) => (
-                            <Dropdown.Option
-                                py={3}
-                                px="xl"
-                                my={3}
-                                block
-                                key={index}
-                                bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
-                                borderBottomWidth={theme === 'light' ? 1 : .3}
-                                borderBottomColor='gray300'
-                            >
-                                <Button
-                                    onPress={() => navigation.navigate("BankQueue")}
-                                    w="100%"
+                    <ScrollDiv>
+                        {filteredPlaces.length > 0 ? (
+                            filteredPlaces.map((place, index) => (
+                                <Dropdown.Option
+                                    py={3}
+                                    px="xl"
+                                    my={3}
+                                    block
+                                    key={index}
                                     bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
-                                    m={0}
-                                    p={0}
-
-                                    h={70}>
-                                    <Div flexDir='column' w="100%">
-                                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} mb={5} fontFamily='poppins-bold'>{place.title}</Text>
-                                        <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>{place.address}</Text>
-                                    </Div>
-                                </Button>
-                            </Dropdown.Option>
-                        ))}
+                                    borderBottomWidth={theme === 'light' ? 1 : 0.3}
+                                    borderBottomColor="gray300"
+                                >
+                                    <Button
+                                        onPress={() => navigation.navigate('BankQueue',{ place })}
+                                        w="100%"
+                                        bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
+                                        m={0}
+                                        p={0}
+                                        h={70}
+                                    >
+                                        <Div flexDir="column" w="100%">
+                                            <Text
+                                                fontWeight="bold"
+                                                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
+                                                mb={5}
+                                                fontFamily="poppins-bold"
+                                            >
+                                                {i18n.language === 'ar' ? place.nameAr : place.nameEn}
+                                            </Text>
+                                            <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+                                                {i18n.language === 'ar' ? place.addressAr : place.addressEn}
+                                            </Text>
+                                        </Div>
+                                    </Button>
+                                </Dropdown.Option>
+                            ))
+                        ) : (
+                            <Text color="gray900">{t('noResults')}</Text>
+                        )}
                     </ScrollDiv>
                 </Div>
 

@@ -5,8 +5,10 @@ import { useTheme } from '../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import colors from '../config/colors'
 import Swiper from 'react-native-swiper'
-import QueueItem from '../Screens/MyQueue/QueueItem'
+
 import { StyleSheet, View } from 'react-native'
+import QueueItem from '../Screens/MyQueue/parts/QueueItem'
+import MyQueues from '../Screens/MyQueue/parts/MyQueues'
 
 const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
     const { theme } = useTheme();
@@ -36,14 +38,7 @@ const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
 
 
                     <Div h="90%">
-                        <Swiper showsButtons={false} autoplay={true} autoplayTimeout={300} loop={true} dotColor='gray' activeDotColor={colors.lightTheme.primary}>
-                            <QueueItem />
-                            <QueueItem />
-                            <QueueItem />
-                            <QueueItem />
-                            <QueueItem />
-                            <QueueItem />
-                        </Swiper>
+                        <MyQueues />
                     </Div>
 
 
