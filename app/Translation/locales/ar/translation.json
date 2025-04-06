@@ -29,5 +29,8 @@
     "close": " اغلاق ",
     "exist-alert": "Are You Sure To Exist Queue ?",
     "search": " ابحث عن مكان ",
-    "select-your-service": " اختر خدمتك "
+    "select-your-service": " اختر خدمتك ",
+    "no-queues": " لا يوجد انتظارات ",
+    "loading": " جاري التحميل ",
+     "book-confirm": " هل تريد حجز دور في هذا المكان ؟ "
 }

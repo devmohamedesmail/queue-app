@@ -8,7 +8,7 @@ import HistotyLog from '../Screens/HistoryLog/HistotyLog';
 import Favourite from '../Screens/Favourite/Favourite';
 import Account from '../Screens/Account/Account';
 import Login from '../Screens/Auth/Login';
-import BookQueue from '../Screens/BankQueue/BookQueue';
+
 
 export default function AppNavigator() {
     const Stack = createNativeStackNavigator()
@@ -25,7 +25,6 @@ export default function AppNavigator() {
         >
             <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
             <Stack.Screen name='BankQueue' component={BankQueue} options={{headerShown:false}} />
-            <Stack.Screen name='BookQueue' component={BookQueue} options={{headerShown:false}} />
             <Stack.Screen name='MyQueue' component={MyQueue} options={{headerShown:false}} />
             <Stack.Screen name='History' component={HistotyLog} options={{headerShown:false}} />
             <Stack.Screen name='Favourite' component={Favourite} options={{headerShown:false}} />

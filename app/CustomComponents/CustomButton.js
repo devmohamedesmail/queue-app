@@ -9,7 +9,7 @@ export default function CustomButton({title,onPress,bg,w}) {
        onPress={onPress} 
        bg={bg} 
        w={w} 
-       h={60} 
+       h={50} 
        fontWeight='bold' 
        alignSelf='center' 
        rounded={10}

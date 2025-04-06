@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Div } from 'react-native-magnus'
+import { Div,Text } from 'react-native-magnus'
 import SearchComponent from '../../Components/SearchComponent'
 import DrawerComponent from '../../Components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
@@ -45,7 +45,9 @@ export default function Home() {
 
         </Div>
       ) : (
-        <CustomLoading />
+        <Div flexDir='row' justifyContent='center' alignItems='center' h="100%">
+          <CustomLoading  />
+        </Div>
       )}
 
 

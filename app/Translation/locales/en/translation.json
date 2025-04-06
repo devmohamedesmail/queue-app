@@ -29,5 +29,8 @@
     "close": "CLOSE",
     "exist-alert": "Are You Sure To Exist Queue ?",
     "search": "Search For Place",
-    "select-your-service": "Select Your Service"
+    "select-your-service": "Select Your Service",
+    "no-queues": "No Queues Available",
+    "loading": "Loading...",
+    "book-confirm": "Are You Sure To Book Queue in This Place ?"
 }

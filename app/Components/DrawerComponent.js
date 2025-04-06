@@ -117,7 +117,7 @@ export default function DrawerComponent() {
 
 
                     {/* ************************************** How To use section Start ************************************** */}
-                    <Div px={10} position='absolute' bottom={70} right={0} left={0}>
+                    <Div px={10} position='absolute' bottom={20} right={0} left={0}>
                         <CustomButton bg={colors.lightTheme.primary} title={t('how-to-use')} w="98%" />
                     </Div>
                     {/* ************************************** How To use section End ************************************** */}

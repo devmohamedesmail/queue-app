@@ -31,7 +31,7 @@ const QueueDetails = ({waitingQueues,loading,book_new_queue}) => {
       </Div>
 
 
-      <Div flexDir='row' justifyContent='center' alignItems='center' position='absolute' left="50%" bottom={110} style={{ transform: [{ translateX: "-50%" }] }}>
+      <Div flexDir='row' justifyContent='center' alignItems='center' position='absolute' left="50%" bottom={70} style={{ transform: [{ translateX: "-50%" }] }}>
 
         {
           loading ? (

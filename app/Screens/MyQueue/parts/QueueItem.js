@@ -9,15 +9,16 @@ import colors from '../../../config/colors';
 import { useTheme } from '../../../context/ThemeContext';
 import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
+import CustomActivityIndicator from '../../../CustomComponents/CustomActivityIndicator';
 
-const QueueItem = ({queue}) => {
+const QueueItem = ({ queue }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
     const [existModalVisible, setExistModalVisible] = useState(false);
     const { theme } = useTheme();
     const { t, i18n } = useTranslation()
     const [queueId, setQueueId] = useState(null)
     const [loading, setLoading] = useState(false)
-    const {info}=useContext(InfoContext)
+    const { info } = useContext(InfoContext)
 
 
 
@@ -33,8 +34,7 @@ const QueueItem = ({queue}) => {
 
 
     // ************************************ Exit queue Start function ******************************
-    const exitToggleModal = (queue) => {
-        setQueueId(queue._id)
+    const exitToggleModal = () => {
         setExistModalVisible(!existModalVisible);
     };
     // ************************************ Exit queue End function ******************************
@@ -45,27 +45,25 @@ const QueueItem = ({queue}) => {
 
     const cancel_queue = async (queueId) => {
         try {
-            console.log(queueId)
+           
             setLoading(true)
-            const response = await axios.post(`${info.appUrl}/api/v1/queues/cancel/queue/${queueId}`)
-            const data = response.data
-            if (data.status === "success") {
-                setLoading(false)
+            const response = await axios.get(`${info.appUrl}/api/v1/queues/cancel/queue/${queueId}`)
+            const data = response.status
+            if (data === "sucess") {
                 setExistModalVisible(false)
                 setQueueId(null)
-            }
-            if (data.status === "fail") {
                 setLoading(false)
-                setExistModalVisible(false)
-                setQueueId(null)
             }
         } catch (error) {
-            console.log( error)
+            console.log(error)
             setLoading(false)
             setExistModalVisible(false)
             setQueueId(null)
-        }finally{
+            console.log(error)
+        } finally {
             setLoading(false)
+            setExistModalVisible(false)
+            setQueueId(null)
         }
     }
 
@@ -76,25 +74,22 @@ const QueueItem = ({queue}) => {
     return (
         <Div borderColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} borderWidth={1} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.voilet} m='auto' rounded={20} mx={10}>
 
-
-
-
-
-
-            <Div flexDir='column' justifyContent='center' alignItems='center' mt={50}>
-                <Text 
-                  fontWeight='bold' 
-                  fontSize={15} 
-                  textAlign='center'
-                  color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+            <Div flexDir='column' justifyContent='center' alignItems='center' mt={30}>
+                <Text
+                    fontWeight='bold'
+                    fontSize={16}
+                    textAlign='center'
+                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
                     {i18n.language === "ar" ? queue.place.nameAr : queue.place.nameEn}
                 </Text>
 
 
-                <Text 
-                mt={4} 
-                fontSize={12} 
-                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+                <Text
+                    mt={4}
+                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                    fontSize={12}
+                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
                     {i18n.language === "ar" ? queue.place.addressAr : queue.place.addressEn}
                 </Text>
             </Div>
@@ -102,16 +97,16 @@ const QueueItem = ({queue}) => {
 
 
 
-            <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} mt={50} py={20}>
+            <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} mt={30} py={20}>
                 <Div flexDir='column' justifyContent='center' alignItems='center' pb={20}>
-                    <Text 
-                      fontWeight='bold' 
-                      fontSize={20} 
-                      color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
-                      fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                      mb={10}
-                      >{t('head-of-queue')}
-                      </Text>
+                    <Text
+                        fontWeight='bold'
+                        fontSize={20}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        mb={10}
+                    >{t('head-of-queue')}
+                    </Text>
                     <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >10</Text>
                 </Div>
 
@@ -120,37 +115,37 @@ const QueueItem = ({queue}) => {
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center' borderRightColor='gray500' borderRightWidth={1}>
-                        <Text 
-                        fontWeight='bold' 
-                        fontSize={15} 
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
-                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                        mb={10}
+                        <Text
+                            fontWeight='bold'
+                            fontSize={15}
+                            color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                            fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                            mb={10}
                         >{t('your-number')}</Text>
                         <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.queue}</Text>
                     </Div>
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center'>
-                        <Text 
-                          fontWeight='bold' 
-                          fontSize={15} 
-                          color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
-                          fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                           mb={10}
-                          >{t('now-serving')}</Text>
+                        <Text
+                            fontWeight='bold'
+                            fontSize={15}
+                            color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                            fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                            mb={10}
+                        >{t('now-serving')}</Text>
                         <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >90</Text>
                     </Div>
                 </Div>
 
                 <Div flexDir='column' justifyContent='center' alignItems='center' pt={20}>
-                    <Text 
-                      fontWeight='bold' 
-                      fontSize={15} 
-                      color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} 
-                      fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                      mb={10}
-                      >{t('estimate-time')}</Text>
+                    <Text
+                        fontWeight='bold'
+                        fontSize={15}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                        mb={10}
+                    >{t('estimate-time')}</Text>
                     <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >1:50 H</Text>
                 </Div>
 
@@ -160,14 +155,14 @@ const QueueItem = ({queue}) => {
 
 
             {/* Action Buttons */}
-            <Div flexDir='column' justifyContent='center' alignItems='center' w="100%" my={20}>
+            <Div flexDir='column' justifyContent='center' alignItems='center' w="100%" my={5}>
 
                 <Button
                     onPress={queueToggleModal}
                     w="90%"
                     alignSelf='center'
-                    my={20}
-                    h={65}
+                    my={10}
+                    h={60}
                     bg={colors.lightTheme.primary}
                     shadow="md"
                     color="white"
@@ -175,20 +170,21 @@ const QueueItem = ({queue}) => {
                     fontSize={20}
                     rounded={15}
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    >
+                >
                     {t('moveQueue')}
                 </Button>
 
 
 
                 <Button
-                    onPress={()=> {
+                    onPress={() => {
                         exitToggleModal(queue._id)
+                        setQueueId(queue._id)
                     }}
                     w="90%"
                     alignSelf='center'
                     my={7}
-                    h={65}
+                    h={60}
                     bg="red600"
                     shadow="md"
                     color="white"
@@ -196,7 +192,7 @@ const QueueItem = ({queue}) => {
                     fontSize={20}
                     rounded={15}
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    >
+                >
                     {t('exitQueue')}
                 </Button>
             </Div>
@@ -245,7 +241,7 @@ const QueueItem = ({queue}) => {
 
 
             {/* ********************************* Exit Queue  modal start ****************************** */}
-            <Modal isVisible={existModalVisible}>
+            <Modal isVisible={existModalVisible} animationIn={"bounceIn"} animationOut="bounceOut" animationInTiming={500} animationOutTiming={500}>
                 <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
                     <Text
                         textAlign='center'
@@ -259,7 +255,12 @@ const QueueItem = ({queue}) => {
                     </Text>
 
                     <Div flexDir='row' alignItems='center' justifyContent='space-between'>
+                        {loading ?
+                        <CustomActivityIndicator />
+                        : 
                         <CustomButton onPress={() => cancel_queue(queueId)} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                        }
+                        
                         <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" />
 
                     </Div>

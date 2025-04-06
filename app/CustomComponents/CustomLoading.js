@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
 import AnimatedLoader from 'react-native-animated-loader';
-import {  StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Text } from 'react-native-magnus'
+import colors from '../config/colors';
+import { useTheme } from '../context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 export default function CustomLoading({ loading }) {
-
+    const { theme } = useTheme();
+    const {t}=useTranslation();
     return (
         <AnimatedLoader
 
-            visible={loading}
-            overlayColor="rgba(255,255,255,0.75)"
+            visible={true}
+            overlayColor={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
             animationStyle={styles.lottie}
             speed={1}>
-            <Text>Doing something...</Text>
+            <Text>{t('loading')}</Text>
         </AnimatedLoader>
     )
 }

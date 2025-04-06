@@ -34,11 +34,8 @@ export default function MyQueue({route}) {
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')}</Text>
 
 
-                {/* <Swiper showsButtons={false} loop={false} dotColor='gray' activeDotColor={colors.primary}>
-                    <QueueItem />
-                </Swiper> */}
 
-<MyQueues />
+              <MyQueues />
 
 
 

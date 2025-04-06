@@ -6,11 +6,15 @@ import { useTheme } from '../../../context/ThemeContext';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomButton from '../../../CustomComponents/CustomButton';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 
 
-export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace, navigation }) {
+
+export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace }) {
     const { theme } = useTheme();
     const { t, i18n } = useTranslation();
+    const navigation = useNavigation();
+   
     return (
         <Modal isVisible={isModalVisible} animationIn="bounceIn" animationOut="bounceOut" animationInTiming={500} animationOutTiming={500}>
             <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={20}>
@@ -23,9 +27,16 @@ export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace,
 
 
                 <Div flexDir='column' justifyContent='center' alignItems='center'>
-                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white} my={20} fontSize={16}> Are You Want Book Queue in </Text>
-                    <Text fontWeight='bold' my={20} fontSize={16} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>
-                    {selectedPlace ? (i18n.language === "ar" ? selectedPlace.nameAr : selectedPlace.nameEn) : "جارٍ التحميل..."}
+                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white} my={20} fontSize={13}> {t('book-confirm')} </Text>
+
+                    <Text
+                        fontWeight='bold'
+                        my={20}
+                        fontSize={12}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                        textAlign='center'
+                    >
+                        {selectedPlace ? (i18n.language === "ar" ? selectedPlace.nameAr : selectedPlace.nameEn) : "جارٍ التحميل..."}
 
 
                     </Text>
@@ -34,7 +45,7 @@ export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace,
 
                 <Div flexDir='row' px={20} my={20} justifyContent='space-evenly'>
                     <CustomButton title={t('close')} bg="red600" w="45%" onPress={() => toggleModal()} />
-                    <CustomButton title={t('ok')} bg={colors.lightTheme.primary} w="45%" onPress={() => navigation.navigate("BankQueue")} />
+                    <CustomButton title={t('ok')} bg={colors.lightTheme.primary} w="45%" onPress={() => navigation.navigate("BankQueue", { place: selectedPlace })} />
                 </Div>
 
 

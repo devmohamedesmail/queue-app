@@ -1,22 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Div, Text, Button } from 'react-native-magnus'
 import colors from '../../config/colors'
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import CloseBtn from '../../Components/CloseBtn'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
-import Ball from '../../Components/Ball'
 import axios from 'axios'
 import PlaceDetails from './parts/PlaceDetails'
-import AnimatedLoader from 'react-native-animated-loader';
-import CustomLoading from '../../CustomComponents/CustomLoading'
 import { InfoContext } from '../../context/InfoContext'
 import Modal from 'react-native-modal';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
 import * as Device from 'expo-device';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function BankQueue({ route }) {
     const navigation = useNavigation()
@@ -71,11 +70,8 @@ export default function BankQueue({ route }) {
     const get_last_queue = async (service) => {
         try {
             const response = await axios.get(`${info.appUrl}/api/v1/services/last/queue/${place._id}/${service._id}`)
-            const queue = response.data.queue;
             const lastQueue = response.data.queue;
             setLastQueue(lastQueue)
-
-            // navigation.navigate("BookQueue", { queue: queue, place: place, service: service })
         } catch (error) {
             console.log(error)
         }
@@ -103,13 +99,24 @@ export default function BankQueue({ route }) {
     // ******************************** Get All Waiting Queues Start ********************************
     const get_all_waiting_queues = async () => {
         try {
-            console.log("Fetching All Waiting Queues")
-            const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`)
+           
+            // const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`)
+            const url = serviceId 
+            ? `${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}` 
+            : `${info.appUrl}/api/v1/queues/all/queue/${place._id}`;
+        
+           // Make the GET request
+           const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`);
+
             setWaitingQueues(response.data)
+
         } catch (error) {
-            console.log(error)
+            console.log("Error Fetching Place Services" + error)
         }
     }
+    useEffect(()=>{
+        get_all_waiting_queues()
+    },[])
 
     // ******************************** Get All Waiting Queues End ********************************
 
