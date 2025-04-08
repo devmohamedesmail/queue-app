@@ -35,10 +35,11 @@ const MyQueues = () => {
 
 
     // ********************************* Fetch User Queues Start **********************************
-    const fetch_queues = async () => {
+    const fetch_queues_for_user = async () => {
         try {
             const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/${userId}`)
             const data = response.data;
+            console.log(data)
 
             if (data.length > 0) {
                 setQueues(data)
@@ -53,7 +54,7 @@ const MyQueues = () => {
 
 
     useEffect(() => {
-        fetch_queues()
+        fetch_queues_for_user()
     }, [userId])
 
 

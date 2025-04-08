@@ -20,6 +20,10 @@ const QueueItem = ({ queue }) => {
     const [loading, setLoading] = useState(false)
     const { info } = useContext(InfoContext)
 
+    const [aheadOfYou, setAheadOfYou] = useState(0);
+    const [nowServing, setNowServing] = useState(0);
+    const [estimatedTime, setEstimatedTime] = useState("0:00 H");
+
 
 
 

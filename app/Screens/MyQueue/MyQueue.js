@@ -31,7 +31,10 @@ export default function MyQueue({route}) {
                     fontWeight='bold'
                     fontSize={25}
                     mt={20}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')}</Text>
+                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')}
+                </Text>
+
+                <Text></Text>
 
 
 
