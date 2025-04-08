@@ -15,9 +15,6 @@ import QueueDetails from './parts/QueueDetails'
 import * as Device from 'expo-device';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// functions
-import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'
-
 
 
 export default function BankQueue({ route }) {
@@ -31,6 +28,7 @@ export default function BankQueue({ route }) {
 
     const [serviceId, setServiceId] = useState(null)
     const [servicesModalVisible, setServicesModalVisible] = useState(false)
+    const [last_queue, setLastQueue] = useState(null)
     const [loadingFetchData, setLoadingFetchData] = useState(false)
     const [userId, setUserId] = useState(null);
     const [waitingQueues, setWaitingQueues] = useState(null);
@@ -40,18 +38,89 @@ export default function BankQueue({ route }) {
         setServicesModalVisible(!servicesModalVisible);
     };
 
+
+
     // ********************************* Fetch Place Services Start **********************************
+    const fetch_place_services = async () => {
+        try {
+            setLoadingFetchData(true);
+            const response = await axios.get(`${info.appUrl}/api/v1/services/place/services/${place._id}`)
+            const data = response.data.services
+            if (data.length > 0) {
+                setPlaceServices(data)
+                setServicesModalVisible(true)
+            } else {
+                setPlaceServices([]);
+            }
+        } catch (error) {
+            console.log("Error Fetching Place Services" + error)
+        } finally {
+            setLoadingFetchData(false);
+        }
+    }
     useEffect(() => {
-        fetch_place_services(place._id, info.appUrl, setPlaceServices, setLoadingFetchData, setServicesModalVisible)
+        fetch_place_services()
     }, [])
+
+    // ********************************* Fetch Place Services End **********************************
+
+
+
+    // ******************************* Get Last Quaue Start **********************************************
+    const get_last_queue = async (service) => {
+        try {
+            const response = await axios.get(`${info.appUrl}/api/v1/services/last/queue/${place._id}/${service._id}`)
+            const lastQueue = response.data.queue;
+            setLastQueue(lastQueue)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    if (placeServices && placeServices.length === 0) {
+        const get_last_queue_for_place = async () => {
+            try {
+                const response = await axios.get(`${info.appUrl}/api/v1/services/last/queue/${place._id}`)
+                const lastQueue = response.data.queue;
+                setLastQueue(lastQueue)
+                console.log(lastQueue)
+            } catch (error) {
+                console.log(error)
+
+            }
+        }
+        get_last_queue_for_place()
+    }
+
+    // ******************************* Get Last Quaue End **********************************************
+
 
 
     // ******************************** Get All Waiting Queues Start ********************************
-    useEffect(() => {
-        get_all_waiting_queues(info.appUrl, place._id, serviceId, setWaitingQueues)
-    }, [serviceId, place._id, loadingFetchData])
+    const get_all_waiting_queues = async () => {
+        try {
+           
+            // const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`)
+            const url = serviceId 
+            ? `${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}` 
+            : `${info.appUrl}/api/v1/queues/all/queue/${place._id}`;
+        
+           // Make the GET request
+           const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`);
+
+            setWaitingQueues(response.data)
+
+        } catch (error) {
+            console.log("Error Fetching Place Services" + error)
+        }
+    }
+    useEffect(()=>{
+        get_all_waiting_queues()
+    },[])
 
     // ******************************** Get All Waiting Queues End ********************************
+
+
 
 
     // *********************************  book_new_queue Start *******************************************
@@ -59,32 +128,39 @@ export default function BankQueue({ route }) {
         try {
             if (!userId) {
                 console.log("User ID is not available yet. Fetching...");
-
-                await fetchDeviceId(); 
+                // Fetch device ID if userId is not available
+                await fetchDeviceId(); // Wait for the userId to be set
             }
+            console.log("User ID: ", userId)
             setLoading(true)
-            fetchDeviceId()
-            let url = `${info.appUrl}/api/v1/queues/book/new/queue/${userId}/${place._id}`;
-            if (serviceId) {
-                url += `/${serviceId}`; 
-            }
-            const response = await axios.post(url);
-            setLoading(false);
+             fetchDeviceId()
+            const response = await axios.post(`${info.appUrl}/api/v1/queues/book/new/queue/${userId}/${place._id}/${serviceId}`)
+            setLoading(false)
             const queue = response.data
-            navigation.navigate("MyQueue", { queue: queue, place: place })
+            
+           navigation.navigate("MyQueue", { queue: queue, place: place })
         } catch (error) {
-            console.log("Error During Book New Queue" , error)
+            console.log(error)
             setLoading(false)
         } finally {
             setLoading(false)
         }
     }
 
+    // *********************************  book_new_queue End *******************************************
+
+
+
+
+
+
+
+
 
     // ********************************* Get Device ID Start *******************************************
     const fetchDeviceId = async () => {
         const storedDeviceId = await AsyncStorage.getItem('deviceId');
-
+    
         if (storedDeviceId) {
             setUserId(storedDeviceId); // Use the stored device ID
         } else {
@@ -96,9 +172,9 @@ export default function BankQueue({ route }) {
     };
 
 
-    useEffect(() => {
+    useEffect(()=>{
         fetchDeviceId()
-    }, [userId])
+    },[userId])
 
     // ******************************* Get Device ID End *******************************************
 
@@ -115,6 +191,9 @@ export default function BankQueue({ route }) {
                 <PlaceDetails place={place} />
                 {/* Bank name And Address Start */}
 
+
+
+                 
                 {placeServices !== null && placeServices.length > 0 ? (
                     <>
                         <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
@@ -141,7 +220,9 @@ export default function BankQueue({ route }) {
                                     h={70}
                                     onPress={() => {
                                         setServiceId(service._id)
+                                        get_last_queue(service)
                                         get_all_waiting_queues()
+
                                         setServicesModalVisible(false)
 
                                     }}

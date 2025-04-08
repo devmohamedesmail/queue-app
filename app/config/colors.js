@@ -1,7 +1,7 @@
 const colors = {
     
     "lightTheme":{
-        "primary":"#a6808c",
+        "primary":"#eb5e28",
         "secondary":"#80ed99",
         "tertiary": "#a0d8b3",
         "light":"#e7ecef",

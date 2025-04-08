@@ -18,7 +18,7 @@ export default function PlaceDetails({place}) {
             <Text
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                 fontWeight='bold' 
-                fontSize={14} 
+                fontSize={17} 
                 lineHeight={30} 
                 textAlign='center' 
                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >
