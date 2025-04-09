@@ -1,6 +1,6 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons/Feather';
-import React from 'react'
+import React, { useContext } from 'react'
 import { Modal, Button, Div, Text } from 'react-native-magnus';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomAccountButton from '../CustomComponents/CustomAccountButton';
@@ -10,13 +10,18 @@ import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import CustomButton from '../CustomComponents/CustomButton';
 import ModalCloseBtn from './ModalCloseBtn';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
     const { theme } = useTheme();
-    const { t , i18n} = useTranslation();
+    const { t, i18n } = useTranslation();
+    const { auth, setAuth, login, register, logout } = useContext(AuthContext);
+    const navigation = useNavigation();
+
     return (
         <Modal isVisible={accountModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
-            
+
             <ModalCloseBtn onPress={() => setAccountModalVisible(false)} />
 
 
@@ -28,11 +33,11 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20} 
+                        mb={20}
                         fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}>
-                            
-                            {t('account')}
-                        
+
+                        {t('account')}
+
                     </Text>
 
 
@@ -57,14 +62,33 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
 
                 <Div px={10} bottom={20} position='absolute' right={0} left={0}>
 
-                    <Div mb={10}>
-                        <CustomButton title={t('logout')} w="100%" bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
-                    </Div>
 
 
-                    <Div mb={20}>
-                        <CustomButton title={t('delete-account')} w="100%" bg="red600" />
-                    </Div>
+                    {auth && auth.user ? (
+                        <>
+                            <Div mb={10}>
+                                <CustomButton
+                                    onPress={() => logout()}
+
+                                    title={t('logout')} w="100%" bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+                            </Div>
+
+                            <Div mb={20}>
+                                <CustomButton title={t('delete-account')} w="100%" bg="red600" />
+                            </Div>
+
+                        </>
+
+                    ) : (
+                        <Div mb={10}>
+                            <CustomButton
+                                 onPress={() =>navigation.navigate('Login')}
+                                title={t('login')} w="100%" bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+                        </Div>
+                    )}
+
+
+
                 </Div>
             </Div>
 

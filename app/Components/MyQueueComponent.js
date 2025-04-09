@@ -29,7 +29,7 @@ const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
                         textAlign='center'
                         mb={20}
                         fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                        >{t('my-queue')}
+                        >{t('my-queues')} 
                     </Text>
 
 

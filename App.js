@@ -7,6 +7,8 @@ import { ThemeProvider } from './app/context/ThemeContext';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { InfoProvider } from './app/context/InfoContext';
+import { AuthProvider } from './app/context/AuthContext';
+import Toast from 'react-native-toast-message';
 
 
 
@@ -34,11 +36,16 @@ export default function App() {
   return (
     <ThemeProvider>
       <InfoProvider>
-        <NavigationContainer>
-          <I18nextProvider i18n={i18n} >
-            <AppNavigator />
-          </I18nextProvider>
-        </NavigationContainer>
+       <AuthProvider>
+        
+          <NavigationContainer>
+            <I18nextProvider i18n={i18n} >
+              <AppNavigator />
+              <Toast />
+            </I18nextProvider>
+          </NavigationContainer>
+
+        </AuthProvider>
       </InfoProvider>
     </ThemeProvider>
 

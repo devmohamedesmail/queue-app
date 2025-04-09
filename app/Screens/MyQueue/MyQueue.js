@@ -25,16 +25,16 @@ export default function MyQueue({route}) {
             <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} h="100%" >
 
                 <CloseBtn />
-
+                
                 <Text
                     textAlign='center'
                     fontWeight='bold'
                     fontSize={25}
                     mt={20}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')}
+                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')} 
                 </Text>
 
-                <Text></Text>
+                
 
 
 

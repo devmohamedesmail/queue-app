@@ -37,10 +37,9 @@ const MyQueues = () => {
     // ********************************* Fetch User Queues Start **********************************
     const fetch_queues_for_user = async () => {
         try {
-            const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/${userId}`)
+            const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/sdk_gphone64_x86_64-1744098519956`)
             const data = response.data;
-            console.log(data)
-
+          
             if (data.length > 0) {
                 setQueues(data)
             } else {
@@ -55,32 +54,19 @@ const MyQueues = () => {
 
     useEffect(() => {
         fetch_queues_for_user()
-    }, [userId])
+    }, [userId,queues])
 
-
+   
     // ********************************* Fetch User Queues End **********************************
 
     
-
-    // get the first Active Queue
-    const get_first_active_queue = async () => {
-        try {
-            const response = await axios.get(`${info.appUrl}/api/v1/queues/first/queue/${place._id}/${serviceId}`)
-        } catch (error) {
-            
-        }
-    }
-   
-
-
-
 
     return (
         <Swiper showsButtons={false} loop={false} dotColor='gray' activeDotColor={colors.primary}>
 
             {queues && queues.length > 0 ? (
                 queues.map((queue, index) => (
-                    <QueueItem key={index} queue={queue} />
+                    <QueueItem key={index} queue={queue} fetch_queues_for_user={fetch_queues_for_user} />
                 ))
             ) : (
                 <Div flexDir='column' justifyContent='center' alignItems='center' h="50%">

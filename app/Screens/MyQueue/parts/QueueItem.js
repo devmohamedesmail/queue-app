@@ -11,7 +11,7 @@ import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
 import CustomActivityIndicator from '../../../CustomComponents/CustomActivityIndicator';
 
-const QueueItem = ({ queue }) => {
+const QueueItem = ({ queue ,fetch_queues_for_user }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
     const [existModalVisible, setExistModalVisible] = useState(false);
     const { theme } = useTheme();
@@ -19,11 +19,6 @@ const QueueItem = ({ queue }) => {
     const [queueId, setQueueId] = useState(null)
     const [loading, setLoading] = useState(false)
     const { info } = useContext(InfoContext)
-
-    const [aheadOfYou, setAheadOfYou] = useState(0);
-    const [nowServing, setNowServing] = useState(0);
-    const [estimatedTime, setEstimatedTime] = useState("0:00 H");
-
 
 
 
@@ -49,7 +44,7 @@ const QueueItem = ({ queue }) => {
 
     const cancel_queue = async (queueId) => {
         try {
-           
+           console.log(queueId)
             setLoading(true)
             const response = await axios.get(`${info.appUrl}/api/v1/queues/cancel/queue/${queueId}`)
             const data = response.status
@@ -57,6 +52,8 @@ const QueueItem = ({ queue }) => {
                 setExistModalVisible(false)
                 setQueueId(null)
                 setLoading(false)
+                fetch_queues_for_user()
+                console.log("Queue Cancelled Successfully")
             }
         } catch (error) {
             console.log(error)
@@ -85,7 +82,7 @@ const QueueItem = ({ queue }) => {
                     textAlign='center'
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
-                    {i18n.language === "ar" ? queue.place.nameAr : queue.place.nameEn}
+                    {i18n.language === "ar" ? queue.queue.place.nameAr : queue.queue.place.nameEn}
                 </Text>
 
 
@@ -94,7 +91,7 @@ const QueueItem = ({ queue }) => {
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     fontSize={12}
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
-                    {i18n.language === "ar" ? queue.place.addressAr : queue.place.addressEn}
+                    {i18n.language === "ar" ? queue.queue.place.addressAr : queue.queue.place.addressEn}
                 </Text>
             </Div>
 
@@ -111,7 +108,7 @@ const QueueItem = ({ queue }) => {
                         mb={10}
                     >{t('head-of-queue')}
                     </Text>
-                    <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >10</Text>
+                    <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.aheadOfYou}</Text>
                 </Div>
 
 
@@ -126,7 +123,7 @@ const QueueItem = ({ queue }) => {
                             fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                             mb={10}
                         >{t('your-number')}</Text>
-                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.queue}</Text>
+                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.queue.queue}</Text>
                     </Div>
 
 
@@ -138,7 +135,7 @@ const QueueItem = ({ queue }) => {
                             fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                             mb={10}
                         >{t('now-serving')}</Text>
-                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >90</Text>
+                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.nowServingQueue}</Text>
                     </Div>
                 </Div>
 
@@ -150,7 +147,7 @@ const QueueItem = ({ queue }) => {
                         fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                         mb={10}
                     >{t('estimate-time')}</Text>
-                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >1:50 H</Text>
+                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.estimatedTime}</Text>
                 </Div>
 
             </Div>
@@ -182,8 +179,8 @@ const QueueItem = ({ queue }) => {
 
                 <Button
                     onPress={() => {
-                        exitToggleModal(queue._id)
-                        setQueueId(queue._id)
+                        exitToggleModal(queue.queue._id)
+                        setQueueId(queue.queue._id)
                     }}
                     w="90%"
                     alignSelf='center'
