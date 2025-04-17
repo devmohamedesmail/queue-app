@@ -56,7 +56,7 @@ export default function DrawerComponent() {
     return (
         <Div>
             <CustomIconBtn
-                icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
+                icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />}
                 onPress={() => {
                     if (drawerRef.current) {
                         drawerRef.current.open();

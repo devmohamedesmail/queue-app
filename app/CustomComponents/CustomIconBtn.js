@@ -4,17 +4,18 @@ import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 
 
-const CustomIconBtn = ({icon,onPress}) => {
-    const {theme,toggleTheme}=useTheme()
+const CustomIconBtn = ({icon,onPress,...props}) => {
+    const {theme}=useTheme()
     return (
         <Button
             h={45}
             w={45}
             p={0}
-            bg={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.black}
+            bg={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.black}
             rounded="md"
-            shadow="lg"
+            shadow="sm"
             onPress={onPress}
+            {...props}
         >
             {icon}
            

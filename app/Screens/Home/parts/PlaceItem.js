@@ -27,7 +27,7 @@ export default function PlaceItem({ onPress, name, address, id }) {
                     fontWeight='semibold'
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     fontSize={11}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
+                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
                     mb={5} 
                     >
                     {name}

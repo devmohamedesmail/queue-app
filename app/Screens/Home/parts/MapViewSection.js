@@ -63,7 +63,7 @@ const MapViewSection = ({ places }) => {
         showsIndoorLevelPicker={true}
         showsPointsOfInterest={true}
 
-        style={{ height: '66%' }}
+        style={{ height: '100%' }}
         initialRegion={{
           latitude: 25.276987,
           longitude: 55.296249,

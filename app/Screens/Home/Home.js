@@ -18,7 +18,7 @@ export default function Home() {
 
   const fetchPlaces = async () => {
     try {
-      const response = await fetch('https://queue-app-express-js.onrender.com/api/v1/places');
+      const response = await fetch(`${info.appUrl}/api/v1/places`);
       const data = await response.json();
 
       setPlaces(data.data);
