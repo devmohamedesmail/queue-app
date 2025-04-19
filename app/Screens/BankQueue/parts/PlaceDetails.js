@@ -18,7 +18,7 @@ export default function PlaceDetails({place}) {
             <Text
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                 fontWeight='bold' 
-                fontSize={17} 
+                fontSize={20} 
                 lineHeight={30} 
                 textAlign='center' 
                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} >
@@ -30,7 +30,9 @@ export default function PlaceDetails({place}) {
             <Text
                 fontSize={11}
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                my={2} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>
+                my={5}
+                mt={10} 
+                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>
                 {i18n.language === "ar" ? place.addressAr : place.addressEn}
             </Text>
 

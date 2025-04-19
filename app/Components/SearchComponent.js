@@ -52,6 +52,7 @@ export default function SearchComponent({ places }) {
                 roundedTop="xl">
                 <Dropdown.Option py="md" px="xl" block bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.background}>
                     <Input
+                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                         placeholder={t('search')}
                         p={10}
                         h={60}
@@ -87,13 +88,16 @@ export default function SearchComponent({ places }) {
                                         <Div flexDir="column" w="100%">
                                             <Text
                                                 fontWeight="bold"
+                                                fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                                                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
                                                 mb={5}
-                                                fontFamily="poppins-bold"
+                                                
                                             >
                                                 {i18n.language === 'ar' ? place.nameAr : place.nameEn}
                                             </Text>
-                                            <Text color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
+                                            <Text 
+                                                  fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                                                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
                                                 {i18n.language === 'ar' ? place.addressAr : place.addressEn}
                                             </Text>
                                         </Div>

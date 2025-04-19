@@ -1,6 +1,5 @@
 import { SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import StatusBarComponent from '../../Components/StatusBarComponent'
 import { Button, Div, Text } from 'react-native-magnus'
 import CustomInput from '../../CustomComponents/CustomInput'
 import colors from '../../config/colors'

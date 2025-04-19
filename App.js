@@ -1,3 +1,4 @@
+import 'react-native-reanimated';
 import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './app/Components/AppNavigator';
@@ -9,6 +10,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { InfoProvider } from './app/context/InfoContext';
 import { AuthProvider } from './app/context/AuthContext';
 import Toast from 'react-native-toast-message';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 
@@ -34,6 +36,7 @@ export default function App() {
 
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <ThemeProvider>
       <InfoProvider>
        <AuthProvider>
@@ -48,6 +51,7 @@ export default function App() {
         </AuthProvider>
       </InfoProvider>
     </ThemeProvider>
+    </GestureHandlerRootView>
 
   );
 }

@@ -2,14 +2,25 @@ import React, { useState } from 'react'
 import { Div, Text } from 'react-native-magnus'
 import colors from '../../config/colors'
 import { useTheme } from '../../context/ThemeContext'
-
-export default function HistoryItem() {
-    const [date, setDate] = useState(new Date())
+import { useTranslation } from 'react-i18next';
+export default function HistoryItem({ item  }) {
     const { theme } = useTheme();
-    const monthNames = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
+
+    const { i18n } = useTranslation();
+
+
+
+    const date = new Date(item.createdAt);
+    const day = date.getDate();
+    const month = date.toLocaleString(i18n.language, { month: 'short' });
+  
+    const placeName = i18n.language === 'ar' ? item.place.nameAr : item.place.nameEn;
+    const address = i18n.language === 'ar' ? item.place.addressAr : item.place.addressEn;
+  
+
+
+
+
     return (
         <Div
             flexDir='row'
@@ -25,20 +36,26 @@ export default function HistoryItem() {
             <Div>
 
 
-                <Text fontSize={35} textAlign='center' fontWeight='bold' color={colors.lightTheme.primary}>{date.getDate()}</Text>
+                <Text fontSize={35} textAlign='center' fontWeight='bold' color={colors.lightTheme.primary}>
+                
+                    
+                    {day}
+                    
+                    </Text>
                 <Text fontSize={20} textAlign='center' fontWeight='bold' color={colors.lightTheme.primary}>
-                    {monthNames[date.getMonth()]} 
+                  
+                    {month}
                 </Text>
             </Div>
             <Div mx={20}>
                 <Text
                     fontWeight='bold'
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                    fontSize={16}> Location Name </Text>
+                    fontSize={16}> {placeName} </Text>
                 <Text
                     fontSize={12}
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
-                    fontFamily='poppins'> Location Address </Text>
+                    fontFamily='poppins'> {address} </Text>
             </Div>
 
         </Div>

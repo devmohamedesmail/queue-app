@@ -1,43 +1,38 @@
 
-import React, { useState } from 'react'
-import { Div, Button, Text, ScrollDiv } from 'react-native-magnus'
-
+import React, { useMemo } from 'react'
+import { ScrollDiv, Div, Button } from 'react-native-magnus'
 import colors from '../../../config/colors'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../context/ThemeContext'
 import PlaceItem from './PlaceItem'
 import { useTranslation } from 'react-i18next'
-import CustomIconBtn from '../../../CustomComponents/CustomIconBtn'
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export default function PlaceListSection({ places }) {
-  const [height, setHeight] = useState(300)
+
   const navigation = useNavigation();
   const { theme } = useTheme();
   const { t, i18n } = useTranslation()
+  const snapPoints = useMemo(() => ['20%', '50%', '80%'], [])
   return (
 
-    <Div w="100%" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} position='absolute' shadow="lg" zIndex={1000} bottom={0} m="auto" h={height} roundedTopLeft={20} roundedTopRight={20} >
 
-      <Div top={-50} right="-85%">
-        <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />} onPress={() => setHeight(300)} />
-      </Div>
-      <Div flexDir='row' justifyContent='center'>
-        <Button bg={colors.lightTheme.primary} h={5} w={70} p={0}></Button>
-      </Div>
+  
+      <BottomSheet snapPoints={snapPoints}
+        backgroundStyle={{ backgroundColor: theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+      >
 
-      <ScrollDiv roundedTopLeft={20} roundedTopRight={20} >
-        {places.map((place) => (
-          <PlaceItem
-            key={place._id}
-            name={i18n.language === 'en' ? place.nameEn : place.nameAr}
-            address={i18n.language === 'en' ? place.addressEn : place.addressAr}
-            onPress={() => navigation.navigate("BankQueue", { place })} />
-        ))}
-      </ScrollDiv>
-
-    </Div>
+        <ScrollDiv  >
+          {places.map((place) => (
+            <PlaceItem
+              key={place._id}
+              name={i18n.language === 'en' ? place.nameEn : place.nameAr}
+              address={i18n.language === 'en' ? place.addressEn : place.addressAr}
+              onPress={() => navigation.navigate("BankQueue", { place })} />
+          ))}
+        </ScrollDiv>
+      </BottomSheet>
+    
 
 
   )

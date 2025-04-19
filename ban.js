@@ -13,7 +13,6 @@ import Modal from 'react-native-modal';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
-import CustomLoading from '../../CustomComponents/CustomLoading'
 
 // functions
 import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'
@@ -22,7 +21,6 @@ import CustomInput from '../../CustomComponents/CustomInput'
 import CustomButton from '../../CustomComponents/CustomButton'
 import Toast from 'react-native-toast-message'
 import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
-import CustomHeader from '../../CustomComponents/CustomHeader'
 
 
 
@@ -74,7 +72,7 @@ export default function BankQueue({ route }) {
                 return
             }
             setLoading(true)
-
+           
             let url = `${info.appUrl}/api/v1/queues/book/new/queue/${auth.user.user._id}/${place._id}`;
             if (serviceId) {
                 url += `/${serviceId}`;
@@ -135,53 +133,19 @@ export default function BankQueue({ route }) {
         <SafeAreaView>
 
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} h="100%">
-
-                <CustomHeader />
-
-                <Div h="80%"  flexDir='column' justifyContent='space-evenly'>
-                    <PlaceDetails place={place} />
-
-
-                    {placeServices !== null && placeServices.length > 0 ? (
-                        <>
-                            <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
-                        </>) : (
-                        <>
-                            <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
-                        </>)}
-
-
-                    <Div flexDir='row' justifyContent='center' alignItems='center'   >
-
-                        {
-                            loading ? (
-                                <CustomLoading loading={loading} />
-                            ) : (
-                                <Button
-                                    onPress={() => book_new_queue()}
-                                    bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                                    h={200}
-                                    w={200}
-                                    fontWeight='bold'
-                                    fontSize={30}
-                                    rounded="circle"
-                                    shadow="md"
-                                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                    shadowColor={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.white}>
-                                    {t('book')}
-                                </Button>
-                            )
-                        }
-                    </Div>
-
-
-                </Div>
+                <CloseBtn />
 
                 {/* Bank name And Address Start */}
-
+                <PlaceDetails place={place} />
                 {/* Bank name And Address Start */}
 
-
+                {placeServices !== null && placeServices.length > 0 ? (
+                    <>
+                        <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
+                    </>) : (
+                    <>
+                        <QueueDetails waitingQueues={waitingQueues} loading={loading} book_new_queue={book_new_queue} />
+                    </>)}
 
             </Div>
 

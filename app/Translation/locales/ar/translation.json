@@ -32,5 +32,8 @@
     "select-your-service": " اختر خدمتك ",
     "no-queues": " لا يوجد انتظارات ",
     "loading": " جاري التحميل ",
-     "book-confirm": " هل تريد حجز دور في هذا المكان ؟ "
+     "book-confirm": " هل تريد حجز دور في هذا المكان ؟ ",
+     "no-clients": " لا يوجد عملاء في الانتظار ",
+     "your-turn-now": " انت في وقتك الان ",
+     "noHistoryFound": " لا يوجد سجلات "
 }

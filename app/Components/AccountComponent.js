@@ -57,13 +57,14 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                             icon={<FontAwesome name="edit" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
                             title={t('update-your-information')}
                             onPress={() => {
-                                setEditInfoModalVisible(true);
+                                navigation.navigate('EditInfo')
                                 
                             }}
                             
                             />
 
                         <CustomAccountButton
+                            onPress={() => navigation.navigate('History')}
                             icon={<MaterialIcons name="history" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
                             title={t('history')} />
 

@@ -9,6 +9,7 @@ import { useTheme } from '../../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../../../context/AuthContext'
 
 const MyQueues = () => {
     const [queues, setQueues] = useState(null)
@@ -17,27 +18,18 @@ const MyQueues = () => {
     const { info } = useContext(InfoContext);
     const { theme } = useTheme();
     const { t, i18n } = useTranslation();
-    const [userId, setUserId] = useState(null);
+  
+    const { auth, setAuth, login, register, logout } = useContext(AuthContext);
 
 
-    // ********************************* Fetch User ID Start **********************************
-    const get_user_id = async () => {
-        const result = await AsyncStorage.getItem('deviceId');
-        setUserId(result);
-    }
+   
 
-    useEffect(() => {
-        get_user_id()
-    }, [])
-
-    // ********************************* Fetch User ID End ***************************************
-
-
+  
 
     // ********************************* Fetch User Queues Start **********************************
     const fetch_queues_for_user = async () => {
         try {
-            const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/sdk_gphone64_x86_64-1744098519956`)
+            const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/${auth.user.user._id}`)
             const data = response.data;
           
             if (data.length > 0) {
@@ -54,7 +46,7 @@ const MyQueues = () => {
 
     useEffect(() => {
         fetch_queues_for_user()
-    }, [userId,queues])
+    }, [auth,queues])
 
    
     // ********************************* Fetch User Queues End **********************************

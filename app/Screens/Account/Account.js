@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { Div, Text } from 'react-native-magnus'
-import StatusBarComponent from '../../Components/StatusBarComponent'
+
 import BackBtn from '../../Components/BackBtn'
 import NotificationComponent from '../../Components/NotificationComponent'
 import DrawerComponent from '../../Components/DrawerComponent'
@@ -11,7 +11,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
-import AccountComponent from '../../Components/AccountComponent'
+
 
 
 export default function Account() {

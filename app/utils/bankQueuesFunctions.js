@@ -27,14 +27,10 @@ export const fetch_place_services = async (placeId, appUrl, setPlaceServices, se
 // ********************************* Get all waiting queues **********************************
 export const get_all_waiting_queues = async (appUrl, placeId, serviceId, setWaitingQueues) => {
     try {
-
-        // const response = await axios.get(`${info.appUrl}/api/v1/queues/all/queue/${place._id}/${serviceId}`)
         const url = serviceId
             ? `${appUrl}/api/v1/queues/all/queue/${placeId}/${serviceId}`
             : `${appUrl}/api/v1/queues/all/queue/${placeId}`;
-
-        // Make the GET request
-        const response = await axios.get(`${appUrl}/api/v1/queues/all/queue/${placeId}/${serviceId}`);
+        const response = await axios.get(`${url}`);
 
         setWaitingQueues(response.data)
 

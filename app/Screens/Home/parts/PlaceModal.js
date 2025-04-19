@@ -16,14 +16,10 @@ export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace 
     const navigation = useNavigation();
    
     return (
-        <Modal isVisible={isModalVisible} animationIn="bounceIn" animationOut="bounceOut" animationInTiming={500} animationOutTiming={500}>
-            <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={20}>
+        <Modal isVisible={isModalVisible} animationIn="slideInUp" animationOut="slideInUp" animationInTiming={600} animationOutTiming={600}>
+            <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} py={20} rounded={20}>
 
-                <Div flexDir='row' justifyContent='flex-end'>
-                    <Button onPress={() => toggleModal()} bg='transparent'>
-                        <AntDesign name="close" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white} />
-                    </Button>
-                </Div>
+                
 
 
                 <Div flexDir='column' justifyContent='center' alignItems='center'>

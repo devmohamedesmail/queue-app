@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Drawer, Button, Div, Text, Modal, Icon } from 'react-native-magnus'
+import { Drawer, Button, Div, Text} from 'react-native-magnus'
 import Octicons from '@expo/vector-icons/Octicons';
 import CustomDrawerBoxIcon from '../CustomComponents/CustomDrawerBoxIcon';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -9,7 +9,6 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import AccountComponent from './AccountComponent';
 import FavouriteComponent from './FavouriteComponent';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +24,7 @@ import NotificationComponent from './NotificationComponent';
 
 
 const drawerRef = React.createRef();
-export default function DrawerComponent() {
+export default function DrawerComponent({icon}) {
     const { t, i18n } = useTranslation()
     const navigation = useNavigation();
     const [accountModalVisible, setAccountModalVisible] = useState(false);
@@ -34,7 +33,7 @@ export default function DrawerComponent() {
     const [queueModalVisible, setQueueModalVisible] = useState(false)
     const[settingModalVisible, setSettingModalVisible] = useState(false)
     const[notificationsModalVisible, setNotificationsModalVisible] = useState(false)
-    const { theme, toggleTheme } = useTheme()
+    const { theme } = useTheme()
 
 
 
@@ -56,6 +55,7 @@ export default function DrawerComponent() {
     return (
         <Div>
             <CustomIconBtn
+          
                 icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />}
                 onPress={() => {
                     if (drawerRef.current) {

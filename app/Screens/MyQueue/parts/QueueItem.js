@@ -108,7 +108,12 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
                         mb={10}
                     >{t('head-of-queue')}
                     </Text>
-                    <Text fontWeight='bold' fontSize={14} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.aheadOfYou}</Text>
+                    <Text 
+                    fontWeight='bold' 
+                    fontSize={14} 
+                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >    
+                        {queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')}   
+                    </Text>
                 </Div>
 
 
