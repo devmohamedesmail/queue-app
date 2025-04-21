@@ -35,5 +35,7 @@
     "book-confirm": "Are You Sure To Book Queue in This Place ?",
     "no-clients": "No Clients",
     "your-turn-now": "Your Turn Now",
-    "noHistoryFound": "No History Found"
+    "noHistoryFound": "No History Found",
+    "help-title":" Send your Message ",
+    "send":"Send"
 }

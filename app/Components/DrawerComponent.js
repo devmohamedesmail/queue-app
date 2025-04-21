@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Drawer, Button, Div, Text} from 'react-native-magnus'
+import { Drawer, Button, Div, Text } from 'react-native-magnus'
 import Octicons from '@expo/vector-icons/Octicons';
 import CustomDrawerBoxIcon from '../CustomComponents/CustomDrawerBoxIcon';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -24,15 +24,15 @@ import NotificationComponent from './NotificationComponent';
 
 
 const drawerRef = React.createRef();
-export default function DrawerComponent({icon}) {
+export default function DrawerComponent({ icon }) {
     const { t, i18n } = useTranslation()
     const navigation = useNavigation();
     const [accountModalVisible, setAccountModalVisible] = useState(false);
     const [favouriteModalVisible, setFavouriteModalVisible] = useState(false)
     const [historyModalVisible, setHistoryModalVisible] = useState(false)
     const [queueModalVisible, setQueueModalVisible] = useState(false)
-    const[settingModalVisible, setSettingModalVisible] = useState(false)
-    const[notificationsModalVisible, setNotificationsModalVisible] = useState(false)
+    const [settingModalVisible, setSettingModalVisible] = useState(false)
+    const [notificationsModalVisible, setNotificationsModalVisible] = useState(false)
     const { theme } = useTheme()
 
 
@@ -55,7 +55,7 @@ export default function DrawerComponent({icon}) {
     return (
         <Div>
             <CustomIconBtn
-          
+
                 icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />}
                 onPress={() => {
                     if (drawerRef.current) {
@@ -80,20 +80,20 @@ export default function DrawerComponent({icon}) {
                     {/* ************************************** Boxes section End ************************************** */}
 
                     <Div px={10} mt={20}>
-                        <Button 
-                           w="100%" 
-                           h={50}
-                           rounded="lg"
-                           bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} 
-                           fontWeight='bold' 
-                           fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}
-                           onPress={() => setNotificationsModalVisible(true)}
-                           >
+                        <Button
+                            w="100%"
+                            h={50}
+                            rounded="lg"
+                            bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                            fontWeight='bold'
+                            fontFamily={i18n.language === 'en' ? 'poppins-bold' : 'cairo'}
+                            onPress={() => setNotificationsModalVisible(true)}
+                        >
                             <Div flexDir='row'>
-                            <AntDesign name="bells" size={20} color="black" /> 
-                            <Text mx={5} color='white' fontWeight='bold'>{t('notifications')}</Text>
+                                <AntDesign name="bells" size={20} color="black" />
+                                <Text mx={5} color='white' fontWeight='bold'>{t('notifications')}</Text>
                             </Div>
-                           
+
                         </Button>
                         <Div flexDir='row' borderWidth={2} borderColor='white' justifyContent='center' position="absolute" right={30} bg={theme === 'light' ? colors.lightTheme.secondary : colors.darkTheme.primary} w={30} h={30} rounded="circle" top={-18}>
                             <Text color='white' >3</Text>
@@ -108,9 +108,15 @@ export default function DrawerComponent({icon}) {
                     <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} gap={5}>
                         <CustomDrawerItem title={t('home')} icon={<AntDesign name="home" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={() => navigation.navigate('Home')} />
                         <CustomDrawerItem title={t('business')} icon={<MaterialIcons name="business-center" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
-                        <CustomDrawerItem title={t('help')} icon={<Entypo name="help" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
-                        <CustomDrawerItem title={t('inbox')} icon={<AntDesign name="message1" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
-                        <CustomDrawerItem title={t('setting')} icon={<AntDesign name="setting" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={()=>setSettingModalVisible(true)} />
+                        <CustomDrawerItem
+                            onPress={() => navigation.navigate('Help')}
+                            title={t('help')} 
+                            icon={<Entypo name="help" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
+                        <CustomDrawerItem 
+                            onPress={() => navigation.navigate('Inbox')} 
+                            title={t('inbox')} 
+                            icon={<AntDesign name="message1" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
+                        <CustomDrawerItem title={t('setting')} icon={<AntDesign name="setting" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={() => setSettingModalVisible(true)} />
                         <CustomDrawerItem title={i18n.language === "ar" ? 'English' : ' عربي '} icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={toggleLanguage} />
                     </Div>
                     {/* ************************************** Items section End ************************************** */}
@@ -120,7 +126,7 @@ export default function DrawerComponent({icon}) {
 
                     {/* ************************************** How To use section Start ************************************** */}
                     <Div px={10} position='absolute' bottom={20} right={0} left={0}>
-                        <CustomButton bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}  title={t('how-to-use')} w="98%" />
+                        <CustomButton bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} title={t('how-to-use')} w="98%" />
                     </Div>
                     {/* ************************************** How To use section End ************************************** */}
 

@@ -10,6 +10,8 @@ import Account from '../Screens/Account/Account';
 import Login from '../Screens/Auth/Login';
 import Register from '../Screens/Auth/Register';
 import EditInfo from '../Screens/Auth/EditInfo';
+import Help from '../Screens/Help/Help';
+import Inbox from '../Screens/Inbox/Inbox';
 
 
 export default function AppNavigator() {
@@ -29,6 +31,8 @@ export default function AppNavigator() {
             <Stack.Screen name='Login' component={Login} options={{headerShown:false}} />
             <Stack.Screen name='Register' component={Register} options={{headerShown:false}} />
             <Stack.Screen name='EditInfo' component={EditInfo} options={{headerShown:false}} />
+            <Stack.Screen name='Help' component={Help} options={{headerShown:false}} />
+            <Stack.Screen name='Inbox' component={Inbox} options={{headerShown:false}} />
 
 
         </Stack.Navigator>
