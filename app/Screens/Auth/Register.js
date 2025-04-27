@@ -81,20 +81,21 @@ const Register = () => {
                         onChange={text => setEmail(text)}
                         value={email}
                         icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
-                        placeholder="Email"
+                        placeholder={t('email')}
                     />
                     <CustomInput
                         onChange={text => setName(text)}
                         value={name}
                         icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
-                        placeholder="Name"
+                        placeholder={t('name')}
                     />
 
                     <CustomInput
                         onChange={text => setPassword(text)}
                         value={password}
                         secureTextEntry
-                        icon={<AntDesign name="lock1" size={20} color="black" />} placeholder="password" />
+                        placeholder={t('password')}
+                        icon={<AntDesign name="lock1" size={20} color="black" />} />
 
 
 
@@ -115,19 +116,19 @@ const Register = () => {
 
 
 
-                    <Text textAlign='center' my={20}>Or</Text>
+                    <Text textAlign='center' my={20}>{t('or')}</Text>
 
                     <CustomSocialLogin
                         bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
                         image={require('./images/google.png')}
-                        title="Google With Google"
+                        title={t('login-with-google')}
                         onPress={() => navigation.navigate('Register')}
                     />
 
                     <CustomSocialLogin
                         bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
                         image={require('./images/apple1.png')}
-                        title="Google With Apple"
+                        title={t('login-with-apple')}
                         text="white"
                         onPress={() => navigation.navigate('Register')}
                     />

@@ -19,7 +19,7 @@ const CustomHeader = ({ title }) => {
             alignment="left"
             prefix={
                 <Button bg="transparent" onPress={() => navigation.goBack()}>
-                    <Icon name="arrow-left" fontFamily="Feather" fontSize="2xl"  />
+                    <Icon name="arrow-left" color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} fontFamily="Feather" fontSize="2xl"  />
                 </Button>
             }
             suffix={

@@ -43,21 +43,15 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                         </Text>
 
 
-                        {auth && auth.user ? (
-                            <Div flexDir='column' alignItems='center' mb={20}>
-                                <AntDesign name="user" size={24} color="black" />
-                                <Text textAlign='center'>{auth && auth.user && auth.user.user.name}</Text>
-                                <Text textAlign='center'>{auth && auth.user && auth.user.user.email}</Text>
-
-                            </Div>
-                        ) : (<></>)}
+                        
 
 
                         <CustomAccountButton
                             icon={<FontAwesome name="edit" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
                             title={t('update-your-information')}
                             onPress={() => {
-                                navigation.navigate('EditInfo')
+                                auth ? navigation.navigate('EditInfo') : navigation.navigate('Login')
+                                
                                 
                             }}
                             

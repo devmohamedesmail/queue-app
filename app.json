@@ -21,7 +21,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mohamedesmail9225.myq"
+      "package": "com.mohamedesmail9225.myq",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

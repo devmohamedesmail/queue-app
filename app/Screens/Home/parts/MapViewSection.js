@@ -1,25 +1,20 @@
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { Div, Text } from 'react-native-magnus'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import PlaceModal from './PlaceModal';
-import { View } from 'react-native';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-// import { Callout } from 'react-native-maps';
-import Entypo from '@expo/vector-icons/Entypo';
 import colors from '../../../config/colors';
+import * as Location from 'expo-location';
+import CustomIconBtn from '../../../CustomComponents/CustomIconBtn';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const MapViewSection = ({ places }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
   const { theme } = useTheme()
-  const { t, i18n } = useTranslation();
   const [selectedPlace, setSelectedPlace] = useState()
-
-
-
+  const mapRef = useRef(null);
 
 
   const toggleModal = (place) => {
@@ -29,7 +24,37 @@ const MapViewSection = ({ places }) => {
 
   };
 
-
+  const goToMyLocation = async () => {
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+        return;
+      }
+  
+      const location = await Location.getCurrentPositionAsync({});
+      const { latitude, longitude } = location.coords;
+  
+      console.log('User Location:', latitude, longitude); // لنطبع الموقع في الكونسل لنتأكد من دقة الموقع
+  
+      if (mapRef.current) {
+        mapRef.current.animateCamera({
+          center: {
+            latitude,
+            longitude,
+          },
+          zoom: 15,
+          pitch: 0,
+          heading: 0,
+          altitude: 0,
+        });
+      }
+  
+    } catch (error) {
+      console.log('Error getting location:', error);
+    }
+  };
+  
 
 
   return (
@@ -37,6 +62,7 @@ const MapViewSection = ({ places }) => {
 
 
       <MapView
+        ref={mapRef}
         provider="google"
         camera={{
           center: {
@@ -56,7 +82,7 @@ const MapViewSection = ({ places }) => {
         followsUserLocation={true}
         userInterfaceStyle='light'
         zoomControlEnabled={true}
-        showsMyLocationButton={true}
+        showsMyLocationButton={false}
         showsTraffic={true}
         showsBuildings={true}
         showsIndoors={true}
@@ -82,10 +108,15 @@ const MapViewSection = ({ places }) => {
             onPress={() => toggleModal(place)}
             style={{ width: 200, height: 200 }}
           >
-           
+
           </Marker>
         ))}
       </MapView>
+
+
+      <Div position="absolute" bottom={250} right={20}>
+        <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />} onPress={goToMyLocation} />
+      </Div>
 
 
 

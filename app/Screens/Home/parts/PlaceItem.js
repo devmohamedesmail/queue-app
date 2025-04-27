@@ -6,7 +6,7 @@ import colors from '../../../config/colors'
 import { useTranslation } from 'react-i18next';
 
 
-export default function PlaceItem({ onPress, name, address, id }) {
+export default function PlaceItem({ onPress, name, address, id, distance }) {
     const { theme } = useTheme();
     const { t, i18n } = useTranslation();
 
@@ -28,8 +28,8 @@ export default function PlaceItem({ onPress, name, address, id }) {
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     fontSize={11}
                     color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                    mb={5} 
-                    >
+                    mb={5}
+                >
                     {name}
                 </Text>
                 <Text
@@ -39,7 +39,16 @@ export default function PlaceItem({ onPress, name, address, id }) {
                 >{address}</Text>
             </Div>
             <Div>
-                <Text color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} fontSize={16}>2.2 Km</Text>
+                {distance != null ? (
+                    <Text
+                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                        fontSize={16}
+                    >
+                        {distance.toFixed(1)} Km
+                    </Text>
+                ) : (
+                    <Text color="gray400" fontSize={16}> -- </Text>
+                )}
             </Div>
         </Button>
     )

@@ -69,13 +69,14 @@ const Login = () => {
             onChange={text => setEmail(text)}
             value={email}
             icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
-            placeholder="Email"
+            placeholder={t('email')}
           />
           <CustomInput
             onChange={text => setPassword(text)}
             value={password}
             secureTextEntry
-            icon={<AntDesign name="lock1" size={20} color="black" />} placeholder="password" />
+            placeholder={t('password')}
+            icon={<AntDesign name="lock1" size={20} color="black" />} />
 
 
 
@@ -88,7 +89,7 @@ const Login = () => {
             loading ? (<CustomActivityIndicator />) : (
               <CustomButton
                 onPress={() => handle_login(email, password)}
-                title="Login" bg={colors.lightTheme.primary} w="100%" />
+                title={t('login')} bg={colors.lightTheme.primary} w="100%" />
             )
           }
 
@@ -99,19 +100,19 @@ const Login = () => {
 
 
 
-          <Text textAlign='center' my={20}>Or</Text>
+          <Text textAlign='center' my={20}>{t('or')}</Text>
 
           <CustomSocialLogin
             bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
             image={require('./images/google.png')}
-            title="Google With Google"
+            title={t('login-with-google')}
             onPress={() => navigation.navigate('Register')}
           />
 
           <CustomSocialLogin
             bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
             image={require('./images/apple1.png')}
-            title="Google With Apple"
+            title={t('login-with-apple')}
             text="white"
             onPress={() => navigation.navigate('Register')}
           />
@@ -122,14 +123,14 @@ const Login = () => {
 
 
           <Div>
-            <Text textAlign='center' my={20}>Don't have an account ?</Text>
+            <Text textAlign='center' color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} my={20}>{t('no-account')}</Text>
             <Button
               h={50}
               rounded={10}
               fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
               fontWeight='bold'
               onPress={() => navigation.navigate('Register')}
-              bg={theme === 'light' ? colors.lightTheme.secondary : colors.darkTheme.primary} w="100%" mt={10}>Regiter</Button>
+              bg={theme === 'light' ? colors.lightTheme.secondary : colors.darkTheme.primary} w="100%" mt={10}>{t('register')}</Button>
           </Div>
 
 
