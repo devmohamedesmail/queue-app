@@ -22,12 +22,12 @@ const CustomHeader = ({ title }) => {
                     <Icon name="arrow-left" color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} fontFamily="Feather" fontSize="2xl"  />
                 </Button>
             }
-            suffix={
-                <Button bg="transparent">
-                    <Icon name="more-vertical" fontFamily="Feather" />
-                </Button>
+            // suffix={
+            //     <Button bg="transparent">
+            //         <Icon name="more-vertical" fontFamily="Feather" />
+            //     </Button>
             //    <DrawerComponent />
-            }
+            // }
         >
             {title}
         </Header>

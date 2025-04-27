@@ -63,7 +63,7 @@ const MapViewSection = ({ places }) => {
 
       <MapView
         ref={mapRef}
-        provider="google"
+        // provider="google"
         camera={{
           center: {
             latitude: 25.276987,
@@ -114,7 +114,7 @@ const MapViewSection = ({ places }) => {
       </MapView>
 
 
-      <Div position="absolute" bottom={250} right={20}>
+      <Div position="absolute" bottom={200} right={20}>
         <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />} onPress={goToMyLocation} />
       </Div>
 

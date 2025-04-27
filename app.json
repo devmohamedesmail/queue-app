@@ -22,6 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mohamedesmail9225.myq",
+      "versionCode": 1,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"

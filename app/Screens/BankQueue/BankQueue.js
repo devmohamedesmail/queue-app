@@ -191,14 +191,17 @@ export default function BankQueue({ route }) {
 
             {/* Modal Services  */}
             <Modal isVisible={servicesModalVisible}>
-                <Div bg='white' rounded={20} p={10} position='relative' >
+                <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} pb={50} position='relative' >
                     {placeServices !== null && placeServices.length > 0 ? (
                         <Div px={10} py={10} mt={70}>
-                            <Text textAlign='center' fontWeight='bold' fontSize={20} mb={20}>{t('select-your-service')}</Text>
+                            <Text 
+                            
+                            color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                            textAlign='center' fontWeight='bold' fontSize={15} mb={20}>{t('select-your-service')}</Text>
                             {placeServices.map((service) => (
                                 <Button
                                     w="100%"
-                                    h={70}
+                                    h={50}
                                     onPress={() => {
                                         setServiceId(service._id)
                                         get_all_waiting_queues()
@@ -229,7 +232,7 @@ export default function BankQueue({ route }) {
                         h={40}
                         w={40}
                         mt={20}
-                        rounded={10}
+                        rounded='circle'
                         position='absolute'
                         right={10}
                         top={10}
@@ -291,12 +294,12 @@ export default function BankQueue({ route }) {
                             fontSize={15}
                             mb={20}
                             fontFamily='poppins-regular'>
-                            Don't have an account?
-
+                            
+{t('no-account')}
 
                         </Text>
                         <Button p={0} mx={5} bg='transparent' onPress={() => navigation.navigate('Register')} >
-                            <Text color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white} fontWeight='bold'>Register</Text>
+                            <Text color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} fontWeight='bold'>{t('register')}</Text>
                         </Button>
                     </Div>
 
