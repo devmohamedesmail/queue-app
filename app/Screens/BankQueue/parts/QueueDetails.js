@@ -23,8 +23,15 @@ const QueueDetails = ({waitingQueues,loading,book_new_queue}) => {
             fontSize={20} 
             color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
             fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-            >{t('clients-in-queue')}</Text>
-          <Text my={10} fontWeight='bold' fontSize={18} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>{waitingQueues && waitingQueues.length > 0 ? waitingQueues.length : t('no-clients')}</Text>
+            >{t('clients-in-queue')}
+          </Text>
+
+          {waitingQueues && waitingQueues.length > 0 ? 
+           <Text my={10} fontWeight='bold' fontSize={18} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>{waitingQueues.length}</Text>
+          :
+          <Text my={10} fontWeight='bold' fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}  fontSize={13} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>{t('no-clients')}</Text>
+          }
+         
         </Div>
 
 

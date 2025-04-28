@@ -11,6 +11,7 @@ import { InfoProvider } from './app/context/InfoContext';
 import { AuthProvider } from './app/context/AuthContext';
 import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { StatusBar } from 'react-native';
 
 
 
@@ -40,7 +41,7 @@ export default function App() {
     <ThemeProvider>
       <InfoProvider>
        <AuthProvider>
-        
+        <StatusBar hidden={true}  />
           <NavigationContainer>
             <I18nextProvider i18n={i18n} >
               <AppNavigator />

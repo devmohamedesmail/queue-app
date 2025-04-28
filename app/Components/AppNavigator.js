@@ -18,15 +18,12 @@ export default function AppNavigator() {
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator initialRouteName='Home'
-      
-        
-        
         >
             <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
             <Stack.Screen name='BankQueue' component={BankQueue} options={{headerShown:false}} />
             <Stack.Screen name='MyQueue' component={MyQueue} options={{headerShown:false}} />
             <Stack.Screen name='History' component={HistotyLog} options={{headerShown:false}} />
-            <Stack.Screen name='Favourite' component={Favourite} options={{headerShown:false}} />
+            {/* <Stack.Screen name='Favourite' component={Favourite} options={{headerShown:false}} /> */}
             <Stack.Screen name='Account' component={Account} options={{headerShown:false}} />
             <Stack.Screen name='Login' component={Login} options={{headerShown:false}} />
             <Stack.Screen name='Register' component={Register} options={{headerShown:false}} />

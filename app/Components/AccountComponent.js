@@ -12,7 +12,7 @@ import CustomButton from '../CustomComponents/CustomButton';
 import ModalCloseBtn from './ModalCloseBtn';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
-import EditInfoModal from './ModalComponents/EditInfoModal';
+
 
 
 const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
@@ -43,7 +43,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                         </Text>
 
 
-                        
+
 
 
                         <CustomAccountButton
@@ -51,24 +51,38 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                             title={t('update-your-information')}
                             onPress={() => {
                                 auth ? navigation.navigate('EditInfo') : navigation.navigate('Login')
-                                
-                                
                             }}
-                            
-                            />
+
+                        />
 
                         <CustomAccountButton
-                            onPress={() => navigation.navigate('History')}
+
                             icon={<MaterialIcons name="history" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
-                            title={t('history')} />
+                            title={t('history')}
+                            onPress={() => {
+                                auth ? navigation.navigate('History') : navigation.navigate('Login')
+                            }}
+                        />
 
 
                         <CustomAccountButton
                             icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
-                            title={t('favourite')} />
+                            title={t('favourite')}
+                            onPress={() => {
+                                auth ? navigation.navigate('Favourite') : navigation.navigate('Login')
+                            }}
+
+                        />
 
 
-                        <CustomAccountButton icon={<Feather name="help-circle" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />} title="Need Help" />
+                        <CustomAccountButton
+                            icon={<Feather name="help-circle" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                            title={t('need-help')}
+                            onPress={() => {
+                                auth ? navigation.navigate('Help') : navigation.navigate('Login')
+                            }}
+
+                        />
                     </Div>
 
 
@@ -113,7 +127,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
             </Modal>
 
 
-            <EditInfoModal editInfoModalVisible={editInfoModalVisible} setEditInfoModalVisible={setEditInfoModalVisible} />
+
 
 
         </>

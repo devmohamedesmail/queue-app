@@ -138,7 +138,7 @@ export default function BankQueue({ route }) {
 
                 <CustomHeader />
 
-                <Div h="80%"  flexDir='column' justifyContent='space-evenly'>
+                <Div h="80%" flexDir='column' justifyContent='space-evenly'>
                     <PlaceDetails place={place} />
 
 
@@ -194,10 +194,10 @@ export default function BankQueue({ route }) {
                 <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} pb={50} position='relative' >
                     {placeServices !== null && placeServices.length > 0 ? (
                         <Div px={10} py={10} mt={70}>
-                            <Text 
-                            
-                            color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                            textAlign='center' fontWeight='bold' fontSize={15} mb={20}>{t('select-your-service')}</Text>
+                            <Text
+                                fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                                color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                                textAlign='center' fontWeight='bold' fontSize={15} mb={20}>{t('select-your-service')}</Text>
                             {placeServices.map((service) => (
                                 <Button
                                     w="100%"
@@ -294,8 +294,8 @@ export default function BankQueue({ route }) {
                             fontSize={15}
                             mb={20}
                             fontFamily='poppins-regular'>
-                            
-{t('no-account')}
+
+                            {t('no-account')}
 
                         </Text>
                         <Button p={0} mx={5} bg='transparent' onPress={() => navigation.navigate('Register')} >

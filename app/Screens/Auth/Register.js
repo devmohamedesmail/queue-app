@@ -14,6 +14,7 @@ import CustomSocialLogin from '../../CustomComponents/CustomSocialLogin'
 import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
 import { useNavigation } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
+import CustomHeader from '../../CustomComponents/CustomHeader'
 
 const Register = () => {
 
@@ -72,8 +73,8 @@ const Register = () => {
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={10} py={20} h="100%" >
 
 
-                <CloseBtn />
-                <Div mt={100}>
+                <CustomHeader />
+                <Div mt={60}>
 
                     <Text mb={20} textAlign='center' fontWeight='bold' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Register')}</Text>
 
@@ -109,7 +110,7 @@ const Register = () => {
                         :
                         <CustomButton
                             onPress={() => handle_register(name, email, password)}
-                            title="Register" bg={colors.lightTheme.primary} w="100%" />
+                            title={t('register')} bg={colors.lightTheme.primary} w="100%" />
 
                     }
 
@@ -129,21 +130,21 @@ const Register = () => {
                         bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
                         image={require('./images/apple1.png')}
                         title={t('login-with-apple')}
-                        text="white"
+                        
                         onPress={() => navigation.navigate('Register')}
                     />
 
 
 
                     <Div>
-                        <Text textAlign='center' my={20}>I have an account ?</Text>
+                        
                         <Button
                             h={50}
                             rounded={10}
                             fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                             fontWeight='bold'
                             onPress={() => navigation.navigate('Login')}
-                            bg={theme === 'light' ? colors.lightTheme.secondary : colors.darkTheme.primary} w="100%" mt={10}>Login</Button>
+                            bg={theme === 'light' ? colors.lightTheme.secondary : colors.darkTheme.primary} w="100%" mt={10}>{t('login')}</Button>
                     </Div>
 
                 </Div>

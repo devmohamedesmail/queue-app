@@ -26,10 +26,9 @@ export default function HistotyLog() {
   const fetch_user_history = async () => {
       try {
           const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/history/${auth.user.user._id}`)
-
           setHistory(response.data)
       } catch (error) {
-
+              console.log("Error in history log Screen",error)
       }
   }
 

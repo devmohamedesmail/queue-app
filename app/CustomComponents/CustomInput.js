@@ -18,6 +18,7 @@ const CustomInput = ({ placeholder, icon, value, onChange ,secureTextEntry = fal
             p={10}
             // h={60}
             mb={15}
+            fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
             secureTextEntry={secureTextEntry}
             focusBorderColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
             suffix={icon}

@@ -53,6 +53,7 @@
     "name":"Name",
     "phone":"Phone",
     "address":"Address",
-    "confirm-password":"Confirm Password"
+    "confirm-password":"Confirm Password",
+    "need-help":"Need Help"
 
 }

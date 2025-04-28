@@ -1,21 +1,35 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Create the context
 const ThemeContext = createContext();
 
-// Define the ThemeProvider
+
 export const ThemeProvider = ({ children }) => {
-  const systemTheme = useColorScheme(); // Detect system theme (light/dark)
+  const systemTheme = useColorScheme();
   const [theme, setTheme] = useState(systemTheme || 'light');
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+
+  const STORAGE_KEY = 'user-theme';
+  const toggleTheme = async () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    await AsyncStorage.setItem(STORAGE_KEY, newTheme);
+
   };
 
+
+
   useEffect(() => {
-    // When system theme changes, update the theme
-    setTheme(systemTheme);
+    const loadTheme = async () => {
+      const savedTheme = await AsyncStorage.getItem(STORAGE_KEY);
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else {
+        setTheme(systemTheme || 'light'); // fallback
+      }
+    };
+    loadTheme();
   }, [systemTheme]);
 
   return (
@@ -25,5 +39,5 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-// Custom hook to use the theme context
+
 export const useTheme = () => useContext(ThemeContext);

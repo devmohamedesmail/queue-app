@@ -12,7 +12,7 @@ const CustomHeader = ({ title }) => {
     return (
 
         <Header
-            pt={50}
+            pt={25}
             px={15}
             p="lg"
             bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}

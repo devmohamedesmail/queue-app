@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native'
 import CustomSocialLogin from '../../CustomComponents/CustomSocialLogin'
 import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
 import Toast from 'react-native-toast-message'
-
+import CustomHeader from '../../CustomComponents/CustomHeader'
 
 const Login = () => {
   const { theme } = useTheme();
@@ -58,10 +58,10 @@ const Login = () => {
 
   return (
     <SafeAreaView>
-      {/* <StatusBarComponent /> */}
+  
       <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={20}>
-
-        <CloseBtn />
+          <CustomHeader title={t('login')} />
+      
         <Div mt={100} px={10}>
           <Text mb={20} fontWeight='bold' textAlign='center' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Login')}</Text>
 
@@ -113,7 +113,7 @@ const Login = () => {
             bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
             image={require('./images/apple1.png')}
             title={t('login-with-apple')}
-            text="white"
+            
             onPress={() => navigation.navigate('Register')}
           />
 
@@ -123,7 +123,7 @@ const Login = () => {
 
 
           <Div>
-            <Text textAlign='center' color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} my={20}>{t('no-account')}</Text>
+            <Text fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'} textAlign='center' color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} my={20}>{t('no-account')}</Text>
             <Button
               h={50}
               rounded={10}
