@@ -12,6 +12,9 @@ import { AuthProvider } from './app/context/AuthContext';
 import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'react-native';
+import { Provider } from 'react-redux';
+import { persistor, store } from './app/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 
@@ -38,20 +41,24 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <ThemeProvider>
-      <InfoProvider>
-       <AuthProvider>
-        <StatusBar hidden={true}  />
-          <NavigationContainer>
-            <I18nextProvider i18n={i18n} >
-              <AppNavigator />
-              <Toast />
-            </I18nextProvider>
-          </NavigationContainer>
-
-        </AuthProvider>
-      </InfoProvider>
-    </ThemeProvider>
+      <ThemeProvider>
+        <InfoProvider>
+          <AuthProvider>
+            <StatusBar hidden={true} />
+            <NavigationContainer>
+              <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor} >
+                <I18nextProvider i18n={i18n} >
+                  <AppNavigator />
+                  <Toast />
+                </I18nextProvider>
+                </PersistGate>
+                
+              </Provider>
+            </NavigationContainer>
+          </AuthProvider>
+        </InfoProvider>
+      </ThemeProvider>
     </GestureHandlerRootView>
 
   );

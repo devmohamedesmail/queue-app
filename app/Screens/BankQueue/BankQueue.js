@@ -22,7 +22,7 @@ import CustomInput from '../../CustomComponents/CustomInput'
 import CustomButton from '../../CustomComponents/CustomButton'
 import Toast from 'react-native-toast-message'
 import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
-import CustomHeader from '../../CustomComponents/CustomHeader'
+
 
 
 
@@ -136,7 +136,7 @@ export default function BankQueue({ route }) {
 
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} h="100%">
 
-                <CustomHeader />
+                <CloseBtn />
 
                 <Div h="80%" flexDir='column' justifyContent='space-evenly'>
                     <PlaceDetails place={place} />

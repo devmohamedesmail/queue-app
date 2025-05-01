@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import MyQueues from './parts/MyQueues';
-import CustomHeader from '../../CustomComponents/CustomHeader';
+import CloseBtn from '../../Components/CloseBtn'
 
 
 export default function MyQueue({route}) {
@@ -19,9 +19,7 @@ export default function MyQueue({route}) {
 
             <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} h="100%" >
 
-                {/* <CloseBtn /> */}
-                <CustomHeader />
-                
+                <CloseBtn /> 
                 <Text
                     textAlign='center'
                     fontWeight='bold'
@@ -31,14 +29,7 @@ export default function MyQueue({route}) {
                     color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('my-queues')} 
                 </Text>
 
-                
-
-
-
               <MyQueues />
-
-
-
             </Div>
         </SafeAreaView>
     )

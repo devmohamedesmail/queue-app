@@ -54,6 +54,7 @@
     "phone":"Phone",
     "address":"Address",
     "confirm-password":"Confirm Password",
-    "need-help":"Need Help"
+    "need-help":"Need Help",
+    "added-to-favourite":"Added to Favourite"
 
 }

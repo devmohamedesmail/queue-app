@@ -25,10 +25,9 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     const fetch_user_history = async () => {
         try {
             const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/history/${auth.user.user._id}`)
-
             setHistory(response.data)
         } catch (error) {
-
+            console.log("Error in history log Screen", error)
         }
     }
 
@@ -38,13 +37,10 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     }, [])
 
 
-
     return (
         <Modal isVisible={historyModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
 
             <ModalCloseBtn onPress={() => setHistoryModalVisible(false)} />
-
-
             <Div h="100%" position='relative'>
 
                 <Div mt={80}>

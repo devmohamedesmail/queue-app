@@ -3,14 +3,20 @@ import { Modal, Text, Div } from 'react-native-magnus';
 import colors from '../config/colors';
 import FavouriteItem from '../Screens/Favourite/FavouriteItem';
 import { FlatList } from 'react-native';
-import places from '../config/places';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import ModalCloseBtn from './ModalCloseBtn';
+import { useSelector } from 'react-redux';
 
 const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible }) => {
     const { t,i18n } = useTranslation();
     const { theme } = useTheme();
+    const favourites = useSelector(state => state.wishlist.items);
+
+
+
+
+
     return (
         <Modal isVisible={favouriteModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
             
@@ -28,7 +34,7 @@ const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible })
                       >
                         {t('favourite')}</Text>
                     <FlatList
-                        data={places}
+                        data={favourites}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => <FavouriteItem item={item} />}
                     />

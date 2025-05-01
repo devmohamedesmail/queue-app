@@ -1,8 +1,8 @@
-import React,{useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { Div, Text } from 'react-native-magnus'
 import HistoryItem from './HistoryItem'
-import { SafeAreaView ,ScrollView} from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
 import colors from '../../config/colors'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
@@ -24,17 +24,17 @@ export default function HistotyLog() {
 
 
   const fetch_user_history = async () => {
-      try {
-          const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/history/${auth.user.user._id}`)
-          setHistory(response.data)
-      } catch (error) {
-              console.log("Error in history log Screen",error)
-      }
+    try {
+      const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/history/${auth.user.user._id}`)
+      setHistory(response.data)
+    } catch (error) {
+      console.log("Error in history log Screen", error)
+    }
   }
 
 
   useEffect(() => {
-      fetch_user_history()
+    fetch_user_history()
   }, [])
 
 
