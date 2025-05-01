@@ -3,7 +3,7 @@ import { Div, Text, Button } from 'react-native-magnus'
 import colors from '../../config/colors'
 import { SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import CloseBtn from '../../Components/CloseBtn'
+import CloseBtn from '../../components/CloseBtn'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import axios from 'axios'
@@ -13,15 +13,15 @@ import Modal from 'react-native-modal';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
-import CustomLoading from '../../CustomComponents/CustomLoading'
+import CustomLoading from '../../custom/CustomLoading'
 
 // functions
 import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'
 import { AuthContext } from '../../context/AuthContext'
-import CustomInput from '../../CustomComponents/CustomInput'
-import CustomButton from '../../CustomComponents/CustomButton'
+import CustomInput from '../../custom/CustomInput'
+import CustomButton from '../../custom/CustomButton'
 import Toast from 'react-native-toast-message'
-import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
+import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 
 
 
@@ -176,12 +176,7 @@ export default function BankQueue({ route }) {
 
 
                 </Div>
-
-                {/* Bank name And Address Start */}
-
-                {/* Bank name And Address Start */}
-
-
+   
 
             </Div>
 
@@ -248,7 +243,7 @@ export default function BankQueue({ route }) {
 
             {/* Login Modal  */}
             <Modal isVisible={LoginModalVisible}>
-                <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} py={30} position='relative' >
+                <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} py={15} position='relative' >
 
                     <Div flexDir='row' justifyContent='flex-end' alignItems='center'  >
                         <Button bg='transparent' onPress={() => setLoginModalVisible(false)}  >
@@ -257,8 +252,9 @@ export default function BankQueue({ route }) {
                     </Div>
 
                     <Text
+                        
                         color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                        textAlign='center' fontWeight='bold' fontSize={15} mb={20} fontFamily='poppins-regular'>Login First To Can Book Queue</Text>
+                        textAlign='center' fontWeight='bold' fontSize={15} mb={20} fontFamily='poppins-regular'>{t('login')}</Text>
 
                     <CustomInput
                         onChange={text => setEmail(text)}

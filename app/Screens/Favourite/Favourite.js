@@ -7,7 +7,7 @@ import places from '../../config/places'
 
 
 
-import CloseBtn from '../../Components/CloseBtn'
+import CloseBtn from '../../components/CloseBtn'
 
 export default function Favourite() {
   return (

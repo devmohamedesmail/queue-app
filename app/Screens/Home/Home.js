@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Div, Text, Skeleton,Image } from 'react-native-magnus'
-import SearchComponent from '../../Components/SearchComponent'
-import DrawerComponent from '../../Components/DrawerComponent';
+import SearchComponent from '../../components/SearchComponent'
+import DrawerComponent from '../../components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
 import MapViewSection from './parts/MapViewSection';
 import { SafeAreaView } from 'react-native';

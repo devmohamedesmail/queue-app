@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Header, Button, Icon, Text, Drawer } from 'react-native-magnus'
-import DrawerComponent from '../Components/DrawerComponent';
+import DrawerComponent from '../components/DrawerComponent';
 import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 

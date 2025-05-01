@@ -1,7 +1,7 @@
 import 'react-native-reanimated';
 import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import AppNavigator from './app/Components/AppNavigator';
+import AppNavigator from './app/components/AppNavigator';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './app/Translation/i18n';
 import { ThemeProvider } from './app/context/ThemeContext';

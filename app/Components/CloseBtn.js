@@ -7,14 +7,14 @@ import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 
 const CloseBtn = () => {
-    const navigation = useNavigation()
-    const {theme}=useTheme()
+  const navigation = useNavigation()
+  const { theme } = useTheme()
 
   return (
-    <Div flexDir='row' justifyContent='flex-end' px={20} mt={50} mb={10}>
-     <Button onPress={()=>navigation.navigate("Home")} bg='transparent'>
+    <Div  flexDir='row' justifyContent='flex-end' px={20} mt={50} mb={10}>
+      <Button onPress={() => navigation.navigate("Home")} bg='transparent'>
         <AntDesign name="close" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
-        </Button>
+      </Button>
     </Div>
   )
 }

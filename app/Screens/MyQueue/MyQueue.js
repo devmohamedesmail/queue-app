@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import MyQueues from './parts/MyQueues';
-import CloseBtn from '../../Components/CloseBtn'
+import CloseBtn from '../../components/CloseBtn'
 
 
 export default function MyQueue({route}) {

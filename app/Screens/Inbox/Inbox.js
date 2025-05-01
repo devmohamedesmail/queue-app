@@ -2,11 +2,11 @@ import { SafeAreaView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { Div, Text } from 'react-native-magnus'
 import { useTheme } from '../../context/ThemeContext';
-import CustomHeader from '../../CustomComponents/CustomHeader';
+import CustomHeader from '../../custom/CustomHeader';
 import colors from '../../config/colors';
-import CustomInput from '../../CustomComponents/CustomInput';
+import CustomInput from '../../custom/CustomInput';
 import { useTranslation } from 'react-i18next';
-import CustomButton from '../../CustomComponents/CustomButton';
+import CustomButton from '../../custom/CustomButton';
 import InboxItem from './InboxItem';
 import axios from 'axios';
 import { InfoContext } from '../../context/InfoContext';

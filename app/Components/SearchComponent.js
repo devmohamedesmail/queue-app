@@ -4,7 +4,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
-import CustomIconBtn from '../CustomComponents/CustomIconBtn';
+import CustomIconBtn from '../custom/CustomIconBtn';
 import { useTranslation } from 'react-i18next';
 
 

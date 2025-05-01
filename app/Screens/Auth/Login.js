@@ -1,20 +1,20 @@
 import { SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { Button, Div, Text } from 'react-native-magnus'
-import CustomInput from '../../CustomComponents/CustomInput'
+import CustomInput from '../../custom/CustomInput'
 import colors from '../../config/colors'
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomButton from '../../CustomComponents/CustomButton'
+import CustomButton from '../../custom/CustomButton'
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { AuthContext } from '../../context/AuthContext'
-import CloseBtn from '../../Components/CloseBtn'
+import CloseBtn from '../../components/CloseBtn'
 import { useNavigation } from '@react-navigation/native'
-import CustomSocialLogin from '../../CustomComponents/CustomSocialLogin'
-import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
+import CustomSocialLogin from '../../custom/CustomSocialLogin'
+import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import Toast from 'react-native-toast-message'
-import CustomHeader from '../../CustomComponents/CustomHeader'
+import CustomHeader from '../../custom/CustomHeader'
 
 const Login = () => {
   const { theme } = useTheme();
@@ -60,7 +60,9 @@ const Login = () => {
     <SafeAreaView>
   
       <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={20}>
-          <CustomHeader title={t('login')} />
+          
+
+          <CloseBtn />
       
         <Div mt={100} px={10}>
           <Text mb={20} fontWeight='bold' textAlign='center' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Login')}</Text>

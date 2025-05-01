@@ -1,20 +1,20 @@
 import { SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { Button, Div, Text } from 'react-native-magnus'
-import CustomInput from '../../CustomComponents/CustomInput'
+import CustomInput from '../../custom/CustomInput'
 import colors from '../../config/colors'
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomButton from '../../CustomComponents/CustomButton'
+import CustomButton from '../../custom/CustomButton'
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { AuthContext } from '../../context/AuthContext'
-import CloseBtn from '../../Components/CloseBtn'
-import CustomSocialLogin from '../../CustomComponents/CustomSocialLogin'
-import CustomActivityIndicator from '../../CustomComponents/CustomActivityIndicator'
+import CloseBtn from '../../components/CloseBtn'
+import CustomSocialLogin from '../../custom/CustomSocialLogin'
+import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import { useNavigation } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
-import CustomHeader from '../../CustomComponents/CustomHeader'
+
 
 const Register = () => {
 
@@ -72,8 +72,9 @@ const Register = () => {
             {/* <StatusBarComponent /> */}
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={10} py={20} h="100%" >
 
+                   <CloseBtn />
 
-                <CustomHeader />
+            
                 <Div mt={60}>
 
                     <Text mb={20} textAlign='center' fontWeight='bold' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Register')}</Text>

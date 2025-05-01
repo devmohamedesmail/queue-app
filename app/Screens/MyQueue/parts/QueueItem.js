@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react'
 import { Button, Div, Text } from 'react-native-magnus'
 import Modal from 'react-native-modal';
 import Slider from '@react-native-community/slider';
-import CustomButton from '../../../CustomComponents/CustomButton';
+import CustomButton from '../../../custom/CustomButton';
 
 import { useTranslation } from 'react-i18next';
 import colors from '../../../config/colors';
 import { useTheme } from '../../../context/ThemeContext';
 import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
-import CustomActivityIndicator from '../../../CustomComponents/CustomActivityIndicator';
+import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
 
 const QueueItem = ({ queue ,fetch_queues_for_user }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);

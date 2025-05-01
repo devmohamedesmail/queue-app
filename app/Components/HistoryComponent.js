@@ -6,7 +6,7 @@ import ModalCloseBtn from './ModalCloseBtn';
 import { Modal, Div, Text } from 'react-native-magnus';
 import colors from '../config/colors';
 import { ScrollView } from 'react-native';
-import HistoryItem from '../Screens/HistoryLog/HistoryItem';
+import HistoryItem from '../screens/HistoryLog/HistoryItem';
 import axios from 'axios';
 import { InfoContext } from '../context/InfoContext';
 import { AuthContext } from '../context/AuthContext';

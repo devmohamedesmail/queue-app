@@ -3,12 +3,12 @@ import Feather from '@expo/vector-icons/Feather';
 import React, { useContext, useState } from 'react'
 import { Modal, Button, Div, Text } from 'react-native-magnus';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomAccountButton from '../CustomComponents/CustomAccountButton';
+import CustomAccountButton from '../custom/CustomAccountButton';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import colors from '../config/colors';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
-import CustomButton from '../CustomComponents/CustomButton';
+import CustomButton from '../custom/CustomButton';
 import ModalCloseBtn from './ModalCloseBtn';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';

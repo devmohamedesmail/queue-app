@@ -4,7 +4,7 @@ import Modal from "react-native-modal";
 import { Div, Text, Button } from 'react-native-magnus';
 import { useTheme } from '../../../context/ThemeContext';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomButton from '../../../CustomComponents/CustomButton';
+import CustomButton from '../../../custom/CustomButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 

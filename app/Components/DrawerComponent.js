@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Drawer, Button, Div, Text } from 'react-native-magnus'
 import Octicons from '@expo/vector-icons/Octicons';
-import CustomDrawerBoxIcon from '../CustomComponents/CustomDrawerBoxIcon';
+import CustomDrawerBoxIcon from '../custom/CustomDrawerBoxIcon';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomDrawerItem from '../CustomComponents/CustomDrawerItem';
+import CustomDrawerItem from '../custom/CustomDrawerItem';
 import colors from '../config/colors';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -14,11 +14,11 @@ import FavouriteComponent from './FavouriteComponent';
 import { useTranslation } from 'react-i18next';
 import { I18nManager } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
-import CustomIconBtn from '../CustomComponents/CustomIconBtn';
+import CustomIconBtn from '../custom/CustomIconBtn';
 import HistoryComponent from './HistoryComponent';
 import MyQueueComponent from './MyQueueComponent';
 import SettingComponent from './SettingComponent';
-import CustomButton from '../CustomComponents/CustomButton';
+import CustomButton from '../custom/CustomButton';
 import NotificationComponent from './NotificationComponent';
 
 

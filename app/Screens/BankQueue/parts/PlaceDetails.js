@@ -12,7 +12,7 @@ export default function PlaceDetails({place}) {
 
 
     return (
-        <Div flexDir='column' justifyContent='center' alignItems='center' mt={70} px={10}>
+        <Div flexDir='column' justifyContent='center' alignItems='center' mt={10} px={10}>
 
 
             <Text
@@ -25,8 +25,6 @@ export default function PlaceDetails({place}) {
                 {i18n.language === "ar" ? place.nameAr : place.nameEn}
             </Text>
 
-
-
             <Text
                 fontSize={11}
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
@@ -35,9 +33,6 @@ export default function PlaceDetails({place}) {
                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}>
                 {i18n.language === "ar" ? place.addressAr : place.addressEn}
             </Text>
-
-
-
         </Div>
     )
 }

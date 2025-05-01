@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import PlaceModal from './PlaceModal';
 import colors from '../../../config/colors';
 import * as Location from 'expo-location';
-import CustomIconBtn from '../../../CustomComponents/CustomIconBtn';
+import CustomIconBtn from '../../../custom/CustomIconBtn';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const MapViewSection = ({ places }) => {

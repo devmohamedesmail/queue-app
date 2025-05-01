@@ -2,11 +2,11 @@ import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { Div, Text } from 'react-native-magnus'
 
-import BackBtn from '../../Components/BackBtn'
-import NotificationComponent from '../../Components/NotificationComponent'
-import DrawerComponent from '../../Components/DrawerComponent'
+import BackBtn from '../../components/BackBtn'
+import NotificationComponent from '../../components/NotificationComponent'
+import DrawerComponent from '../../components/DrawerComponent'
 import colors from '../../config/colors'
-import CustomAccountButton from '../../CustomComponents/CustomAccountButton'
+import CustomAccountButton from '../../custom/CustomAccountButton'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';

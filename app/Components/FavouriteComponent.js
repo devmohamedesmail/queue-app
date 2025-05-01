@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Text, Div } from 'react-native-magnus';
 import colors from '../config/colors';
-import FavouriteItem from '../Screens/Favourite/FavouriteItem';
+import FavouriteItem from '../screens/Favourite/FavouriteItem';
 import { FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
