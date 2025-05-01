@@ -6,7 +6,7 @@ import colors from '../../../config/colors'
 import { useTranslation } from 'react-i18next';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-export default function PlaceItem({ onPress, name, address, id, add_to_favorites }) {
+export default function PlaceItem({ onPress, name, address, id, add_to_favorites, distance }) {
     const { theme } = useTheme();
     const { t, i18n } = useTranslation();
 
@@ -39,16 +39,18 @@ export default function PlaceItem({ onPress, name, address, id, add_to_favorites
                 >{address}</Text>
             </Div>
             <Div flexDir='column' justifyContent='center' alignItems='center'>
-                <Text
-                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                    fontSize={10}
-                >
-                    2.2 Km
-                </Text>
+                {distance && (
+                    <Text
+                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                        fontSize={10}
+                    >
+                        {distance} Km
+                    </Text>
+                )}
 
-              <Button bg='transparent' onPress={add_to_favorites}>
-                 <AntDesign name="hearto" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
-              </Button>
+                <Button bg='transparent' onPress={add_to_favorites}>
+                    <AntDesign name="hearto" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+                </Button>
 
             </Div>
         </Button>

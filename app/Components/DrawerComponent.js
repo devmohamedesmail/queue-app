@@ -64,7 +64,7 @@ export default function DrawerComponent({ icon }) {
                 }}
             />
 
-            <Drawer ref={drawerRef} direction="right" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} animationTime={400} drawerPercentage={85} >
+            <Drawer  ref={drawerRef} direction="right" bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} animationTime={400} drawerPercentage={85} >
                 <Div position='relative' h="100%">
 
 

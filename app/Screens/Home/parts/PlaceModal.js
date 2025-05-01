@@ -41,7 +41,7 @@ export default function PlaceModal({ isModalVisible, toggleModal, selectedPlace 
 
                 <Div flexDir='row' px={20} my={20} justifyContent='space-evenly'>
                     <CustomButton title={t('close')} bg="red600" w="45%" onPress={() => toggleModal()} />
-                    <CustomButton title={t('ok')} bg={colors.lightTheme.primary} w="45%" onPress={() => navigation.navigate("BankQueue", { place: selectedPlace })} />
+                    <CustomButton title={t('ok')}  w="45%" onPress={() => navigation.navigate("BankQueue", { place: selectedPlace })} />
                 </Div>
 
 

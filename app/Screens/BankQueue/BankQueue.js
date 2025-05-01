@@ -75,6 +75,11 @@ export default function BankQueue({ route }) {
             }
             setLoading(true)
 
+
+            
+
+
+
             let url = `${info.appUrl}/api/v1/queues/book/new/queue/${auth.user.user._id}/${place._id}`;
             if (serviceId) {
                 url += `/${serviceId}`;
@@ -176,7 +181,7 @@ export default function BankQueue({ route }) {
 
 
                 </Div>
-   
+
 
             </Div>
 
@@ -252,7 +257,7 @@ export default function BankQueue({ route }) {
                     </Div>
 
                     <Text
-                        
+
                         color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
                         textAlign='center' fontWeight='bold' fontSize={15} mb={20} fontFamily='poppins-regular'>{t('login')}</Text>
 

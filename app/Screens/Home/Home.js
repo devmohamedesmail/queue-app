@@ -21,11 +21,9 @@ export default function Home() {
     try {
       const response = await fetch(`https://queue-app-express-js.onrender.com/api/v1/places`);
       const data = await response.json();
-
       setPlaces(data.data);
-
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching places", error);
     }
   }
 
@@ -40,7 +38,7 @@ export default function Home() {
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Div style={{ flex: 1 }}>
 
       {places && places.length > 0 ? (
         <Div style={{ flex: 1 }} >
@@ -77,7 +75,7 @@ export default function Home() {
           </Div>
         </Div>
       )}
-    </SafeAreaView>
+    </Div>
 
 
   )

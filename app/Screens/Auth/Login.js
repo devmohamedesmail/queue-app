@@ -32,6 +32,19 @@ const Login = () => {
 
   const handle_login = async (email, password) => {
     try {
+
+      if(!email || !password) {
+        Toast.show({
+          type: 'error',
+          text1: 'Login Failed',
+          text2: 'Please check your email and password',
+          visibilityTime: 3000,
+          position: 'top',
+          autoHide: true,
+        })
+        return;
+      }
+       
       setLoading(true)
       await login(email, password)
       setLoading(false)

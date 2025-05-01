@@ -28,6 +28,7 @@
     "expo-maps": "^0.7.3",
     "expo-splash-screen": "~0.29.24",
     "expo-status-bar": "~2.0.1",
+    "geolib": "^3.3.4",
     "i18next": "^24.2.2",
     "i18next-http-backend": "^3.0.2",
     "install": "^0.13.0",
