@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
 
 // Create InfoContext using the Context API
 const AuthContext = createContext();
@@ -8,7 +10,7 @@ const AuthContext = createContext();
 // InfoContext provider component
 const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(null); 
- 
+    const {t}=useTranslation()
 
      // Load auth from storage on app start
      useEffect(() => {
@@ -71,6 +73,12 @@ const AuthProvider = ({ children }) => {
         try {
             setAuth(null);
             await AsyncStorage.removeItem('user');
+            Toast.show({
+                type: 'success',
+                text1: t('logout-success'),
+                visibilityTime: 3000,
+                position: 'top',
+            })
             return { success: true };
         } catch (error) {
             console.error('Logout error:', error.message);

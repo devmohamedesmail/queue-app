@@ -4,10 +4,6 @@ import ModalCloseBtn from './ModalCloseBtn'
 import { useTheme } from '../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import colors from '../config/colors'
-import Swiper from 'react-native-swiper'
-
-import { StyleSheet, View } from 'react-native'
-import QueueItem from '../screens/MyQueue/parts/QueueItem'
 import MyQueues from '../screens/MyQueue/parts/MyQueues'
 
 const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {

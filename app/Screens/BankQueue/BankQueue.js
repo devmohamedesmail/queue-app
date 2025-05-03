@@ -22,6 +22,7 @@ import CustomInput from '../../custom/CustomInput'
 import CustomButton from '../../custom/CustomButton'
 import Toast from 'react-native-toast-message'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
+import Book_btn from '../../components/Book_btn'
 
 
 
@@ -67,10 +68,9 @@ export default function BankQueue({ route }) {
     // *********************************  book_new_queue Start *******************************************
     const book_new_queue = async () => {
         try {
-
-
             if (auth === null) {
-                setLoginModalVisible(true)
+                // setLoginModalVisible(true)
+                navigation.navigate("Login")
                 return
             }
             setLoading(true)
@@ -89,7 +89,15 @@ export default function BankQueue({ route }) {
             const queue = response.data
             navigation.navigate("MyQueue", { queue: queue, place: place })
         } catch (error) {
-            console.log("Error During Book New Queue", error)
+            Toast.show({
+                type: 'error',
+                text1: t('error'),
+                text2: t('try-again'),
+                visibilityTime: 3000,
+                position: 'top',
+                autoHide: true,
+                
+            })
             setLoading(false)
         } finally {
             setLoading(false)
@@ -160,21 +168,11 @@ export default function BankQueue({ route }) {
 
                         {
                             loading ? (
-                                <CustomLoading loading={loading} />
+                                
+                                <CustomActivityIndicator />
                             ) : (
-                                <Button
-                                    onPress={() => book_new_queue()}
-                                    bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                                    h={200}
-                                    w={200}
-                                    fontWeight='bold'
-                                    fontSize={30}
-                                    rounded="circle"
-                                    shadow="md"
-                                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                    shadowColor={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.white}>
-                                    {t('book')}
-                                </Button>
+                               
+                                <Book_btn onPress={() => book_new_queue()} />
                             )
                         }
                     </Div>

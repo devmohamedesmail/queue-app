@@ -27,7 +27,7 @@ const MyQueues = () => {
   
 
     // ********************************* Fetch User Queues Start **********************************
-    const fetch_queues_for_user = async () => {
+    const fetch_today_queues_for_user = async () => {
         try {
             const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/${auth.user.user._id}`)
             const data = response.data;
@@ -45,7 +45,7 @@ const MyQueues = () => {
 
 
     useEffect(() => {
-        fetch_queues_for_user()
+        fetch_today_queues_for_user()
     }, [auth,queues])
 
    
@@ -58,7 +58,7 @@ const MyQueues = () => {
 
             {queues && queues.length > 0 ? (
                 queues.map((queue, index) => (
-                    <QueueItem key={index} queue={queue} fetch_queues_for_user={fetch_queues_for_user} />
+                    <QueueItem key={index} queue={queue} fetch_today_queues_for_user={fetch_today_queues_for_user} />
                 ))
             ) : (
                 <Div flexDir='column' justifyContent='center' alignItems='center' h="50%">

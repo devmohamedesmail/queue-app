@@ -19,25 +19,51 @@ import Toast from 'react-native-toast-message'
 const Register = () => {
 
     const { theme } = useTheme();
-    const { t,i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [name, setName] = useState('');
+    const [nameError, setNameError] = useState(null);
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState(null);
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [passwordError, setPasswordError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { auth, setAuth, login, register, logout } = useContext(AuthContext);
     const navigation = useNavigation();
 
 
     const handle_register = async (name, email, password) => {
+        if (name === '') {
+            setNameError(t('name-required'))
+            return;
+        }
+        if (email === '') {
+            setEmailError(t('email-required'))
+            return;
+        }
+        if (password === '') {
+            setPasswordError(t('password-required'))
+            return;
+        }
+
+        Toast.show({
+            type: 'error',
+            text1: t('error'),
+            text2: t('try-again'),
+            visibilityTime: 3000,
+            position: 'top',
+            autoHide: true,
+        })
+
+
+
         try {
             setLoading(true)
             await register(name, email, password)
             setLoading(false)
             Toast.show({
                 type: 'success',
-                text1: 'Registration successful',
-                text2: 'Welcome to our app!',
+                text1: t('register-success'),
+                text2: t('welcome-to-app'),
                 position: 'top',
                 visibilityTime: 3000,
                 autoHide: true,
@@ -72,37 +98,38 @@ const Register = () => {
             {/* <StatusBarComponent /> */}
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={10} py={20} h="100%" >
 
-                   <CloseBtn />
+                <CloseBtn />
 
-            
+
                 <Div mt={60}>
 
                     <Text mb={20} textAlign='center' fontWeight='bold' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Register')}</Text>
+
+                    <CustomInput
+                        onChange={text => setName(text)}
+                        value={name}
+                        icon={<AntDesign name="user" size={24} color="black" />}
+                        placeholder={t('name')}
+                        error={nameError}
+                    />
 
                     <CustomInput
                         onChange={text => setEmail(text)}
                         value={email}
                         icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
                         placeholder={t('email')}
+                        error={emailError}
                     />
-                    <CustomInput
-                        onChange={text => setName(text)}
-                        value={name}
-                        icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
-                        placeholder={t('name')}
-                    />
-
+                    
                     <CustomInput
                         onChange={text => setPassword(text)}
                         value={password}
                         secureTextEntry
                         placeholder={t('password')}
-                        icon={<AntDesign name="lock1" size={20} color="black" />} />
-
-
-
-
-
+                        icon={<AntDesign name="lock1" size={20} color="black" />} 
+                        error={passwordError}
+                        
+                        />
 
 
 
@@ -131,14 +158,14 @@ const Register = () => {
                         bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
                         image={require('./images/apple1.png')}
                         title={t('login-with-apple')}
-                        
+
                         onPress={() => navigation.navigate('Register')}
                     />
 
 
 
                     <Div>
-                        
+
                         <Button
                             h={50}
                             rounded={10}

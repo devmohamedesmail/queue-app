@@ -10,8 +10,9 @@ import { useTheme } from '../../../context/ThemeContext';
 import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
 import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
+import Toast from 'react-native-toast-message';
 
-const QueueItem = ({ queue ,fetch_queues_for_user }) => {
+const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
     const [existModalVisible, setExistModalVisible] = useState(false);
     const { theme } = useTheme();
@@ -44,22 +45,35 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
 
     const cancel_queue = async (queueId) => {
         try {
-           console.log(queueId)
+
             setLoading(true)
             const response = await axios.get(`${info.appUrl}/api/v1/queues/cancel/queue/${queueId}`)
             const data = response.status
-            if (data === "sucess") {
+            if (data === "sucess" || data === 200) {
                 setExistModalVisible(false)
+                Toast.show({
+                    type: 'success',
+                    text1: t('queue-cancel-success'),
+                    visibilityTime: 3000,
+                    position: 'top',
+                })
                 setQueueId(null)
                 setLoading(false)
-                fetch_queues_for_user()
-                console.log("Queue Cancelled Successfully")
+                fetch_today_queues_for_user()
+                
+
             }
         } catch (error) {
-            console.log(error)
+            Toast.show({
+                type: 'error',
+                text1: t('queue-cancel-error'),
+                visibilityTime: 3000,
+                position: 'top',
+            })
             setLoading(false)
             setExistModalVisible(false)
             setQueueId(null)
+
             console.log(error)
         } finally {
             setLoading(false)
@@ -70,6 +84,35 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
 
     // ****************************** Cancel queue End function *************************************
 
+
+    // move queue function 
+    const move_queue = async (queueId) => {
+        try {
+
+            setLoading(true)
+            const response = await axios.get(`${info.appUrl}/api/v1/queues/move/queue/${queueId}`)
+            const data = response.status
+            if (data === "sucess" || data === 200) {
+                setQueueModalVisible(false)
+                Toast.show({
+                    type: 'success',
+                    text1: t('queue-move-success'),
+                    visibilityTime: 3000,
+                    position: 'top',
+                })
+            }
+        } catch (error) {
+            Toast.show({
+                type: 'error',
+                text1: t('queue-move-error'),
+                visibilityTime: 3000,
+                position: 'top',
+            })
+            setLoading(false)
+        } finally {
+            setLoading(false)
+        }
+    }
 
 
     return (
@@ -108,11 +151,11 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
                         mb={10}
                     >{t('head-of-queue')}
                     </Text>
-                    <Text 
-                    fontWeight='bold' 
-                    fontSize={14} 
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >    
-                        {queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')}   
+                    <Text
+                        fontWeight='bold'
+                        fontSize={14}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >
+                        {queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')}
                     </Text>
                 </Div>
 
@@ -163,44 +206,26 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
             {/* Action Buttons */}
             <Div flexDir='column' justifyContent='center' alignItems='center' w="100%" my={5}>
 
-                <Button
-                    onPress={queueToggleModal}
-                    w="90%"
-                    alignSelf='center'
-                    my={10}
-                    h={60}
-                    bg={colors.lightTheme.primary}
-                    shadow="md"
-                    color="white"
-                    fontWeight='bold'
-                    fontSize={20}
-                    rounded={15}
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                >
-                    {t('moveQueue')}
-                </Button>
-
-
-
-                <Button
-                    onPress={() => {
-                        exitToggleModal(queue.queue._id)
+                <Div my={10} w={"100%"}>
+                    <CustomButton title={t('moveQueue')} onPress={() => {
+                        queueToggleModal(queue.queue._id)
                         setQueueId(queue.queue._id)
-                    }}
-                    w="90%"
-                    alignSelf='center'
-                    my={7}
-                    h={60}
-                    bg="red600"
-                    shadow="md"
-                    color="white"
-                    fontWeight='bold'
-                    fontSize={20}
-                    rounded={15}
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                >
-                    {t('exitQueue')}
-                </Button>
+                    }} w="90%" />
+                </Div>
+
+
+
+                <Div my={10} w={"100%"}>
+                    <CustomButton
+                        title={t('exitQueue')}
+                        onPress={() => {
+                            exitToggleModal(queue.queue._id)
+                            setQueueId(queue.queue._id)
+                        }}
+                        bg="red600"
+                        w="90%" />
+                </Div>
+
             </Div>
 
 
@@ -211,29 +236,29 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
             {/* queue choose modal start */}
             <Modal isVisible={queueModalVisible}>
                 <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
+
+
                     <Text
                         textAlign='center'
-                        fontWeight='bold'
-                        fontSize={20}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
-                        mb={30}>
-                        Select Your New Turn  ?
-                    </Text>
-                    <Slider
-                        style={{ width: '100%', height: 40 }}
-                        minimumValue={0}
-                        maximumValue={300}
-                        minimumTrackTintColor={colors.primary}
-                        maximumTrackTintColor="#000000"
-                        tapToSeek={true}
-                        onValueChange={(e) => console.log(e)}
-                        value={20}
-                    />
-                    <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                        <CustomButton onPress={queueToggleModal} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
-                        <CustomButton onPress={queueToggleModal} title={t('close')} bg="red600" w="48%" />
 
-                    </Div>
+                        mb={30}
+                        fontSize={15}
+                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
+                    >
+                        {t('move-alert')}
+
+                    </Text>
+
+
+
+
+
+
+                    {loading ? <CustomActivityIndicator /> :
+                        <Div flexDir='row' alignItems='center' justifyContent='space-between'>
+                            <CustomButton onPress={() => move_queue(queueId)} title={t('ok')} w="48%" />
+                            <CustomButton onPress={queueToggleModal} title={t('close')} bg="red600" w="48%" />
+                        </Div>}
 
                 </Div>
             </Modal>
@@ -251,9 +276,9 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
                 <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
                     <Text
                         textAlign='center'
-                        fontWeight='bold'
+
                         mb={30}
-                        fontSize={20}
+                        fontSize={15}
                         color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
                     >
                         {t('exist-alert')}
@@ -261,13 +286,14 @@ const QueueItem = ({ queue ,fetch_queues_for_user }) => {
                     </Text>
 
                     <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                        {loading ?
-                        <CustomActivityIndicator />
-                        : 
-                        <CustomButton onPress={() => cancel_queue(queueId)} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+
+                        {loading ? <CustomActivityIndicator /> :
+                            <>
+                                <CustomButton onPress={() => cancel_queue(queueId)} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                                <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" /></>
+
+
                         }
-                        
-                        <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" />
 
                     </Div>
 

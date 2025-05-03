@@ -4,7 +4,6 @@ import { persistStore,persistReducer,FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTE
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
 const persistConfig = {
   key: 'wishlist',
   storage: AsyncStorage,

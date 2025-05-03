@@ -12,7 +12,6 @@ import { InfoContext } from '../../context/InfoContext';
 
 
 
-
 export default function Home() {
   const [places, setPlaces] = useState([]);
   const { info } = useContext(InfoContext)

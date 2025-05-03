@@ -20,8 +20,9 @@ const Login = () => {
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [passwordError, setPasswordError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { auth, setAuth, login, register, logout } = useContext(AuthContext);
   const navigation = useNavigation();
@@ -31,33 +32,46 @@ const Login = () => {
 
 
   const handle_login = async (email, password) => {
+
+    // Validate email and password
+    if (email === '') {
+      setEmailError(t('email-required'))
+      return;
+    }
+
+    if (password === '') {
+      setPasswordError(t('password-required'))
+      return;
+    }
+
+    if (!email || !password) {
+      Toast.show({
+        type: 'error',
+        text1: t('error'),
+        text2: t('try-again'),
+        visibilityTime: 3000,
+        position: 'top',
+        autoHide: true,
+      })
+      return;
+    }
+
+
     try {
 
-      if(!email || !password) {
-        Toast.show({
-          type: 'error',
-          text1: 'Login Failed',
-          text2: 'Please check your email and password',
-          visibilityTime: 3000,
-          position: 'top',
-          autoHide: true,
-        })
-        return;
-      }
-       
       setLoading(true)
       await login(email, password)
       setLoading(false)
       Toast.show({
         type: 'success',
-        text1: 'Login successful',
-        text2: 'Welcome back!',
+        text1: t('login-success'),
+        text2: t('welcome-to-app'),
         position: 'top',
         visibilityTime: 3000,
         autoHide: true,
       })
       navigation.navigate('Home')
-      
+
     } catch (error) {
       console.log('Error during login:', error);
     }
@@ -71,12 +85,12 @@ const Login = () => {
 
   return (
     <SafeAreaView>
-  
-      <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={20}>
-          
 
-          <CloseBtn />
-      
+      <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={20}>
+
+
+        <CloseBtn />
+
         <Div mt={100} px={10}>
           <Text mb={20} fontWeight='bold' textAlign='center' fontSize={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}  >{t('Login')}</Text>
 
@@ -85,13 +99,17 @@ const Login = () => {
             value={email}
             icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
             placeholder={t('email')}
+            error={emailError}
           />
+          
           <CustomInput
             onChange={text => setPassword(text)}
             value={password}
             secureTextEntry
             placeholder={t('password')}
-            icon={<AntDesign name="lock1" size={20} color="black" />} />
+            icon={<AntDesign name="lock1" size={20} color="black" />}
+            error={passwordError}
+            />
 
 
 
@@ -128,7 +146,7 @@ const Login = () => {
             bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
             image={require('./images/apple1.png')}
             title={t('login-with-apple')}
-            
+
             onPress={() => navigation.navigate('Register')}
           />
 

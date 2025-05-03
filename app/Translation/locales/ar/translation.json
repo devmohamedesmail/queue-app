@@ -55,5 +55,24 @@
     "address": " العنوان ",
     "confirm-password": " تاكيد كلمة المرور ",
     "need-help": " احتاج مساعده ",
-    "added-to-favourite": " تمت الاضافه للمفضلة "
+    "added-to-favourite": " تمت الاضافه للمفضلة ",
+    "error": "حدث خطأ",
+    "try-again": "يرجى المحاولة مرة أخرى",
+    "email-required": "يرجى إدخال عنوان بريدك الإلكتروني.",
+    "password-required": "يرجى إدخال كلمة المرور.",
+    "name-required": " يرجى إدخال الاسم.",
+    "register-success": "تم التسجيل بنجاح.",
+    "welcome-to-app": "مرحباً بك في تطبيقنا.",
+    "login-success": "تم تسجيل الدخول بنجاح.",
+    "queue-cancel-success": "تم إلغاء دورك بنجاح",
+    "queue-cancel-error": "حدث خطأ أثناء إلغاء الصف",
+    "move-alert": "هل أنت متأكد من نقل دورك إلى الخلف؟",
+    "exit-success": "تم الخروج بنجاح",
+    "exit-error": "حدث خطأ أثناء الخروج",
+    "your-info-updated-successfully":" تم تحديث معلوماتك بنجاح",
+    "error-in-updating-info":"حدث خطاء في تحديث معلوماتك",
+      "delete-account-alert":" هل تريد حذف الحساب ؟",
+    "delete-account-success":" تم حذف الحساب بنجاح",
+    "logout-success":" تم تسجيل الخروج بنجاح"
+    
 }
