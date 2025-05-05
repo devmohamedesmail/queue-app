@@ -11,15 +11,19 @@ import Register from '../screens/Auth/Register';
 import EditInfo from '../screens/Auth/EditInfo';
 import Help from '../screens/Help/Help';
 import Inbox from '../screens/Inbox/Inbox';
-import Test from '../screens/Test';
+import DrawerNavigator from './DrawerNavigator';
+
 
 
 export default function AppNavigator() {
     const Stack = createNativeStackNavigator()
     return (
-        <Stack.Navigator initialRouteName='Home'
+        <Stack.Navigator 
         >
-            <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
+            {/* <Stack.Screen name='Home' component={Home} options={{headerShown:false}} /> */}
+            <Stack.Screen name='MainDrawer' component={DrawerNavigator} options={{ headerShown: false }} />
+
+
             <Stack.Screen name='BankQueue' component={BankQueue} options={{headerShown:false}} />
             <Stack.Screen name='MyQueue' component={MyQueue} options={{headerShown:false}} />
             <Stack.Screen name='History' component={HistotyLog} options={{headerShown:false}} />
@@ -32,9 +36,9 @@ export default function AppNavigator() {
             <Stack.Screen name='Inbox' component={Inbox} options={{headerShown:false}} />
 
 
+{/* <Stack.Screen name='Home' component={Home} options={{headerShown:false}} /> */}
 
-
-            <Stack.Screen name='Test' component={Test} options={{headerShown:false}} />
+            
 
 
         </Stack.Navigator>

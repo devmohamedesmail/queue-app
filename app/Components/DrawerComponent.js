@@ -20,11 +20,12 @@ import MyQueueComponent from './MyQueueComponent';
 import SettingComponent from './SettingComponent';
 import CustomButton from '../custom/CustomButton';
 import NotificationComponent from './NotificationComponent';
-import { Dimensions } from 'react-native';
 
 
-const drawerRef = React.createRef();
-export default function DrawerComponent({ icon }) {
+
+
+export default function DrawerComponent() {
+    const drawerRef = React.createRef();
     const { t, i18n } = useTranslation()
     const navigation = useNavigation();
     const [accountModalVisible, setAccountModalVisible] = useState(false);
@@ -34,10 +35,6 @@ export default function DrawerComponent({ icon }) {
     const [settingModalVisible, setSettingModalVisible] = useState(false)
     const [notificationsModalVisible, setNotificationsModalVisible] = useState(false)
     const { theme } = useTheme()
-
-
-    const screenHeight = Dimensions.get('window').height;
-
 
 
 
@@ -53,11 +50,11 @@ export default function DrawerComponent({ icon }) {
 
 
     return (
-        <Div>
-        
-            <CustomIconBtn
+        <Div  >
 
-                icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />}
+
+            <CustomIconBtn
+                icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
                 onPress={() => {
                     if (drawerRef.current) {
                         drawerRef.current.open();
@@ -65,7 +62,15 @@ export default function DrawerComponent({ icon }) {
                 }}
             />
 
-            <Drawer h={screenHeight}  ref={drawerRef} direction="right" bg='red600' animationTime={400} drawerPercentage={85} >
+            <Drawer
+                backdropColor='rgba(178, 172, 172, 0.5)'
+                h={'100%'}
+                ref={drawerRef}
+                direction="right"
+                bg='red600'
+                animationTime={700}
+                drawerPercentage={90}
+            >
                 <Div position='relative' h="100%">
 
 
@@ -111,11 +116,11 @@ export default function DrawerComponent({ icon }) {
                         <CustomDrawerItem title={t('business')} icon={<MaterialIcons name="business-center" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
                         <CustomDrawerItem
                             onPress={() => navigation.navigate('Help')}
-                            title={t('help')} 
+                            title={t('help')}
                             icon={<Entypo name="help" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
-                        <CustomDrawerItem 
-                            onPress={() => navigation.navigate('Inbox')} 
-                            title={t('inbox')} 
+                        <CustomDrawerItem
+                            onPress={() => navigation.navigate('Inbox')}
+                            title={t('inbox')}
                             icon={<AntDesign name="message1" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} />
                         <CustomDrawerItem title={t('setting')} icon={<AntDesign name="setting" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={() => setSettingModalVisible(true)} />
                         <CustomDrawerItem title={i18n.language === "ar" ? 'English' : ' عربي '} icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} onPress={toggleLanguage} />

@@ -35,7 +35,7 @@ export default function SearchComponent({ places }) {
         <Div >
 
             <CustomIconBtn
-                icon={<AntDesign name="search1" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />}
+                icon={<AntDesign name="search1" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
                 onPress={() => dropdownRef.current.open()}
             />
 

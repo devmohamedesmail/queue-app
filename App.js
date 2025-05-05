@@ -44,7 +44,7 @@ export default function App() {
       <ThemeProvider>
         <InfoProvider>
           <AuthProvider>
-            <StatusBar  hidden  />
+            <StatusBar   backgroundColor={'#fff'}  />
             <NavigationContainer>
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor} >

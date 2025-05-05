@@ -11,7 +11,7 @@ const CustomIconBtn = ({icon,onPress,...props}) => {
             h={45}
             w={45}
             p={0}
-            bg={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.black}
+            bg={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.black}
             rounded="md"
             shadow="sm"
             onPress={onPress}

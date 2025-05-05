@@ -10,6 +10,8 @@ import HistoryItem from '../screens/HistoryLog/HistoryItem';
 import axios from 'axios';
 import { InfoContext } from '../context/InfoContext';
 import { AuthContext } from '../context/AuthContext';
+import SwipeButton from 'rn-swipe-button';
+import { View } from 'react-native';
 
 const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     const { theme } = useTheme();
@@ -54,14 +56,14 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
                     >{t('history')}
                     </Text>
 
-
+                   
 
                     <ScrollView>
                         {history.length > 0 ? (
                             history.map((item) => (
-                                <HistoryItem 
-                                key={item._id} 
-                                item={item}
+                                <HistoryItem
+                                    key={item._id}
+                                    item={item}
                                 />
                             ))
                         ) : (

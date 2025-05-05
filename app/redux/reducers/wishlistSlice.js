@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import Toast from 'react-native-toast-message';
 
 const initialState = {
-  items: [], 
+  items: [],
 };
 
 
 export const wishlistSlice = createSlice({
- 
+
   name: 'wishlist',
   initialState,
   reducers: {
@@ -51,10 +51,10 @@ export const wishlistSlice = createSlice({
     //     (item) => item.id === itemToAdd.id 
     //   );
 
-      
+
     //   if (!isItemAlreadyInWishlist) {
     //     state.items.push(itemToAdd);
-       
+
     //   } else {
     //     console.log("Item already exists in the wishlist")
     //   }
@@ -62,11 +62,11 @@ export const wishlistSlice = createSlice({
 
     // Remove item from wishlist
     remove_From_wishlist: (state, action) => {
-    
+
       state.items = state.items.filter(
         (item) => item.id !== action.payload.id
       );
-      
+
     }
 
   },

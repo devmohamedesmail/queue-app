@@ -1,26 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Div, Text, Skeleton,Image } from 'react-native-magnus'
+import { Div, Text, Skeleton,Image, Button } from 'react-native-magnus'
 import SearchComponent from '../../components/SearchComponent'
 import DrawerComponent from '../../components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
 import MapViewSection from './parts/MapViewSection';
-import { SafeAreaView } from 'react-native';
 import { InfoContext } from '../../context/InfoContext';
-
-
-
-
-
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
+import { api } from '../../config/api';
+import CustomIconBtn from '../../custom/CustomIconBtn';
+import { useTheme } from '../../context/ThemeContext';
+import colors from '../../config/colors';
+import Octicons from '@expo/vector-icons/Octicons';
 
 export default function Home() {
   const [places, setPlaces] = useState([]);
   const { info } = useContext(InfoContext)
-
+  const {theme}=useTheme();
 
   
   const fetchPlaces = async () => {
     try {
-      const response = await fetch(`https://queue-app-express-js.onrender.com/api/v1/places`);
+      const response = await fetch(`${api.url}api/v1/places`);
       const data = await response.json();
       setPlaces(data.data);
     } catch (error) {
@@ -35,17 +36,22 @@ export default function Home() {
 
 
 
-
+  const navigation = useNavigation();
 
 
   return (
-    <Div style={{ flex: 1 }}>
-
+    <Div style={{ flex: 1 }}   >
+      
       {places && places.length > 0 ? (
         <Div style={{ flex: 1 }} >
           <Div mt={30} flexDir='row' justifyContent='space-between' alignItems='center' position='absolute' top={30} zIndex={1000} px={20} w="100%">
             <SearchComponent places={places} />
-            <DrawerComponent />
+
+            {/* <DrawerComponent /> */}
+           
+            <CustomIconBtn 
+            icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}      
+            onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
           </Div>
           <MapViewSection places={places} />
           <PlaceListSection places={places} />

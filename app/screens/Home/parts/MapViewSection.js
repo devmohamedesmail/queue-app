@@ -83,11 +83,11 @@ const MapViewSection = ({ places }) => {
         userInterfaceStyle='light'
         zoomControlEnabled={true}
         showsMyLocationButton={false}
-        showsTraffic={true}
-        showsBuildings={true}
+        // showsTraffic={true}
+        // showsBuildings={true}
         showsIndoors={true}
-        showsIndoorLevelPicker={true}
-        showsPointsOfInterest={true}
+        // showsIndoorLevelPicker={true}
+        // showsPointsOfInterest={true}
 
         style={{
           height: '100%',
@@ -115,7 +115,7 @@ const MapViewSection = ({ places }) => {
 
 
       <Div position="absolute" bottom={300} right={20}>
-        <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.white : colors.lightTheme.white} />} onPress={goToMyLocation} />
+        <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} />
       </Div>
 
 
