@@ -1,26 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Div, Text, Skeleton, Image, Button } from 'react-native-magnus'
+import React, { useEffect, useState } from 'react'
+import { Div} from 'react-native-magnus'
 import SearchComponent from '../../components/SearchComponent'
 import DrawerComponent from '../../components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
 import MapViewSection from './parts/MapViewSection';
-import { InfoContext } from '../../context/InfoContext';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
 import { api } from '../../config/api';
-import CustomIconBtn from '../../custom/CustomIconBtn';
-import { useTheme } from '../../context/ThemeContext';
-import colors from '../../config/colors';
-import Octicons from '@expo/vector-icons/Octicons';
-import { useSelector } from 'react-redux';
+import { ActivityIndicator } from 'react-native'
+import { Button, Overlay, Text } from 'react-native-magnus'
+import CustomText from '../../custom/CustomText';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
   const [places, setPlaces] = useState([]);
-  const { info } = useContext(InfoContext)
-  const { theme } = useTheme();
-
-  const favourite = useSelector(state => state.wishlist.items);
-
+  const [overlayVisible, setOverlayVisible] = useState(true);
+  const {t}=useTranslation();
 
   const fetchPlaces = async () => {
     try {
@@ -39,7 +32,7 @@ export default function Home() {
 
 
 
-  const navigation = useNavigation();
+
 
 
   return (
@@ -56,28 +49,18 @@ export default function Home() {
 
         </Div>
       ) : (
-        <Div flexDir='row' justifyContent='center' alignItems='center' h="100%">
-          <Div flexDir="row" >
-            <Div flex={1} flexDir='column' justifyContent='flex-start' position='relative' h="100%">
-              <Skeleton.Box h='100%' />
-              <Image
-                h={200}
-                w={200}
-                m={10}
-                position='absolute'
-                top="50%"
-                left="50%"
-
-                source={require('../../../assets/logo.png')}
-                style={{
-                  transform: [
-                    { translateX: -100 },
-                    { translateY: -100 },
-                  ],
-                }}
-              />
-            </Div>
+        <Div style={{ flex: 1 }}>
+          <Div mt={30} flexDir='row' justifyContent='space-between' alignItems='center' position='absolute' top={30} zIndex={1000} px={20} w="100%">
+            <SearchComponent places={places} />
+            <DrawerComponent />
           </Div>
+          <MapViewSection places={places} />
+          <PlaceListSection places={places} />
+          <Overlay visible={overlayVisible} p="xl">
+            <ActivityIndicator size={"large"} />
+        
+            <CustomText content={t('please-wait')} textAlign='center'  mt={20} />
+          </Overlay>
         </Div>
       )}
     </Div>

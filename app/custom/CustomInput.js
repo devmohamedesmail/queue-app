@@ -18,8 +18,9 @@ const CustomInput = ({ placeholder, icon, value, onChange,error ,secureTextEntry
                 value={value}
                 cursorColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
                 placeholder={placeholder}
-                // p={10}
-                 h={55}
+                bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black}
+                h={55}
+                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                 secureTextEntry={secureTextEntry}
                 focusBorderColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}

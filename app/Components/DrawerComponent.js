@@ -55,7 +55,7 @@ export default function DrawerComponent() {
 
 
     return (
-        <Div  >
+        < >
 
 
             <CustomIconBtn
@@ -73,7 +73,7 @@ export default function DrawerComponent() {
 
                 direction="right"
                 bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
-                animationTime={1000}
+                animationTime={700}
                 drawerPercentage={90}
 
             >
@@ -147,9 +147,9 @@ export default function DrawerComponent() {
                             icon={<AntDesign name="setting" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             onPress={() => setSettingModalVisible(true)}
                         />
-                        <CustomDrawerItem 
-                            title={i18n.language === "ar" ? 'English' : ' عربي '} 
-                            icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} 
+                        <CustomDrawerItem
+                            title={i18n.language === "ar" ? 'English' : ' عربي '}
+                            icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             onPress={toggleLanguage} />
                     </Div>
                     {/* ************************************** Items section End ************************************** */}
@@ -179,7 +179,7 @@ export default function DrawerComponent() {
 
 
 
-        </Div>
+        </>
 
     )
 }

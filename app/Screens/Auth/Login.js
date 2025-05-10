@@ -172,12 +172,14 @@ const Login = () => {
               title={t('login')}
               bg={activeTab === 'login' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
+              color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.black}
               onPress={() => setActiveTab('login')}
             />
             <CustomButton
               title={t('register')}
               bg={activeTab === 'register' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
+              color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.black}
               onPress={() => setActiveTab('register')}
             />
 
@@ -190,7 +192,7 @@ const Login = () => {
               <CustomInput
                 onChange={text => setEmail(text)}
                 value={email}
-                icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
+                icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
                 placeholder={t('email')}
                 error={emailError}
               />
@@ -200,7 +202,7 @@ const Login = () => {
                 value={password}
                 secureTextEntry
                 placeholder={t('password')}
-                icon={<AntDesign name="lock1" size={20} color="black" />}
+                icon={<AntDesign name="lock1" size={17} color="black" />}
                 error={passwordError}
               />
 
@@ -230,7 +232,7 @@ const Login = () => {
             <CustomInput
               onChange={text => setName(text)}
               value={name}
-              icon={<AntDesign name="user" size={24} color="black" />}
+              icon={<AntDesign name="user" size={17} color="black" />}
               placeholder={t('name')}
               error={nameError}
             />
@@ -238,7 +240,7 @@ const Login = () => {
             <CustomInput
               onChange={text => setEmail(text)}
               value={email}
-              icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
+              icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
               placeholder={t('email')}
               error={emailError}
             />
@@ -248,7 +250,7 @@ const Login = () => {
               value={password}
               secureTextEntry
               placeholder={t('password')}
-              icon={<AntDesign name="lock1" size={20} color="black" />}
+              icon={<AntDesign name="lock1" size={17} color="black" />}
               error={passwordError}
 
             />
