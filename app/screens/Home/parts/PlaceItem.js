@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button } from 'react-native-magnus'
 import { useTheme } from '../../../context/ThemeContext'
-import { Div, Text } from 'react-native-magnus';
+import { Div } from 'react-native-magnus';
 import colors from '../../../config/colors'
-import { useTranslation } from 'react-i18next';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import CustomText from '../../../custom/CustomText';
 
 export default function PlaceItem({ onPress, name, address, id, add_to_favorites, distance , isFavorite  }) {
     const { theme } = useTheme();
-    const { t, i18n } = useTranslation();
+    
 
     return (
         <Button
@@ -22,30 +22,14 @@ export default function PlaceItem({ onPress, name, address, id, add_to_favorites
             borderBottomWidth={1}
             borderBottomColor='gray300'
             h={70}>
-            <Div flex={1} mr={10}>
-                <Text
-                    fontWeight='semibold'
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    fontSize={11}
-                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                    mb={5}
-                >
-                    {name}
-                </Text>
-                <Text
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
-                    fontSize={10}
-                >{address}</Text>
+            <Div flex={1} mr={10}>        
+                <CustomText content={name} />
+                <CustomText content={address} fontSize={10} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
             </Div>
             <Div flexDir='column' justifyContent='center' alignItems='center'>
                 {distance && (
-                    <Text
-                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                        fontSize={10}
-                    >
-                        {distance} Km
-                    </Text>
+                    
+                    <CustomText fontSize={10} content={`${distance} Km` }/>
                 )}
 
                 <Button bg='transparent' onPress={add_to_favorites}>

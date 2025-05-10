@@ -2,7 +2,6 @@ import { SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
 import { Div, Text } from 'react-native-magnus'
 import { useTheme } from '../../context/ThemeContext';
-import CustomHeader from '../../custom/CustomHeader';
 import colors from '../../config/colors';
 import CustomInput from '../../custom/CustomInput';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,10 @@ import { InfoContext } from '../../context/InfoContext';
 import { AuthContext } from '../../context/AuthContext';
 import Toast from 'react-native-toast-message';
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator';
+import CustomText from '../../custom/CustomText';
+import CloseBtn from '../../components/CloseBtn';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Help = () => {
     const { theme } = useTheme();
@@ -21,7 +24,7 @@ const Help = () => {
     const { info } = useContext(InfoContext)
     const { auth } = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
-
+    const navigation = useNavigation()
 
 
     const send_help = async () => {
@@ -38,17 +41,16 @@ const Help = () => {
                 Toast.show({
                     type: 'success',
                     text1: t('help-send-success'),
-                   
+
                 })
 
             }
 
         } catch (error) {
-            console.log(error)
             Toast.show({
                 type: 'error',
                 text1: t('send-error'),
-                
+
             })
         } finally {
             setLoading(false)
@@ -62,14 +64,17 @@ const Help = () => {
     return (
         <SafeAreaView>
             <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.black} h="100%">
-                <CustomHeader />
-                <Div px={10} mt={20}>
-                    <Text 
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    
-                    textAlign='center' fontSize={15} fontWeight='bold' mb={20}>{t('help-title')}</Text>
+                <CloseBtn />
+
+                <Div px={10} mt={20} position='relative'>
+
+                    <CustomText content={t('send-help')} textAlign='center' fontWeight='bold' fontSize={15} my={15} />
                     <CustomInput placeholder={t('topic')} value={topic} onChange={(text) => setTopic(text)} />
-                    <CustomInput h={300} placeholder={t('message')} value={message} onChange={(text) => setMessage(text)} />
+                    <CustomInput
+                        multiline
+                        numberOfLines={5}
+                        placeholder={t('message')} value={message} onChange={(text) => setMessage(text)} />
+
                     <Div>
                         {loading ? (
                             <CustomActivityIndicator />
@@ -78,6 +83,14 @@ const Help = () => {
                         )}
 
                     </Div>
+
+
+
+                </Div>
+                <Div w={"100%"} bottom={50} px={10} position='absolute'>
+                    <CustomButton mb={10} title={t('inbox')} w="100%" onPress={() => navigation.navigate('Inbox')} />
+                    <CustomButton title={t('home')} w="100%" bg={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} onPress={() => navigation.navigate('Home')} />
+
                 </Div>
             </Div>
         </SafeAreaView>

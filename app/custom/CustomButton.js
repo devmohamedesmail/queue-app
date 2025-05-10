@@ -4,7 +4,7 @@ import { Button } from 'react-native-magnus'
 import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 
-export default function CustomButton({ title, onPress, w, bg ,...props }) {
+export default function CustomButton({ title, onPress, w, bg, ...props }) {
   const { t, i18n } = useTranslation();
   const { theme } = useTheme();
   const backgroundColor = bg || (theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary);

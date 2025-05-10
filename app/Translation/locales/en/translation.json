@@ -73,6 +73,9 @@
     "error-in-updating-info":"Error in updating information",
     "delete-account-alert":"are you sure to delete your account ?",
     "delete-account-success":"Account Deleted Successfully",
-    "logout-success":"Logout Successfully"
+    "logout-success":"Logout Successfully",
+    "inbox-empty":"Inbox Empty",
+    "send-help":"Send Help",
+    "no-reply":" still not reply "
 
 }

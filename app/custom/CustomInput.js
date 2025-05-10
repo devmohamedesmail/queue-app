@@ -16,9 +16,10 @@ const CustomInput = ({ placeholder, icon, value, onChange,error ,secureTextEntry
             <Input
                 {...props}
                 value={value}
+                cursorColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
                 placeholder={placeholder}
-                p={10}
-             
+                // p={10}
+                 h={55}
                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                 secureTextEntry={secureTextEntry}
                 focusBorderColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
@@ -27,7 +28,7 @@ const CustomInput = ({ placeholder, icon, value, onChange,error ,secureTextEntry
                 borderWidth={1}
                 borderColor="gray400"
                 textAlign={i18n.language === 'ar' ? 'right' : 'left'}
-
+         
 
             />
             {error && <Text mx={10} color={theme === 'light' ? 'red600' : 'white'}>{error}</Text>}

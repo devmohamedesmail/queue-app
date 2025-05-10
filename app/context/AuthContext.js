@@ -3,7 +3,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
-
+import { api } from '../config/api';
 // Create InfoContext using the Context API
 const AuthContext = createContext();
 
@@ -50,9 +50,9 @@ const AuthProvider = ({ children }) => {
 
     // 🧾 Register function
     const register = async (name, email, password) => {
-        console.log('Registering user:', { name, email, password });
+      
         try {
-            const res = await axios.post('https://queue-app-express-js.onrender.com/api/v1/auth/register', {
+            const res = await axios.post(`${api.url}api/v1/auth/register`, {
                 name,
                 email,
                 password,
@@ -61,7 +61,7 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
             setAuth(user);
             await AsyncStorage.setItem('user', JSON.stringify(user));
-            return { success: true };
+            return res.status;
         } catch (error) {
             console.log('Register error:', error.response?.data || error.message);
             return { success: false, error: error.response?.data?.message || 'Registration failed' };

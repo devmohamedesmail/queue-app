@@ -2,8 +2,8 @@ import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { Div, Text } from 'react-native-magnus'
 
-import BackBtn from '../../components/BackBtn'
-import NotificationComponent from '../../components/NotificationComponent'
+
+
 import DrawerComponent from '../../components/DrawerComponent'
 import colors from '../../config/colors'
 import CustomAccountButton from '../../custom/CustomAccountButton'
@@ -11,6 +11,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Feather from '@expo/vector-icons/Feather';
+import NotificationComponent from '../../components/drawer_modals/NotificationComponent'
 
 
 
@@ -22,10 +23,11 @@ export default function Account() {
 
 
         <Div flexDir='row' justifyContent='space-between' alignItems='center' mt={10} px={10}>
-          <BackBtn />
+          
 
           <Div flexDir='row' justifyContent='space-between' alignItems='center'>
             <NotificationComponent />
+          
             <DrawerComponent />
           </Div>
         </Div>

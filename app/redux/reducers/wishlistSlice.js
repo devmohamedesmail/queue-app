@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
 const initialState = {
@@ -8,11 +9,14 @@ const initialState = {
 
 export const wishlistSlice = createSlice({
 
+  
+
   name: 'wishlist',
   initialState,
   reducers: {
     add_To_wishlist: (state, action) => {
       const itemToAdd = action.payload;
+      
 
       // Check if the item already exists in the wishlist
       const isItemAlreadyInWishlist = state.items.some(
@@ -23,23 +27,23 @@ export const wishlistSlice = createSlice({
         // Remove item from the wishlist if it's already there
         state.items = state.items.filter((item) => item.id !== itemToAdd.id);
 
-        // Show a toast notification for removal
+       
         Toast.show({
           type: 'info',
-          text1: 'Removed from Wishlist',
-          text2: `${itemToAdd.name_en} has been removed from your wishlist.`,
-          position: 'top',
+          text1: 'Removed',
+          position: 'bottom',
+          duration: 1000
         });
       } else {
         // Add item to the wishlist if it's not already there
         state.items.push(itemToAdd);
 
-        // Show a toast notification for addition
+        
         Toast.show({
           type: 'success',
-          text1: 'Added to Wishlist',
-          text2: `${itemToAdd.name_en} has been added to your wishlist.`,
-          position: 'top',
+          text1: 'Added',
+          position: 'bottom',
+          duration: 1000
         });
       }
     },

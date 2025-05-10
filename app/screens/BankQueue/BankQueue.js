@@ -13,7 +13,7 @@ import Modal from 'react-native-modal';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
-import CustomLoading from '../../custom/CustomLoading'
+
 
 // functions
 import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'

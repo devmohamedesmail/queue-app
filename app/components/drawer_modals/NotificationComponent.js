@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Button, Text, Div, Modal, Icon } from 'react-native-magnus'
-import Fontisto from '@expo/vector-icons/Fontisto';
-import colors from '../config/colors';
-import ModalCloseBtn from './ModalCloseBtn';
-import { useTheme } from '../context/ThemeContext';
+
+import colors from '../../config/colors';
+import ModalCloseBtn from '../ModalCloseBtn';
+import { useTheme } from '../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
 export default function NotificationComponent({ notificationsModalVisible, setNotificationsModalVisible }) {

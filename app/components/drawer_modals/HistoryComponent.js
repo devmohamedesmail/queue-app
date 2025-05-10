@@ -1,17 +1,16 @@
 
 import React, { useContext, useEffect, useState } from 'react'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next';
-import ModalCloseBtn from './ModalCloseBtn';
+
 import { Modal, Div, Text } from 'react-native-magnus';
-import colors from '../config/colors';
+import colors from '../../config/colors';
 import { ScrollView } from 'react-native';
-import HistoryItem from '../screens/HistoryLog/HistoryItem';
+import HistoryItem from '../../screens/HistoryLog/HistoryItem';
 import axios from 'axios';
-import { InfoContext } from '../context/InfoContext';
-import { AuthContext } from '../context/AuthContext';
-import SwipeButton from 'rn-swipe-button';
-import { View } from 'react-native';
+import { InfoContext } from '../../context/InfoContext';
+import { AuthContext } from '../../context/AuthContext';
+import ModalCloseBtn from '../../components/ModalCloseBtn';
 
 const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     const { theme } = useTheme();
@@ -19,7 +18,6 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     const [history, setHistory] = useState([]);
     const { info } = useContext(InfoContext);
     const { auth, setAuth, login, register, logout } = useContext(AuthContext)
-
 
 
 

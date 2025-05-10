@@ -33,6 +33,8 @@ export default function PlaceListSection({ places }) {
       name_ar: place.nameAr,
       address_en: place.addressEn,
       address_ar: place.addressAr,
+      
+      
 
     }));
 

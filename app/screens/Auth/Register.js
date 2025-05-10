@@ -45,37 +45,45 @@ const Register = () => {
             return;
         }
 
-        Toast.show({
-            type: 'error',
-            text1: t('error'),
-            text2: t('try-again'),
-            visibilityTime: 3000,
-            position: 'top',
-            autoHide: true,
-        })
+        
 
 
 
         try {
             setLoading(true)
-            await register(name, email, password)
+            await register(name, email, password).then((res) => {
+                if (res.success) {
+                  Toast.show({
+                    type: 'success',
+                    text1: t('register-success'),
+                    text2: t('register-success-message'),
+                    visibilityTime: 3000,
+                    autoHide: true,
+                    topOffset: 30,
+                    bottomOffset: 40
+                  })
+                  navigation.navigate('Login');
+                }
+            })
+
+
+
             setLoading(false)
             Toast.show({
                 type: 'success',
                 text1: t('register-success'),
                 text2: t('welcome-to-app'),
                 position: 'top',
-                visibilityTime: 3000,
+                visibilityTime: 1000,
                 autoHide: true,
             })
             navigation.navigate('Home')
             setName('')
             setEmail('')
             setPassword('')
-            setError('')
+           
 
         } catch (error) {
-            console.log('Error during registration:', error);
             setLoading(false)
             setError(error.message)
             Toast.show({

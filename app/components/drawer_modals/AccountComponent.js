@@ -1,17 +1,17 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons/Feather';
 import React, { useContext, useState } from 'react'
-import { Modal, Button, Div, Text } from 'react-native-magnus';
+import { Modal, Div, Text } from 'react-native-magnus';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomAccountButton from '../custom/CustomAccountButton';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import colors from '../config/colors';
-import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
-import CustomButton from '../custom/CustomButton';
-import ModalCloseBtn from './ModalCloseBtn';
-import { AuthContext } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
+import colors from '../../config/colors';
+import { useTheme } from '../../context/ThemeContext';
+import CustomButton from '../../custom/CustomButton';
+import { AuthContext } from '../../context/AuthContext';
+import ModalCloseBtn from '../ModalCloseBtn';
+import CustomAccountButton from '../../custom/CustomAccountButton';
 
 
 
@@ -20,11 +20,17 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
     const { t, i18n } = useTranslation();
     const { auth, setAuth, login, register, logout } = useContext(AuthContext);
     const navigation = useNavigation();
-    const [editInfoModalVisible, setEditInfoModalVisible] = useState(false);
+  
 
     return (
         <>
-            <Modal isVisible={accountModalVisible} bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}>
+            <Modal
+            onBackdropPress={() => setAccountModalVisible(false)}
+            h="100%"
+            w="100%" 
+            isVisible={accountModalVisible} 
+            bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
+            >
 
                 <ModalCloseBtn onPress={() => setAccountModalVisible(false)} />
                 <Div h="100%" position='relative'>

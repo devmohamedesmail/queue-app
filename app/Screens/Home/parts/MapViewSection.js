@@ -9,12 +9,14 @@ import colors from '../../../config/colors';
 import * as Location from 'expo-location';
 import CustomIconBtn from '../../../custom/CustomIconBtn';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
 
 const MapViewSection = ({ places }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const { theme } = useTheme()
   const [selectedPlace, setSelectedPlace] = useState()
   const mapRef = useRef(null);
+  const [loading,setLoading] = useState(false)
 
 
   const toggleModal = (place) => {
@@ -26,17 +28,17 @@ const MapViewSection = ({ places }) => {
 
   const goToMyLocation = async () => {
     try {
+      setLoading
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.log('Permission to access location was denied');
+        
         return;
       }
   
       const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
   
-      console.log('User Location:', latitude, longitude); // لنطبع الموقع في الكونسل لنتأكد من دقة الموقع
-  
+
       if (mapRef.current) {
         mapRef.current.animateCamera({
           center: {
@@ -49,9 +51,12 @@ const MapViewSection = ({ places }) => {
           altitude: 0,
         });
       }
-  
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log('Error getting location:', error);
+    }finally{
+      setLoading(false)
     }
   };
   
@@ -63,7 +68,7 @@ const MapViewSection = ({ places }) => {
 
       <MapView
         ref={mapRef}
-        // provider="google"
+        
         camera={{
           center: {
             latitude: 25.276987,
@@ -115,7 +120,8 @@ const MapViewSection = ({ places }) => {
 
 
       <Div position="absolute" bottom={300} right={20}>
-        <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} />
+        {loading ? <CustomIconBtn icon={<CustomActivityIndicator />} /> : <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} /> }
+        {/* <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} /> */}
       </Div>
 
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Div, Text, Skeleton,Image, Button } from 'react-native-magnus'
+import { Div, Text, Skeleton, Image, Button } from 'react-native-magnus'
 import SearchComponent from '../../components/SearchComponent'
 import DrawerComponent from '../../components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
@@ -12,13 +12,16 @@ import CustomIconBtn from '../../custom/CustomIconBtn';
 import { useTheme } from '../../context/ThemeContext';
 import colors from '../../config/colors';
 import Octicons from '@expo/vector-icons/Octicons';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   const [places, setPlaces] = useState([]);
   const { info } = useContext(InfoContext)
-  const {theme}=useTheme();
+  const { theme } = useTheme();
 
-  
+  const favourite = useSelector(state => state.wishlist.items);
+
+
   const fetchPlaces = async () => {
     try {
       const response = await fetch(`${api.url}api/v1/places`);
@@ -41,17 +44,12 @@ export default function Home() {
 
   return (
     <Div style={{ flex: 1 }}   >
-      
+
       {places && places.length > 0 ? (
         <Div style={{ flex: 1 }} >
           <Div mt={30} flexDir='row' justifyContent='space-between' alignItems='center' position='absolute' top={30} zIndex={1000} px={20} w="100%">
             <SearchComponent places={places} />
-
-            {/* <DrawerComponent /> */}
-           
-            <CustomIconBtn 
-            icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}      
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())} />
+            <DrawerComponent />
           </Div>
           <MapViewSection places={places} />
           <PlaceListSection places={places} />
@@ -69,12 +67,12 @@ export default function Home() {
                 position='absolute'
                 top="50%"
                 left="50%"
-                
+
                 source={require('../../../assets/logo.png')}
                 style={{
                   transform: [
-                    { translateX: -100 }, 
-                    { translateY: -100 }, 
+                    { translateX: -100 },
+                    { translateY: -100 },
                   ],
                 }}
               />

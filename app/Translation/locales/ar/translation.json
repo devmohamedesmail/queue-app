@@ -73,6 +73,9 @@
     "error-in-updating-info":"حدث خطاء في تحديث معلوماتك",
       "delete-account-alert":" هل تريد حذف الحساب ؟",
     "delete-account-success":" تم حذف الحساب بنجاح",
-    "logout-success":" تم تسجيل الخروج بنجاح"
+    "logout-success":" تم تسجيل الخروج بنجاح",
+    "inbox-empty":" البريد الوارد فارغ ",
+    "send-help": "ارسل رسالة للمساعدة",
+    "no-reply":" لم ينم الرد "
     
 }
