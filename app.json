@@ -2,7 +2,7 @@
   "expo": {
     "name": "Q me",
     "slug": "myq",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,13 +15,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mohamedesmail9225.myq",
-      "buildNumber": "1.0.7",
+      "buildNumber": "1.0.8",
       "config": {
         "googleMapsApiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"
       },
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "We need your location to show nearby places on the map.",
-        "NSLocationAlwaysAndWhenInUseUsageDescription": "نستخدم موقعك حتى عندما يكون التطبيق بالخلفية لتوفير تجربة مستمرة ومخصصة.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "We use your location even when the app is in the background to provide a continuous and personalized experience.",
         "ITSAppUsesNonExemptEncryption": false
       }
     },
@@ -31,7 +31,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mohamedesmail9225.myq",
-      "versionCode": 7,
+      "versionCode": 8,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"

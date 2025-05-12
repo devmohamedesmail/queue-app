@@ -71,7 +71,8 @@ export default function DrawerComponent() {
                 h={'100%'}
                 ref={drawerRef}
 
-                direction="right"
+                // direction="right"
+                direction={i18n.language === 'ar' ? 'right' : 'left'}
                 bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
                 animationTime={700}
                 drawerPercentage={90}

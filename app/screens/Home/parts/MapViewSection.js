@@ -1,5 +1,5 @@
 import MapView, { Marker, Callout } from 'react-native-maps'
-import { Div, Text } from 'react-native-magnus'
+import { Button, Div, Text } from 'react-native-magnus'
 import React, { useState, useRef } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../context/ThemeContext';
@@ -88,12 +88,7 @@ const MapViewSection = ({ places }) => {
         userInterfaceStyle='light'
         zoomControlEnabled={true}
         showsMyLocationButton={false}
-        // showsTraffic={true}
-        // showsBuildings={true}
         showsIndoors={true}
-        // showsIndoorLevelPicker={true}
-        // showsPointsOfInterest={true}
-
         style={{
           height: '100%',
         }}
@@ -113,8 +108,10 @@ const MapViewSection = ({ places }) => {
             onPress={() => toggleModal(place)}
             style={{ width: 200, height: 200 }}
           >
+            
 
           </Marker>
+          
         ))}
       </MapView>
 
@@ -127,9 +124,9 @@ const MapViewSection = ({ places }) => {
 
 
 
-      {/* modal Start */}
+ 
       <PlaceModal isModalVisible={isModalVisible} toggleModal={toggleModal} selectedPlace={selectedPlace} />
-      {/* modal End */}
+     
 
     </Div>
   )

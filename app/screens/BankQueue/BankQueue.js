@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Div, Text, Button } from 'react-native-magnus'
+import { Div, Text, Dropdown, Button } from 'react-native-magnus'
 import colors from '../../config/colors'
-import { SafeAreaView } from 'react-native'
+
 import { useNavigation } from '@react-navigation/native'
 import CloseBtn from '../../components/CloseBtn'
 import { useTheme } from '../../context/ThemeContext'
@@ -12,17 +12,16 @@ import { InfoContext } from '../../context/InfoContext'
 import Modal from 'react-native-modal';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
-import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 
 // functions
 import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'
 import { AuthContext } from '../../context/AuthContext'
-import CustomInput from '../../custom/CustomInput'
-import CustomButton from '../../custom/CustomButton'
 import Toast from 'react-native-toast-message'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import Book_btn from '../../components/Book_btn'
+import CustomText from '../../custom/CustomText'
+import { StatusBar } from 'expo-status-bar'
 
 
 
@@ -34,7 +33,7 @@ export default function BankQueue({ route }) {
     const { place } = route.params;
     const [placeServices, setPlaceServices] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [loadingLogin, setLoadingLogin] = useState(false)
+
     const { info } = useContext(InfoContext)
 
     const [serviceId, setServiceId] = useState(null)
@@ -42,14 +41,15 @@ export default function BankQueue({ route }) {
     const [loadingFetchData, setLoadingFetchData] = useState(false)
     const [waitingQueues, setWaitingQueues] = useState(null);
     const { auth, setAuth, login, register, logout } = useContext(AuthContext);
-    const [LoginModalVisible, setLoginModalVisible] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+
 
 
     const toggleServicesModal = () => {
         setServicesModalVisible(!servicesModalVisible);
+
+
     };
+
 
     // ********************************* Fetch Place Services Start **********************************
     useEffect(() => {
@@ -69,14 +69,21 @@ export default function BankQueue({ route }) {
     const book_new_queue = async () => {
         try {
             if (auth === null) {
-                // setLoginModalVisible(true)
+                
                 navigation.navigate("Login")
                 return
             }
+
+             if(serviceId === null && place.services.length > 0){
+                dropdownRef.current.open();
+                return
+             }
+
+
             setLoading(true)
 
 
-            
+
 
 
 
@@ -96,7 +103,7 @@ export default function BankQueue({ route }) {
                 visibilityTime: 3000,
                 position: 'top',
                 autoHide: true,
-                
+
             })
             setLoading(false)
         } finally {
@@ -105,47 +112,22 @@ export default function BankQueue({ route }) {
     }
 
 
-    // ********************************* Get Device ID Start *******************************************
 
+    const dropdownRef = React.createRef();
 
-    const handle_login = async (email, password) => {
-        try {
-
-            setLoadingLogin(true)
-            await login(email, password)
-            setLoading(false)
-            Toast.show({
-                type: 'success',
-                text1: 'Login Success',
-                text2: 'You are logged in successfully',
-                visibilityTime: 3000,
-                position: 'top',
-                autoHide: true,
-
-            })
-        } catch (error) {
-
-            setLoadingLogin(false)
-            Toast.show({
-                type: 'error',
-                text1: 'Login Failed',
-                text2: 'Please check your email and password',
-                visibilityTime: 3000,
-                position: 'top',
-                autoHide: true,
-            })
-            console.log('Error during login:', error);
-        } finally {
-
-            setLoadingLogin(false)
+    useEffect(() => {
+        if (place.services.length > 0 && dropdownRef.current) {
+            dropdownRef.current.open();
         }
-    }
+    }, [place.services]);
 
 
 
 
     return (
-        <SafeAreaView>
+        <>
+            <StatusBar  hidden />
+
 
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} h="100%">
 
@@ -168,10 +150,10 @@ export default function BankQueue({ route }) {
 
                         {
                             loading ? (
-                                
+
                                 <CustomActivityIndicator />
                             ) : (
-                               
+
                                 <Book_btn onPress={() => book_new_queue()} />
                             )
                         }
@@ -188,14 +170,12 @@ export default function BankQueue({ route }) {
 
 
             {/* Modal Services  */}
-            <Modal isVisible={servicesModalVisible}>
+            {/* <Modal isVisible={servicesModalVisible}>
                 <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} pb={50} position='relative' >
                     {placeServices !== null && placeServices.length > 0 ? (
                         <Div px={10} py={10} mt={70}>
-                            <Text
-                                fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                                textAlign='center' fontWeight='bold' fontSize={15} mb={20}>{t('select-your-service')}</Text>
+
+                            <CustomText content={t('select-your-service')} textAlign='center' fontWeight='bold' fontSize={15} />
                             {placeServices.map((service) => (
                                 <Button
                                     w="100%"
@@ -240,74 +220,55 @@ export default function BankQueue({ route }) {
                         <AntDesign name="close" size={20} color="white" />
                     </Button>
                 </Div>
-            </Modal>
+            </Modal> */}
 
 
 
-            {/* Login Modal  */}
-            <Modal isVisible={LoginModalVisible}>
-                <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} py={15} position='relative' >
+            <Dropdown
+                ref={dropdownRef}
+                title={
+                    
+                    <CustomText mb={30} textAlign="center" content={t('select-your-service')} fontSize={15} fontWeight="bold" />
+                }
+                mt="md"
+                pb="2xl"
+                bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
+                h={600}
+                showSwipeIndicator={true}
+                roundedTop="xl">
+                
+                {place && place.services && place.services.map((service) => (
+                    <Dropdown.Option
+                        key={service._id}
+                        // py={20}
+                        mb={10}
+                        px="xl"
+                        block
+                        bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark}
+                        borderBottomColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
+                        borderBottomWidth={1}
+                        h={70}
+                        onPress={() => {
+                            setServiceId(service._id)
+                            get_all_waiting_queues()
+                            setServicesModalVisible(false)
+                            dropdownRef.current.close();
+                        }}>
 
-                    <Div flexDir='row' justifyContent='flex-end' alignItems='center'  >
-                        <Button bg='transparent' onPress={() => setLoginModalVisible(false)}  >
-                            <AntDesign name="close" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
-                        </Button>
-                    </Div>
-
-                    <Text
-
-                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                        textAlign='center' fontWeight='bold' fontSize={15} mb={20} fontFamily='poppins-regular'>{t('login')}</Text>
-
-                    <CustomInput
-                        onChange={text => setEmail(text)}
-                        value={email}
-                        icon={<SimpleLineIcons name="envelope" size={20} color="black" />}
-                        placeholder="Email"
-                    />
-                    <CustomInput
-                        onChange={text => setPassword(text)}
-                        value={password}
-                        secureTextEntry
-                        icon={<AntDesign name="lock1" size={20} color="black" />} placeholder="password" />
-
-
-
-
-
-
-                    {loadingLogin ? (<CustomActivityIndicator />) :
-                        <CustomButton
-                            bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                            onPress={() => handle_login(email, password)}
-                            title="Login" w="100%"
-                        />}
-
-
-
-                    <Div mt={20} flexDir='row' justifyContent='center' alignItems='center'>
-                        <Text
-                            color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                            textAlign='center'
-                            fontWeight='bold'
-                            fontSize={15}
-                            mb={20}
-                            fontFamily='poppins-regular'>
-
-                            {t('no-account')}
-
-                        </Text>
-                        <Button p={0} mx={5} bg='transparent' onPress={() => navigation.navigate('Register')} >
-                            <Text color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} fontWeight='bold'>{t('register')}</Text>
-                        </Button>
-                    </Div>
+                        
+                        <CustomText fontWeight="bold" fontSize={15}  w="100%" textAlign="center" content={i18n.language === "ar" ? service.nameAr : service.nameEn} />
+                    </Dropdown.Option>
+                ))}
+                
+                
+            </Dropdown>
 
 
 
-                </Div>
-            </Modal>
 
-        </SafeAreaView>
+
+
+        </>
 
     )
 }
