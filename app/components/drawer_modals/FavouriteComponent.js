@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useCallback}from 'react'
 import { Modal, Text, Div, Button } from 'react-native-magnus';
 import { useTranslation } from 'react-i18next';
 import colors from '../../config/colors';

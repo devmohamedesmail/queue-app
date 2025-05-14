@@ -2,7 +2,7 @@
   "expo": {
     "name": "Q me",
     "slug": "myq",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.mohamedesmail9225.myq",
-      "buildNumber": "1.0.8",
+      "buildNumber": "1.0.9",
       "config": {
         "googleMapsApiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"
       },
@@ -31,7 +31,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.mohamedesmail9225.myq",
-      "versionCode": 8,
+      "versionCode": 9,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyA74gOioKDIY9AlPHe3eyu4yTSvyAN8RMM"

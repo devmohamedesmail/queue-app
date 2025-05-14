@@ -16,7 +16,7 @@ const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
             <ModalCloseBtn onPress={() => setQueueModalVisible(false)} />
             <Div h="100%" position='relative' pointerEvents="box-none">
                 <Div mt={80}>
-                  <CustomText textAlign='center' fontWeight='bold' fontSize={20} content={t('my-queues')} />
+                  <CustomText textAlign='center' fontWeight='bold' fontSize={17} mb={20} content={t('my-queues')} />
                     <Div h="90%">
                         <MyQueues />
                     </Div>

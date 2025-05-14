@@ -11,6 +11,7 @@ import axios from 'axios';
 import { InfoContext } from '../../context/InfoContext';
 import { AuthContext } from '../../context/AuthContext';
 import ModalCloseBtn from '../../components/ModalCloseBtn';
+import { api } from '../../config/api';
 
 const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
     const { theme } = useTheme();
@@ -24,7 +25,7 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
 
     const fetch_user_history = async () => {
         try {
-            const response = await axios.get(`${info.appUrl}/api/v1/queues/user/queues/history/${auth.user.user._id}`)
+            const response = await axios.get(`${api.url}api/v1/queues/user/queues/history/${auth.user.user._id}`)
             setHistory(response.data)
         } catch (error) {
             console.log("Error in history log Screen", error)
@@ -34,7 +35,7 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
 
     useEffect(() => {
         fetch_user_history()
-    }, [])
+    }, [auth])
 
 
     return (

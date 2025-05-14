@@ -26,7 +26,7 @@ export default function HistoryItem({ item  }) {
             flexDir='row'
             alignItems='center'
             bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark}
-            shadow="sm"
+            shadow={6}
             mx={10}
             my={5}
             px={10}

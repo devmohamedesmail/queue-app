@@ -1,6 +1,6 @@
 
 import React, { useMemo, useState, useEffect } from 'react'
-import { ScrollDiv } from 'react-native-magnus'
+import { ScrollDiv,Div } from 'react-native-magnus'
 import colors from '../../../config/colors'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../context/ThemeContext'
@@ -12,7 +12,7 @@ import { add_To_wishlist } from '../../../redux/reducers/wishlistSlice'
 import Toast from 'react-native-toast-message'
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
-
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function PlaceListSection({ places }) {
 
@@ -33,12 +33,12 @@ export default function PlaceListSection({ places }) {
       name_ar: place.nameAr,
       address_en: place.addressEn,
       address_ar: place.addressAr,
-      
-      
+
+
 
     }));
 
-   
+
   }
 
 
@@ -70,26 +70,36 @@ export default function PlaceListSection({ places }) {
 
       <ScrollDiv  >
 
-        {places.map((place) => {
-          const placeLat = parseFloat(place.location.lat);
-          const placeLng = parseFloat(place.location.lng);
-          const distance = userLocation
-            ? (getDistance(userLocation, { latitude: placeLat, longitude: placeLng }) / 1000).toFixed(1) // كم كيلومتر
-            : null;
+        {places && places.length > 0 ? (<>
+          {places.map((place) => {
+            const placeLat = parseFloat(place.location.lat);
+            const placeLng = parseFloat(place.location.lng);
+            const distance = userLocation
+              ? (getDistance(userLocation, { latitude: placeLat, longitude: placeLng }) / 1000).toFixed(1) // كم كيلومتر
+              : null;
 
             const isFavorite = items.some(item => item.id === place._id);
-          return (
-            <PlaceItem
-              key={place._id}
-              name={i18n.language === 'en' ? place.nameEn : place.nameAr}
-              address={i18n.language === 'en' ? place.addressEn : place.addressAr}
-              distance={distance}
-              onPress={() => navigation.navigate("BankQueue", { place })}
-              add_to_favorites={() => handle_add_to_favorites(place)}
-              isFavorite={isFavorite}
-            />
-          );
-        })}
+            return (
+              <PlaceItem
+                key={place._id}
+                name={i18n.language === 'en' ? place.nameEn : place.nameAr}
+                address={i18n.language === 'en' ? place.addressEn : place.addressAr}
+                distance={distance}
+                onPress={() => navigation.navigate("BankQueue", { place })}
+                add_to_favorites={() => handle_add_to_favorites(place)}
+                isFavorite={isFavorite}
+              />
+            );
+          })}</>) : (
+          <Div  px={20} py={20}>
+            <AntDesign name="search1" size={40} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
+          </Div>)}
+
+
+
+
+
+
       </ScrollDiv>
     </BottomSheet>
 

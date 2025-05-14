@@ -47,7 +47,6 @@ export default function BankQueue({ route }) {
     const toggleServicesModal = () => {
         setServicesModalVisible(!servicesModalVisible);
 
-
     };
 
 
@@ -113,7 +112,8 @@ export default function BankQueue({ route }) {
 
 
 
-    const dropdownRef = React.createRef();
+    // const dropdownRef = React.createRef();
+    const dropdownRef = React.useRef(null);
 
     useEffect(() => {
         if (place.services.length > 0 && dropdownRef.current) {
@@ -165,75 +165,18 @@ export default function BankQueue({ route }) {
 
             </Div>
 
-
-
-
-
-            {/* Modal Services  */}
-            {/* <Modal isVisible={servicesModalVisible}>
-                <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark} rounded={20} p={10} pb={50} position='relative' >
-                    {placeServices !== null && placeServices.length > 0 ? (
-                        <Div px={10} py={10} mt={70}>
-
-                            <CustomText content={t('select-your-service')} textAlign='center' fontWeight='bold' fontSize={15} />
-                            {placeServices.map((service) => (
-                                <Button
-                                    w="100%"
-                                    h={50}
-                                    onPress={() => {
-                                        setServiceId(service._id)
-                                        get_all_waiting_queues()
-                                        setServicesModalVisible(false)
-
-                                    }}
-                                    key={service._id}
-                                    rounded={10}
-                                    my={5}
-                                    bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}>
-
-
-                                    <Text
-                                        fontWeight='bold'
-                                        fontSize={15}
-                                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                        color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.white} textAlign='center'>
-                                        {i18n.language === "ar" ? service.nameAr : service.nameEn}
-                                    </Text>
-                                </Button>
-                            ))}
-                        </Div>
-                    ) : (<Text>no</Text>)}
-
-
-                    <Button
-                        onPress={toggleServicesModal} bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                        h={40}
-                        w={40}
-                        mt={20}
-                        rounded='circle'
-                        position='absolute'
-                        right={10}
-                        top={10}
-                        p={0}
-
-                    >
-                        <AntDesign name="close" size={20} color="white" />
-                    </Button>
-                </Div>
-            </Modal> */}
-
-
-
             <Dropdown
                 ref={dropdownRef}
                 title={
                     
-                    <CustomText mb={30} textAlign="center" content={t('select-your-service')} fontSize={15} fontWeight="bold" />
+                    <CustomText 
+                     color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                     mb={30} textAlign="center" content={t('select-your-service')} fontSize={18} fontWeight="extrabold" />
                 }
                 mt="md"
                 pb="2xl"
                 bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
-                h={600}
+                h={500}
                 showSwipeIndicator={true}
                 roundedTop="xl">
                 
@@ -241,22 +184,22 @@ export default function BankQueue({ route }) {
                     <Dropdown.Option
                         key={service._id}
                         // py={20}
-                        mb={10}
+                        mb={5}
                         px="xl"
                         block
                         bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark}
                         borderBottomColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
                         borderBottomWidth={1}
                         h={70}
+                        // shadow="sm"
                         onPress={() => {
                             setServiceId(service._id)
                             get_all_waiting_queues()
                             setServicesModalVisible(false)
                             dropdownRef.current.close();
                         }}>
-
-                        
-                        <CustomText fontWeight="bold" fontSize={15}  w="100%" textAlign="center" content={i18n.language === "ar" ? service.nameAr : service.nameEn} />
+                       
+                        <CustomText fontWeight="bold" fontSize={13}  w="100%" textAlign="center" content={i18n.language === "ar" ? service.nameAr : service.nameEn} />
                     </Dropdown.Option>
                 ))}
                 

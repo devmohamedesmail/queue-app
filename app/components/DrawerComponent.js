@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Drawer, Button, Div, Text } from 'react-native-magnus'
 import Octicons from '@expo/vector-icons/Octicons';
 import CustomDrawerBoxIcon from '../custom/CustomDrawerBoxIcon';
@@ -23,6 +23,7 @@ import HistoryComponent from './drawer_modals/HistoryComponent';
 import MyQueueComponent from './drawer_modals/MyQueueComponent';
 import SettingComponent from './drawer_modals/SettingComponent';
 import NotificationComponent from './drawer_modals/NotificationComponent';
+import { AuthContext } from '../context/AuthContext';
 
 
 
@@ -38,7 +39,7 @@ export default function DrawerComponent() {
     const [settingModalVisible, setSettingModalVisible] = useState(false)
     const [notificationsModalVisible, setNotificationsModalVisible] = useState(false)
     const { theme } = useTheme()
-
+    const { auth } = useContext(AuthContext)
 
 
     const toggleLanguage = () => {
@@ -60,19 +61,14 @@ export default function DrawerComponent() {
 
             <CustomIconBtn
                 icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
-
                 onPress={() => drawerRef.current?.open()}
-
-
             />
 
             <Drawer
                 backdropColor='rgba(178, 172, 172, 0.5)'
                 h={'100%'}
                 ref={drawerRef}
-
-                // direction="right"
-                direction={i18n.language === 'ar' ? 'right' : 'left'}
+                direction={i18n.language === 'ar' ? 'left' : 'right'}
                 bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
                 animationTime={700}
                 drawerPercentage={90}
@@ -84,10 +80,40 @@ export default function DrawerComponent() {
 
                     {/* ************************************** Boxes section start ************************************** */}
                     <Div flexDir='row' flexWrap='wrap' justifyContent='space-evenly' mt={50} px={5}>
-                        <CustomDrawerBoxIcon icon={<AntDesign name="user" size={27} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('account')} onPress={() => setAccountModalVisible(true)} />
-                        <CustomDrawerBoxIcon icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('favourite')} onPress={() => setFavouriteModalVisible(true)} />
-                        <CustomDrawerBoxIcon icon={<MaterialIcons name="history-toggle-off" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('history')} onPress={() => setHistoryModalVisible(true)} />
-                        <CustomDrawerBoxIcon icon={<MaterialCommunityIcons name="human-queue" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} title={t('my-queue')} onPress={() => setQueueModalVisible(true)} />
+                        <CustomDrawerBoxIcon
+                            icon={<AntDesign name="user" size={27} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
+                            title={t('account')}
+                            onPress={() => {
+                                if (auth !== null) {
+                                    setAccountModalVisible(true)
+                                } else {
+                                    navigation.navigate("Login")
+                                }
+                            }} />
+                        <CustomDrawerBoxIcon 
+                            icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} 
+                            title={t('favourite')}
+                            onPress={() => setFavouriteModalVisible(true)} />
+                        <CustomDrawerBoxIcon
+                            icon={<MaterialIcons name="history-toggle-off" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
+                            title={t('history')}
+                            onPress={() => {
+                                if (auth !== null) {
+                                    setHistoryModalVisible(true)
+                                } else {
+                                    navigation.navigate("Login")
+                                }
+                            }} />
+                        <CustomDrawerBoxIcon
+                            icon={<MaterialCommunityIcons name="human-queue" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
+                            title={t('my-queue')}
+                            onPress={() => {
+                                if (auth !== null) {
+                                    setQueueModalVisible(true)
+                                } else {
+                                    navigation.navigate("Login")
+                                }
+                            }} />
 
                     </Div>
                     {/* ************************************** Boxes section End ************************************** */}

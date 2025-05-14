@@ -130,6 +130,7 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
 
                 <Text
+                    textAlign='center'
                     mt={4}
                     fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     fontSize={12}
