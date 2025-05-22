@@ -58,8 +58,7 @@ export default function Home() {
           <PlaceListSection places={places} />
           <Overlay visible={overlayVisible} p="xl">
             <ActivityIndicator size={"large"} />
-        
-            <CustomText content={t('please-wait')} textAlign='center'  mt={20} />
+            <CustomText content={t('please-wait')} fontWeight='bold' textAlign='center'  mt={20} />
           </Overlay>
         </Div>
       )}

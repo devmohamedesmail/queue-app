@@ -78,6 +78,7 @@
     "inbox-empty":"Inbox Empty",
     "send-help":"Send Help",
     "no-reply":" Please wait for reply",
-    "please-wait":"Please wait"
-
+    "please-wait":"Please wait",
+    "no-time-to-wait":"No Waiting Time"
+    
 }

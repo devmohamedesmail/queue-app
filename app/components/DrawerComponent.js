@@ -24,6 +24,7 @@ import MyQueueComponent from './drawer_modals/MyQueueComponent';
 import SettingComponent from './drawer_modals/SettingComponent';
 import NotificationComponent from './drawer_modals/NotificationComponent';
 import { AuthContext } from '../context/AuthContext';
+import { StatusBar } from 'expo-status-bar';
 
 
 
@@ -57,7 +58,7 @@ export default function DrawerComponent() {
 
     return (
         < >
-
+              
 
             <CustomIconBtn
                 icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}

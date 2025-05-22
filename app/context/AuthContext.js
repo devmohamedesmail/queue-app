@@ -41,7 +41,7 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
             setAuth(user);
             await AsyncStorage.setItem('user', JSON.stringify(user));
-            return { success: true };
+            return { success: true, status: res.status , user: user };
         } catch (error) {
             console.error('Login error:', error.response?.data || error.message);
             return { success: false, error: error.response?.data?.message || 'Login failed' };

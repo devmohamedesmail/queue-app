@@ -11,10 +11,11 @@ import { InfoProvider } from './app/context/InfoContext';
 import { AuthProvider } from './app/context/AuthContext';
 import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StatusBar } from 'react-native';
+
 import { Provider } from 'react-redux';
 import { persistor, store } from './app/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { StatusBar } from 'react-native';
 
 
 
@@ -44,6 +45,7 @@ export default function App() {
       <ThemeProvider>
         <InfoProvider>
           <AuthProvider>
+           
             <StatusBar   hidden={true}  />
             <NavigationContainer>
               <Provider store={store}>

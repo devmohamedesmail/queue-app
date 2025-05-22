@@ -11,6 +11,7 @@ import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
 import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
 import Toast from 'react-native-toast-message';
+import CustomText from '../../../custom/CustomText';
 
 const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
@@ -55,14 +56,15 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
                     type: 'success',
                     text1: t('queue-cancel-success'),
                     visibilityTime: 3000,
-                    position: 'top',
+                    position: 'bottom',
                 })
                 setQueueId(null)
                 setLoading(false)
-                fetch_today_queues_for_user()
-                
+
+
 
             }
+            fetch_today_queues_for_user()
         } catch (error) {
             Toast.show({
                 type: 'error',
@@ -118,25 +120,18 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
     return (
         <Div borderColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} borderWidth={1} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.voilet} m='auto' rounded={20} mx={10}>
 
-            <Div flexDir='column' justifyContent='center' alignItems='center' mt={30}>
-                <Text
-                    fontWeight='bold'
-                    fontSize={16}
-                    textAlign='center'
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
-                    {i18n.language === "ar" ? queue.queue.place.nameAr : queue.queue.place.nameEn}
-                </Text>
-
-
-                <Text
-                    textAlign='center'
-                    mt={4}
-                    fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    fontSize={12}
-                    color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
-                    {i18n.language === "ar" ? queue.queue.place.addressAr : queue.queue.place.addressEn}
-                </Text>
+            <Div flexDir='column' justifyContent='center' alignItems='center' mt={30} px={5}>
+                <CustomText
+                   fontSize={15}
+                    textAlign="center"
+                    content={i18n.language === "ar" ? queue.queue.place.nameAr : queue.queue.place.nameEn}
+                />
+                <CustomText
+                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                    fontSize={10}
+                    textAlign="center"
+                    content={i18n.language === "ar" ? queue.queue.place.addressAr : queue.queue.place.addressEn}
+                />
             </Div>
 
 
@@ -144,20 +139,10 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
             <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} mt={30} py={20}>
                 <Div flexDir='column' justifyContent='center' alignItems='center' pb={20}>
-                    <Text
-                        fontWeight='bold'
-                        fontSize={20}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                        mb={10}
-                    >{t('head-of-queue')}
-                    </Text>
-                    <Text
-                        fontWeight='bold'
-                        fontSize={14}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >
-                        {queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')}
-                    </Text>
+                    <CustomText fontSize={20} fontWeight='bold' content={t('head-of-queue')} />
+                    <CustomText 
+                     color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                    fontSize={14} fontWeight='bold' content={queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')} />
                 </Div>
 
 
@@ -165,38 +150,28 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center' borderRightColor='gray500' borderRightWidth={1}>
-                        <Text
-                            fontWeight='bold'
-                            fontSize={15}
-                            color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                            fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                            mb={10}
-                        >{t('your-number')}</Text>
-                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.queue.queue}</Text>
+                        <CustomText fontSize={15} fontWeight='bold' content={t('your-number')} />
+                        <CustomText 
+                         color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                         fontSize={15} fontWeight='bold' content={queue.queue.queue} />
                     </Div>
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center'>
-                        <Text
-                            fontWeight='bold'
-                            fontSize={15}
-                            color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                            fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                            mb={10}
-                        >{t('now-serving')}</Text>
-                        <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.nowServingQueue}</Text>
+                        <CustomText fontSize={15} fontWeight='bold' content={t('now-serving')} />
+                        <CustomText
+                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                        fontSize={15} fontWeight='bold' content={queue.nowServingQueue ? queue.nowServingQueue : t('---')} />
                     </Div>
                 </Div>
 
                 <Div flexDir='column' justifyContent='center' alignItems='center' pt={20}>
-                    <Text
-                        fontWeight='bold'
-                        fontSize={15}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                        mb={10}
-                    >{t('estimate-time')}</Text>
-                    <Text fontWeight='bold' color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} >{queue.estimatedTime}</Text>
+
+                    <CustomText content={t('estimate-time')} />
+                    <CustomText 
+                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                    content={queue.estimatedTime === 0 ? t('no-time-to-wait') : queue.estimatedTime} />
+
                 </Div>
 
             </Div>

@@ -68,7 +68,7 @@ export default function SearchComponent({ places }) {
                         {filteredPlaces.length > 0 ? (
                             filteredPlaces.map((place, index) => (
                                 <Dropdown.Option
-                                    py={3}
+                                    py={10}
                                     px="xl"
                                     my={3}
                                     block
@@ -91,12 +91,14 @@ export default function SearchComponent({ places }) {
                                                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                                                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
                                                 mb={5}
+                                                fontSize={12}
                                                 
                                             >
                                                 {i18n.language === 'ar' ? place.nameAr : place.nameEn}
                                             </Text>
                                             <Text 
-                                                  fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
+                                                fontSize={10}
+                                                fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                                                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
                                                 {i18n.language === 'ar' ? place.addressAr : place.addressEn}
                                             </Text>

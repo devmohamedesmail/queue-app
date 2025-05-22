@@ -27,7 +27,7 @@
   "book": " حجز ",
   "ok": " موافق ",
   "close": " اغلاق ",
-  "exist-alert": "Are You Sure To Exist Queue ?",
+  "exist-alert": " هل تريد الخروج من الانتظار ؟ ",
   "search": " ابحث عن مكان ",
   "select-your-service": " اختر خدمتك ",
   "no-queues": " لا يوجد انتظارات ",
@@ -78,5 +78,6 @@
   "inbox-empty": " البريد الوارد فارغ ",
   "send-help": "ارسل رسالة للمساعدة",
   "no-reply": " يرجى الانتظار للاستجابة",
-  "please-wait": " يرجى الانتظار "
+  "please-wait": " يرجى الانتظار ",
+   "no-time-to-wait":" لا يوجد وقت للانتظار"
 }

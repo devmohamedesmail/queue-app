@@ -1,12 +1,9 @@
-import { Modal, Div, Text } from 'react-native-magnus'
-import React from 'react'
-
+import { Modal, Div} from 'react-native-magnus'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import colors from '../../config/colors'
-import MyQueues from '../../screens/MyQueue/parts/MyQueues'
 import ModalCloseBtn from '../ModalCloseBtn'
-import CustomText from '../../custom/CustomText'
+import Queues_component from '../Queues_component'
 
 const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
     const { theme } = useTheme();
@@ -16,10 +13,7 @@ const MyQueueComponent = ({ queueModalVisible, setQueueModalVisible }) => {
             <ModalCloseBtn onPress={() => setQueueModalVisible(false)} />
             <Div h="100%" position='relative' pointerEvents="box-none">
                 <Div mt={80}>
-                  <CustomText textAlign='center' fontWeight='bold' fontSize={17} mb={20} content={t('my-queues')} />
-                    <Div h="90%">
-                        <MyQueues />
-                    </Div>
+                    <Queues_component />
                 </Div>
             </Div>
         </Modal>

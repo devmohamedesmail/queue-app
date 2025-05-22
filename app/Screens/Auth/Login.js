@@ -11,12 +11,11 @@ import { useTranslation } from 'react-i18next'
 import { AuthContext } from '../../context/AuthContext'
 import CloseBtn from '../../components/CloseBtn'
 import { useNavigation } from '@react-navigation/native'
-import CustomSocialLogin from '../../custom/CustomSocialLogin'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import Toast from 'react-native-toast-message'
-import CustomHeader from '../../custom/CustomHeader'
 import CustomText from '../../custom/CustomText'
-
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 const Login = () => {
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
@@ -34,75 +33,75 @@ const Login = () => {
 
 
 
-  const handle_login = async (email, password) => {
-
-    // Validate email and password
-    if (email === '') {
-      setEmailError(t('email-required'))
-      return;
-    }
-
-    if (password === '') {
-      setPasswordError(t('password-required'))
-      return;
-    }
-
-    if (!email || !password) {
-      Toast.show({
-        type: 'error',
-        text1: t('error'),
-        text2: t('try-again'),
-        visibilityTime: 3000,
-        position: 'top',
-        autoHide: true,
-      })
-      return;
-    }
-
-
-    try {
-
-      setLoading(true)
-      await login(email, password)
-      setLoading(false)
-      Toast.show({
-        type: 'success',
-        text1: t('login-success'),
-        text2: t('welcome-to-app'),
-        position: 'top',
-        visibilityTime: 3000,
-        autoHide: true,
-      })
-      navigation.navigate('Home')
-
-    } catch (error) {
-      console.log('Error during login:', error);
-    }
-  }
-
-
-  const handle_register = async (name, email, password) => {
-    if (name === '') {
-      setNameError(t('name-required'))
-      return;
-    }
-    if (email === '') {
-      setEmailError(t('email-required'))
-      return;
-    }
-    if (password === '') {
-      setPasswordError(t('password-required'))
-      return;
-    }
 
 
 
 
 
-    try {
-      setLoading(true)
-      await register(name, email, password).then((res) => {
-        if (res.success) {
+  const loginFormik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email(t('invalid-email')).required(t('email-required')),
+      password: Yup.string().required(t('password-required')),
+    }),
+    onSubmit: async (values) => {
+      try {
+        setLoading(true)
+        const res = await login(values.email, values.password)
+  
+        if (res.status === 200) {
+          Toast.show({
+            type: 'success',
+            text1: t('login-success'),
+            text2: t('welcome-to-app'),
+            position: 'top',
+            visibilityTime: 3000,
+            autoHide: true,
+          })
+          navigation.navigate('Home')
+          setEmail('')
+          setPassword('')
+        }
+
+
+        setLoading(false)
+      } catch (err) {
+        Toast.show({
+          type: 'error',
+          text1: t('login-error'),
+          text2: err.message,
+          position: 'top',
+          visibilityTime: 3000,
+          autoHide: true,
+        })
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
+
+
+  const registerFormik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required(t('name-required')),
+      email: Yup.string().email(t('invalid-email')).required(t('email-required')),
+      password: Yup.string().min(6, t('min-6')).required(t('password-required')),
+
+    }),
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        const res = await register(values.name, values.email, values.password)
+        if (res.status === 201) {
           Toast.show({
             type: 'success',
             text1: t('register-success'),
@@ -112,44 +111,27 @@ const Login = () => {
             topOffset: 30,
             bottomOffset: 40
           })
-          navigation.navigate('Login');
+          navigation.navigate('Home');
+          setName('')
+          setEmail('')
+          setPassword('')
         }
-      })
 
-
-
-      setLoading(false)
-      Toast.show({
-        type: 'success',
-        text1: t('register-success'),
-        text2: t('welcome-to-app'),
-        position: 'top',
-        visibilityTime: 1000,
-        autoHide: true,
-      })
-      navigation.navigate('Home')
-      setName('')
-      setEmail('')
-      setPassword('')
-
-
-    } catch (error) {
-      setLoading(false)
-      setError(error.message)
-      Toast.show({
-        type: 'error',
-        text1: 'Registration failed',
-        text2: error.message,
-        position: 'top',
-        visibilityTime: 3000,
-        autoHide: true,
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-
+        setLoading(false)
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          text1: t('register-error'),
+          text2: error.message,
+          position: 'top',
+          visibilityTime: 3000,
+          autoHide: true,
+        })
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
 
 
 
@@ -172,14 +154,14 @@ const Login = () => {
               title={t('login')}
               bg={activeTab === 'login' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.black}
+              color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('login')}
             />
             <CustomButton
               title={t('register')}
               bg={activeTab === 'register' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.black}
+              color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('register')}
             />
 
@@ -190,36 +172,33 @@ const Login = () => {
             <Div>
               <CustomText content={t('login')} fontWeight='bold' textAlign='center' fontSize={20} mb={10} />
               <CustomInput
-                onChange={text => setEmail(text)}
-                value={email}
+                onChange={loginFormik.handleChange('email')}
+                value={loginFormik.values.email}
                 icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
                 placeholder={t('email')}
-                error={emailError}
+                error={loginFormik.touched.email && loginFormik.errors.email}
               />
 
               <CustomInput
-                onChange={text => setPassword(text)}
-                value={password}
+                onChange={loginFormik.handleChange('password')}
+                value={loginFormik.values.password}
                 secureTextEntry
                 placeholder={t('password')}
                 icon={<AntDesign name="lock1" size={17} color="black" />}
-                error={passwordError}
+                error={loginFormik.touched.password && loginFormik.errors.password}
               />
-
-
-
-
-
-
 
 
               {
                 loading ? (<CustomActivityIndicator />) : (
                   <CustomButton
-                    onPress={() => handle_login(email, password)}
-                    title={t('login')}  w="100%" />
+                    onPress={loginFormik.handleSubmit}
+                    title={t('login')} w="100%" />
                 )
               }
+
+
+
             </Div>
 
 
@@ -227,31 +206,31 @@ const Login = () => {
 
 
 
-             <CustomText content={t('login')} fontWeight='bold' textAlign='center' fontSize={20} mb={10} />
+            <CustomText content={t('register')} fontWeight='bold' textAlign='center' fontSize={20} mb={10} />
 
             <CustomInput
-              onChange={text => setName(text)}
-              value={name}
+              onChange={registerFormik.handleChange('name')}
+              value={registerFormik.values.name}
               icon={<AntDesign name="user" size={17} color="black" />}
               placeholder={t('name')}
-              error={nameError}
+              error={registerFormik.touched.name && registerFormik.errors.name}
             />
 
             <CustomInput
-              onChange={text => setEmail(text)}
-              value={email}
+              onChange={registerFormik.handleChange('email')}
+              value={registerFormik.values.email}
               icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
               placeholder={t('email')}
-              error={emailError}
+              error={registerFormik.touched.email && registerFormik.errors.email}
             />
 
             <CustomInput
-              onChange={text => setPassword(text)}
-              value={password}
+              onChange={registerFormik.handleChange('password')}
+              value={registerFormik.values.password}
               secureTextEntry
               placeholder={t('password')}
               icon={<AntDesign name="lock1" size={17} color="black" />}
-              error={passwordError}
+              error={registerFormik.touched.password && registerFormik.errors.password}
 
             />
 
@@ -261,11 +240,10 @@ const Login = () => {
               <CustomActivityIndicator />
               :
               <CustomButton
-                onPress={() => handle_register(name, email, password)}
+                onPress={registerFormik.handleSubmit}
                 title={t('register')} w="100%" />
 
             }
-
 
 
           </Div>)}
