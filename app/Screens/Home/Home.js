@@ -10,6 +10,7 @@ import { Button, Overlay, Text } from 'react-native-magnus'
 import CustomText from '../../custom/CustomText';
 import { useTranslation } from 'react-i18next';
 
+
 export default function Home() {
   const [places, setPlaces] = useState([]);
   const [overlayVisible, setOverlayVisible] = useState(true);
@@ -43,6 +44,7 @@ export default function Home() {
           <Div mt={30} flexDir='row' justifyContent='space-between' alignItems='center' position='absolute' top={30} zIndex={1000} px={20} w="100%">
             <SearchComponent places={places} />
             <DrawerComponent />
+            
           </Div>
           <MapViewSection places={places} />
           <PlaceListSection places={places} />

@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import { Button, Div, Text } from 'react-native-magnus'
+import { Div, Image } from 'react-native-magnus'
 import CustomInput from '../../custom/CustomInput'
 import colors from '../../config/colors'
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -13,18 +13,22 @@ import CloseBtn from '../../components/CloseBtn'
 import { useNavigation } from '@react-navigation/native'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import Toast from 'react-native-toast-message'
-import CustomText from '../../custom/CustomText'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  interpolate,
+} from 'react-native-reanimated'
+import { Easing } from 'react-native-reanimated'
+
+
+
 const Login = () => {
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
-  const [name, setName] = useState('');
-  const [nameError, setNameError] = useState(null);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(null);
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { auth, setAuth, login, register, logout } = useContext(AuthContext);
   const navigation = useNavigation();
@@ -51,7 +55,7 @@ const Login = () => {
       try {
         setLoading(true)
         const res = await login(values.email, values.password)
-  
+
         if (res.status === 200) {
           Toast.show({
             type: 'success',
@@ -136,41 +140,60 @@ const Login = () => {
 
 
 
+
+
   return (
     <SafeAreaView>
 
-      <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={20}>
+      <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} px={5} h="100%" py={5}>
 
 
         <CloseBtn />
 
-        <Div mt={100} px={10}>
 
 
+        <Div mt={10} px={10} bg="white" py={10} >
 
-          <Div rounded={10} mb={20} px={5} py={10} bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} flexDir='row' justifyContent='space-between' alignItems='center'>
+          <Div>
+            <Image
+              h={200}
+              w="60%"
+              alignSelf='center'
+              rounded="md"
+              source={require("../../../assets/images/login.jpg")}
+            />
+          </Div>
+
+          <Div rounded={10} mb={20} px={5} py={5} bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} flexDir='row' justifyContent='space-between' alignItems='center'>
 
             <CustomButton
+              shadow={activeTab === 'login' ? 'lg': 'transparent'}
               title={t('login')}
               bg={activeTab === 'login' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.white}
+              color={activeTab === 'login' ? colors.lightTheme.black : colors.lightTheme.black}
               onPress={() => setActiveTab('login')}
+              
             />
             <CustomButton
+              shadow={activeTab === 'register' ? 'lg': 'transparent'}
               title={t('register')}
               bg={activeTab === 'register' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.white}
+              color={activeTab === 'register' ? colors.lightTheme.black : colors.lightTheme.black}
               onPress={() => setActiveTab('register')}
+              
             />
 
           </Div>
 
 
+
+
+
           {activeTab === 'login' ? (
-            <Div>
-              <CustomText content={t('login')} fontWeight='bold' textAlign='center' fontSize={20} mb={10} />
+            <Div key="login">
+
               <CustomInput
                 onChange={loginFormik.handleChange('email')}
                 value={loginFormik.values.email}
@@ -192,6 +215,7 @@ const Login = () => {
               {
                 loading ? (<CustomActivityIndicator />) : (
                   <CustomButton
+
                     onPress={loginFormik.handleSubmit}
                     title={t('login')} w="100%" />
                 )
@@ -202,54 +226,47 @@ const Login = () => {
             </Div>
 
 
-          ) : (<Div>
+          ) : (
+            <Div key="register">
+              <CustomInput
+                onChange={registerFormik.handleChange('name')}
+                value={registerFormik.values.name}
+                icon={<AntDesign name="user" size={17} color="black" />}
+                placeholder={t('name')}
+                error={registerFormik.touched.name && registerFormik.errors.name}
+              />
+
+              <CustomInput
+                onChange={registerFormik.handleChange('email')}
+                value={registerFormik.values.email}
+                icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
+                placeholder={t('email')}
+                error={registerFormik.touched.email && registerFormik.errors.email}
+              />
+
+              <CustomInput
+                onChange={registerFormik.handleChange('password')}
+                value={registerFormik.values.password}
+                secureTextEntry
+                placeholder={t('password')}
+                icon={<AntDesign name="lock1" size={17} color="black" />}
+                error={registerFormik.touched.password && registerFormik.errors.password}
+
+              />
 
 
 
-            <CustomText content={t('register')} fontWeight='bold' textAlign='center' fontSize={20} mb={10} />
+              {loading ?
+                <CustomActivityIndicator />
+                :
+                <CustomButton
+                  onPress={registerFormik.handleSubmit}
+                  title={t('register')} w="100%" />
 
-            <CustomInput
-              onChange={registerFormik.handleChange('name')}
-              value={registerFormik.values.name}
-              icon={<AntDesign name="user" size={17} color="black" />}
-              placeholder={t('name')}
-              error={registerFormik.touched.name && registerFormik.errors.name}
-            />
-
-            <CustomInput
-              onChange={registerFormik.handleChange('email')}
-              value={registerFormik.values.email}
-              icon={<SimpleLineIcons name="envelope" size={17} color="black" />}
-              placeholder={t('email')}
-              error={registerFormik.touched.email && registerFormik.errors.email}
-            />
-
-            <CustomInput
-              onChange={registerFormik.handleChange('password')}
-              value={registerFormik.values.password}
-              secureTextEntry
-              placeholder={t('password')}
-              icon={<AntDesign name="lock1" size={17} color="black" />}
-              error={registerFormik.touched.password && registerFormik.errors.password}
-
-            />
+              }
 
 
-
-            {loading ?
-              <CustomActivityIndicator />
-              :
-              <CustomButton
-                onPress={registerFormik.handleSubmit}
-                title={t('register')} w="100%" />
-
-            }
-
-
-          </Div>)}
-
-
-
+            </Div>)}
 
 
 

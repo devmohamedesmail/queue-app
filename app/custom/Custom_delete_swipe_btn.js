@@ -5,10 +5,10 @@ const Custom_delete_swipe_btn = ({ onPress}) => {
     return (
         <Button
             rounded={"md"}
-            bg="red600"
+            bg="transparent"
             onPress={onPress}
         >
-            <FontAwesome5 name="trash" size={24} color="white" />
+            <FontAwesome5 name="trash" size={24} color="red" />
         </Button>
     )
 }

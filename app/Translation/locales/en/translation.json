@@ -79,6 +79,8 @@
     "send-help":"Send Help",
     "no-reply":" Please wait for reply",
     "please-wait":"Please wait",
-    "no-time-to-wait":"No Waiting Time"
+    "no-time-to-wait":"No Waiting Time",
+    "invalid-email":"Invalid Email",
+    "min-6" : "Password must be at least 6 characters"
     
 }

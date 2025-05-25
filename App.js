@@ -45,12 +45,11 @@ export default function App() {
       <ThemeProvider>
         <InfoProvider>
           <AuthProvider>
-           
-            <StatusBar   hidden={true}  />
             <NavigationContainer>
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor} >
                 <I18nextProvider i18n={i18n} >
+                  <StatusBar hidden={true}  />
                   <AppNavigator />
                   <Toast />
                 </I18nextProvider>

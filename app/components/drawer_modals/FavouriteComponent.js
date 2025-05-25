@@ -1,17 +1,16 @@
-import React , {useCallback}from 'react'
+import React, { useCallback } from 'react'
 import { Modal, Text, Div, Button } from 'react-native-magnus';
 import { useTranslation } from 'react-i18next';
 import colors from '../../config/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import Feather from '@expo/vector-icons/Feather';
-import FavouriteItem from '../../screens/Favourite/FavouriteItem';
 import { remove_From_wishlist } from '../../redux/reducers/wishlistSlice';
 import { useTheme } from '../../context/ThemeContext';
 import ModalCloseBtn from '../ModalCloseBtn';
-import { View } from 'react-native';
+
 import Custom_favourite_item from '../../custom/Custom_favourite_item';
 import Custom_delete_swipe_btn from '../../custom/Custom_delete_swipe_btn';
+import CustomText from '../../custom/CustomText';
 const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible }) => {
     const { t, i18n } = useTranslation();
     const { theme } = useTheme();
@@ -22,6 +21,7 @@ const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible })
         dispatch(remove_From_wishlist({ id }))
     }
 
+   
 
 
     return (
@@ -36,25 +36,19 @@ const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible })
             <Div h="100%" position='relative' pb={100}>
 
                 <Div mt={80} >
-                    <Text
-                        fontSize={20}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}
-                        textAlign='center'
-                        fontWeight='bold'
-                        mb={20}
-                        fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                    >
-                        {t('favourite')}</Text>
 
-                   
+                    <CustomText content={t('favourite')} textAlign='center' fontWeight='bold' fontSize={20} />
+
+
 
                     <SwipeListView
                         data={favourites}
-                        keyExtractor={(item, index) => (item?.id ? item.id.toString() : index.toString())}
-                        renderItem={({  item, index, rowMap }) => (
-                            <Custom_favourite_item 
-                            item={item} rowMap={rowMap}  
-                            index={index} />
+                        keyExtractor={(item, index) => item?.id?.toString() ?? `favourite-${index}`}
+                        renderItem={({ item, index, rowMap }) => (
+                            <Custom_favourite_item
+                                item={item} rowMap={rowMap}
+                                index={index} />
+                            
                         )}
 
                         renderHiddenItem={({ item }, rowMap) => (
@@ -79,6 +73,7 @@ const FavouriteComponent = ({ favouriteModalVisible, setFavouriteModalVisible })
                                 </Div>
                             </Div>
                         )}
+                        
 
                         leftOpenValue={75}
                         rightOpenValue={-75}

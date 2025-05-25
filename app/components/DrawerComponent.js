@@ -58,7 +58,7 @@ export default function DrawerComponent() {
 
     return (
         < >
-              
+
 
             <CustomIconBtn
                 icon={<Octicons name="three-bars" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />}
@@ -88,11 +88,15 @@ export default function DrawerComponent() {
                                 if (auth !== null) {
                                     setAccountModalVisible(true)
                                 } else {
-                                    navigation.navigate("Login")
+
+                                    drawerRef.current?.close();
+                                    setTimeout(() => {
+                                        navigation.navigate("Login")
+                                    }, 300);
                                 }
                             }} />
-                        <CustomDrawerBoxIcon 
-                            icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />} 
+                        <CustomDrawerBoxIcon
+                            icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             title={t('favourite')}
                             onPress={() => setFavouriteModalVisible(true)} />
                         <CustomDrawerBoxIcon
@@ -102,7 +106,10 @@ export default function DrawerComponent() {
                                 if (auth !== null) {
                                     setHistoryModalVisible(true)
                                 } else {
-                                    navigation.navigate("Login")
+                                    drawerRef.current?.close();
+                                    setTimeout(() => {
+                                        navigation.navigate("Login")
+                                    }, 300);
                                 }
                             }} />
                         <CustomDrawerBoxIcon
@@ -112,7 +119,10 @@ export default function DrawerComponent() {
                                 if (auth !== null) {
                                     setQueueModalVisible(true)
                                 } else {
-                                    navigation.navigate("Login")
+                                    drawerRef.current?.close();
+                                    setTimeout(() => {
+                                        navigation.navigate("Login")
+                                    }, 300);
                                 }
                             }} />
 
@@ -130,7 +140,7 @@ export default function DrawerComponent() {
                             onPress={() => setNotificationsModalVisible(true)}
                         >
                             <Div flexDir='row'>
-                                <AntDesign name="bells" size={20} color="black" />
+                                <AntDesign name="bells" size={20} color="white" />
                                 <Text mx={5} color='white' fontWeight='bold'>{t('notifications')}</Text>
                             </Div>
 
@@ -150,15 +160,33 @@ export default function DrawerComponent() {
 
                         <CustomDrawerItem
                             onPress={() => {
-                                drawerRef.current?.open();
-                                navigation.navigate('Help');
+
+                                if (auth !== null) {
+                                    navigation.navigate('Help');
+                                } else {
+                                    drawerRef.current?.close();
+                                    setTimeout(() => {
+                                        navigation.navigate("Login")
+                                    }, 300);
+                                }
                             }}
                             title={t('help')}
                             icon={<Entypo name="help" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                         />
 
                         <CustomDrawerItem
-                            onPress={() => navigation.navigate('Inbox')}
+                            onPress={() => {
+
+                                if (auth !== null) {
+                                    navigation.navigate('Inbox');
+                                } else {
+                                    drawerRef.current?.close();
+                                    setTimeout(() => {
+                                        navigation.navigate("Login")
+                                    }, 300);
+                                }
+
+                            }}
                             title={t('inbox')}
                             icon={<AntDesign name="message1" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                         />
@@ -179,6 +207,8 @@ export default function DrawerComponent() {
                             title={i18n.language === "ar" ? 'English' : ' عربي '}
                             icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             onPress={toggleLanguage} />
+
+                        
                     </Div>
                     {/* ************************************** Items section End ************************************** */}
 

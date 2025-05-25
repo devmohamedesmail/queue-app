@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/Home/Home';
 import BankQueue from '../screens/BankQueue/BankQueue';
@@ -14,23 +14,32 @@ import Inbox from '../screens/Inbox/Inbox';
 
 
 
+
+
 export default function AppNavigator() {
     const Stack = createNativeStackNavigator()
     return (
         <Stack.Navigator
             initialRouteName='Home'
+            screenOptions={{
+                headerShown: false,
+                animation: 'fade',
+                animationDuration: 700
+            }}
             
-        >
-            <Stack.Screen name='Home' component={Home} options={{ headerShown: false }} />
-            <Stack.Screen name='BankQueue' component={BankQueue} options={{ headerShown: false }} />
-            <Stack.Screen name='MyQueue' component={MyQueue} options={{ headerShown: false }} />
-            <Stack.Screen name='History' component={HistotyLog} options={{ headerShown: false }} />
-            <Stack.Screen name='Favourite' component={Favourite} options={{ headerShown: false }} />
-            <Stack.Screen name='Account' component={Account} options={{ headerShown: false }} />
-            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }} />
-            <Stack.Screen name='EditInfo' component={EditInfo} options={{ headerShown: false }} />
-            <Stack.Screen name='Help' component={Help} options={{ headerShown: false }} />
-            <Stack.Screen name='Inbox' component={Inbox} options={{ headerShown: false }} />
+        >   
+        
+            <Stack.Screen name='Home' component={Home}  />
+            <Stack.Screen name='BankQueue' component={BankQueue}  />
+            <Stack.Screen name='MyQueue' component={MyQueue}  />
+            <Stack.Screen name='History' component={HistotyLog}  />
+            <Stack.Screen name='Favourite' component={Favourite}  />
+            <Stack.Screen name='Account' component={Account}  />
+            <Stack.Screen name='Login' component={Login}  />
+            <Stack.Screen name='EditInfo' component={EditInfo}  />
+            <Stack.Screen name='Help' component={Help}  />
+            <Stack.Screen name='Inbox' component={Inbox}  />
+            
         </Stack.Navigator>
     )
 }

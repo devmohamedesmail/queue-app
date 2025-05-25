@@ -1,6 +1,6 @@
 import MapView, { Marker, Callout } from 'react-native-maps'
 import { Button, Div, Text } from 'react-native-magnus'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +16,8 @@ const MapViewSection = ({ places }) => {
   const { theme } = useTheme()
   const [selectedPlace, setSelectedPlace] = useState()
   const mapRef = useRef(null);
-  const [loading,setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(false)
+  const [userRegion, setUserRegion] = useState(null);
 
   const toggleModal = (place) => {
     setSelectedPlace(place)
@@ -31,13 +31,13 @@ const MapViewSection = ({ places }) => {
       setLoading
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        
+
         return;
       }
-  
+
       const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
-  
+
 
       if (mapRef.current) {
         mapRef.current.animateCamera({
@@ -55,11 +55,29 @@ const MapViewSection = ({ places }) => {
     } catch (error) {
       setLoading(false)
       console.log('Error getting location:', error);
-    }finally{
+    } finally {
       setLoading(false)
     }
   };
-  
+
+
+
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        return;
+      }
+      const location = await Location.getCurrentPositionAsync({});
+      setUserRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+    })();
+  }, []);
 
 
   return (
@@ -68,7 +86,7 @@ const MapViewSection = ({ places }) => {
 
       <MapView
         ref={mapRef}
-        
+
         camera={{
           center: {
             latitude: 25.276987,
@@ -92,7 +110,7 @@ const MapViewSection = ({ places }) => {
         style={{
           height: '100%',
         }}
-        initialRegion={{
+        initialRegion={userRegion || {
           latitude: 25.276987,
           longitude: 55.296249,
           latitudeDelta: 0.0922,
@@ -108,25 +126,25 @@ const MapViewSection = ({ places }) => {
             onPress={() => toggleModal(place)}
             style={{ width: 200, height: 200 }}
           >
-            
+
 
           </Marker>
-          
+
         ))}
       </MapView>
 
 
       <Div position="absolute" bottom={300} right={20}>
-        {loading ? <CustomIconBtn icon={<CustomActivityIndicator />} /> : <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} /> }
+        {loading ? <CustomIconBtn icon={<CustomActivityIndicator />} /> : <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} />}
         {/* <CustomIconBtn icon={<FontAwesome6 name="location-arrow" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.lightTheme.white} />} onPress={goToMyLocation} /> */}
       </Div>
 
 
 
 
- 
+
       <PlaceModal isModalVisible={isModalVisible} toggleModal={toggleModal} selectedPlace={selectedPlace} />
-     
+
 
     </Div>
   )
