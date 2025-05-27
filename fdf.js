@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext';
 import { Button } from 'react-native-magnus';
 import colors from '../config/colors';
-const Book_btn = ({onPress,title}) => {
+const Book_btn = ({onPress}) => {
 
     const {t,i18n}=useTranslation();
     const {theme}=useTheme();
@@ -22,7 +22,7 @@ const Book_btn = ({onPress,title}) => {
             shadow="md"
             fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
             shadowColor={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.white}>
-            {title}
+            {t('book')}
         </Button>
     )
 }

@@ -151,10 +151,10 @@ export default function BankQueue({ route }) {
                         {
                             loading ? (
 
-                                <CustomActivityIndicator />
+                                <Book_btn  title={t('booking....')} />
                             ) : (
 
-                                <Book_btn onPress={() => book_new_queue()} />
+                                <Book_btn onPress={() => book_new_queue()} title={t('book')} />
                             )
                         }
                     </Div>
@@ -167,6 +167,7 @@ export default function BankQueue({ route }) {
 
             <Dropdown
                 ref={dropdownRef}
+                zIndex={10}
                 title={
                     
                     <CustomText 

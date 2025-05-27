@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Button, Div, Text } from 'react-native-magnus'
-import Modal from 'react-native-modal';
-import Slider from '@react-native-community/slider';
+import {  Div } from 'react-native-magnus'
 import CustomButton from '../../../custom/CustomButton';
 
 import { useTranslation } from 'react-i18next';
@@ -12,6 +10,8 @@ import { InfoContext } from '../../../context/InfoContext';
 import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
 import Toast from 'react-native-toast-message';
 import CustomText from '../../../custom/CustomText';
+import Custom_modal from '../../../custom/Custom_modal';
+
 
 const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
     const [queueModalVisible, setQueueModalVisible] = useState(false);
@@ -122,7 +122,7 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
             <Div flexDir='column' justifyContent='center' alignItems='center' mt={30} px={5}>
                 <CustomText
-                   fontSize={15}
+                    fontSize={15}
                     textAlign="center"
                     content={i18n.language === "ar" ? queue.queue.place.nameAr : queue.queue.place.nameEn}
                 />
@@ -140,9 +140,9 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
             <Div bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} mt={30} py={20}>
                 <Div flexDir='column' justifyContent='center' alignItems='center' pb={20}>
                     <CustomText fontSize={20} fontWeight='bold' content={t('head-of-queue')} />
-                    <CustomText 
-                     color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                    fontSize={14} fontWeight='bold' content={queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')} />
+                    <CustomText
+                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                        fontSize={14} fontWeight='bold' content={queue.aheadOfYou > 1 ? queue.aheadOfYou : t('your-turn-now')} />
                 </Div>
 
 
@@ -151,26 +151,26 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center' borderRightColor='gray500' borderRightWidth={1}>
                         <CustomText fontSize={15} fontWeight='bold' content={t('your-number')} />
-                        <CustomText 
-                         color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                         fontSize={15} fontWeight='bold' content={queue.queue.queue} />
+                        <CustomText
+                            color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                            fontSize={15} fontWeight='bold' content={queue.queue.queue} />
                     </Div>
 
 
                     <Div flexDir='column' justifyContent='center' w="49%" alignItems='center'>
                         <CustomText fontSize={15} fontWeight='bold' content={t('now-serving')} />
                         <CustomText
-                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                        fontSize={15} fontWeight='bold' content={queue.nowServingQueue ? queue.nowServingQueue : t('---')} />
+                            color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                            fontSize={15} fontWeight='bold' content={queue.nowServingQueue ? queue.nowServingQueue : t('---')} />
                     </Div>
                 </Div>
 
                 <Div flexDir='column' justifyContent='center' alignItems='center' pt={20}>
 
                     <CustomText content={t('estimate-time')} />
-                    <CustomText 
-                    color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
-                    content={queue.estimatedTime === 0 ? t('no-time-to-wait') : queue.estimatedTime} />
+                    <CustomText
+                        color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.white}
+                        content={queue.estimatedTime === 0 ? t('no-time-to-wait') : queue.estimatedTime} />
 
                 </Div>
 
@@ -209,35 +209,17 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
 
 
-            {/* queue choose modal start */}
-            <Modal isVisible={queueModalVisible}>
-                <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
+            {/* queue move modal start */}
+          
+            <Custom_modal isVisible={queueModalVisible} onPressClose={queueToggleModal} onClose={queueToggleModal}>
+                <CustomText content={t('move-alert')} textAlign='center' mb={30} fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white} />
 
-
-                    <Text
-                        textAlign='center'
-
-                        mb={30}
-                        fontSize={15}
-                        color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white}
-                    >
-                        {t('move-alert')}
-
-                    </Text>
-
-
-
-
-
-
-                    {loading ? <CustomActivityIndicator /> :
-                        <Div flexDir='row' alignItems='center' justifyContent='space-between'>
-                            <CustomButton onPress={() => move_queue(queueId)} title={t('ok')} w="48%" />
-                            <CustomButton onPress={queueToggleModal} title={t('close')} bg="red600" w="48%" />
-                        </Div>}
-
-                </Div>
-            </Modal>
+                {loading ? <CustomActivityIndicator /> :
+                    <Div flexDir='row' alignItems='center' justifyContent='space-between' px={5}>
+                        <CustomButton onPress={() => move_queue(queueId)} title={t('ok')} w="48%" />
+                        <CustomButton onPress={queueToggleModal} title={t('close')} bg="red600" w="48%" />
+                    </Div>}
+            </Custom_modal>
             {/* queue choose modal end */}
 
 
@@ -248,7 +230,7 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
 
 
             {/* ********************************* Exit Queue  modal start ****************************** */}
-            <Modal isVisible={existModalVisible} animationIn={"bounceIn"} animationOut="bounceOut" animationInTiming={500} animationOutTiming={500}>
+            {/* <Modal isVisible={existModalVisible} animationIn={"bounceIn"} animationOut="bounceOut" animationInTiming={500} animationOutTiming={500}>
                 <Div bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark} rounded={10} px={10} py={40}>
                     <Text
                         textAlign='center'
@@ -274,7 +256,21 @@ const QueueItem = ({ queue, fetch_today_queues_for_user }) => {
                     </Div>
 
                 </Div>
-            </Modal>
+            </Modal> */}
+            <Custom_modal isVisible={existModalVisible} onPressClose={exitToggleModal} onClose={exitToggleModal}>
+                 <CustomText content={t('exist-alert')} textAlign='center' mb={30} fontSize={15} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.white} />
+                 <Div flexDir='row' alignItems='center' justifyContent='space-between' px={5}>
+
+                        {loading ? <CustomActivityIndicator /> :
+                            <>
+                                <CustomButton onPress={() => cancel_queue(queueId)} title={t('ok')} bg={colors.lightTheme.primary} w="48%" />
+                                <CustomButton onPress={exitToggleModal} title={t('close')} bg="red600" w="48%" /></>
+
+
+                        }
+
+                    </Div>
+            </Custom_modal>
             {/* ********************************* Exit Queue  modal End ****************************** */}
 
 

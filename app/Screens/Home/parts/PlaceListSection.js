@@ -1,6 +1,6 @@
 
 import React, { useMemo, useState, useEffect } from 'react'
-import { ScrollDiv,Div } from 'react-native-magnus'
+import { ScrollDiv,Div,Text } from 'react-native-magnus'
 import colors from '../../../config/colors'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../context/ThemeContext'
@@ -9,10 +9,11 @@ import { useTranslation } from 'react-i18next'
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useDispatch, useSelector } from 'react-redux'
 import { add_To_wishlist } from '../../../redux/reducers/wishlistSlice'
-import Toast from 'react-native-toast-message'
+
 import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import CustomText from '../../../custom/CustomText'
 
 export default function PlaceListSection({ places }) {
 
@@ -69,7 +70,7 @@ export default function PlaceListSection({ places }) {
     >
 
       <ScrollDiv  >
-
+        <CustomText textAlign="center" px={10} fontSize={20} color={theme === 'light' ? "black" : "white"} content={t('select-place')} />
         {places && places.length > 0 ? (<>
           {places.map((place) => {
             const placeLat = parseFloat(place.location.lat);

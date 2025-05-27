@@ -1,16 +1,14 @@
-import MapView, { Marker, Callout } from 'react-native-maps'
-import { Button, Div, Text } from 'react-native-magnus'
+import MapView, { Marker} from 'react-native-maps'
+import { Div} from 'react-native-magnus'
 import React, { useState, useRef, useEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../context/ThemeContext';
-import { useTranslation } from 'react-i18next';
 import PlaceModal from './PlaceModal';
 import colors from '../../../config/colors';
 import * as Location from 'expo-location';
 import CustomIconBtn from '../../../custom/CustomIconBtn';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
-
+import {darkMapStyle, lightMapStyle} from '../../../config/mapStyles'; // Assuming you have map styles defined here
 const MapViewSection = ({ places }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const { theme } = useTheme()
@@ -110,6 +108,7 @@ const MapViewSection = ({ places }) => {
         style={{
           height: '100%',
         }}
+        customMapStyle={theme === 'dark' ? darkMapStyle : lightMapStyle}
         initialRegion={userRegion || {
           latitude: 25.276987,
           longitude: 55.296249,

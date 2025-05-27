@@ -10,6 +10,7 @@ import Login from '../screens/Auth/Login';
 import EditInfo from '../screens/Auth/EditInfo';
 import Help from '../screens/Help/Help';
 import Inbox from '../screens/Inbox/Inbox';
+import Test from '../screens/Test';
 
 
 
@@ -28,7 +29,8 @@ export default function AppNavigator() {
             }}
             
         >   
-        
+           
+            <Stack.Screen name='Test' component={Test}  />
             <Stack.Screen name='Home' component={Home}  />
             <Stack.Screen name='BankQueue' component={BankQueue}  />
             <Stack.Screen name='MyQueue' component={MyQueue}  />

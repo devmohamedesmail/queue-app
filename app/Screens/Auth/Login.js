@@ -152,7 +152,7 @@ const Login = () => {
 
 
 
-        <Div mt={10} px={10} bg="white" py={10} >
+        <Div mt={10} px={10}  py={10} >
 
           <Div>
             <Image
@@ -160,7 +160,7 @@ const Login = () => {
               w="60%"
               alignSelf='center'
               rounded="md"
-              source={require("../../../assets/images/login.jpg")}
+              source={require("../../../assets/images/login.png")}
             />
           </Div>
 
@@ -171,7 +171,7 @@ const Login = () => {
               title={t('login')}
               bg={activeTab === 'login' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'login' ? colors.lightTheme.black : colors.lightTheme.black}
+              color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('login')}
               
             />
@@ -180,7 +180,7 @@ const Login = () => {
               title={t('register')}
               bg={activeTab === 'register' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
-              color={activeTab === 'register' ? colors.lightTheme.black : colors.lightTheme.black}
+              color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('register')}
               
             />

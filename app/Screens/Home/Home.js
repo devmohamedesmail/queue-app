@@ -9,7 +9,7 @@ import { ActivityIndicator } from 'react-native'
 import { Button, Overlay, Text } from 'react-native-magnus'
 import CustomText from '../../custom/CustomText';
 import { useTranslation } from 'react-i18next';
-
+import {darkMapStyle, lightMapStyle} from '../../config/mapStyles';
 
 export default function Home() {
   const [places, setPlaces] = useState([]);

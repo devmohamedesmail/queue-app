@@ -81,6 +81,12 @@
     "please-wait":"Please wait",
     "no-time-to-wait":"No Waiting Time",
     "invalid-email":"Invalid Email",
-    "min-6" : "Password must be at least 6 characters"
+    "min-6" : "Password must be at least 6 characters",
+    "select-place":"Select Place",
+    "booking....":"Booking .....",
+    "queue-move-success":"Queue moved successfully",
+    "queue-move-error":"Error in moving queue"
+
+   
     
 }

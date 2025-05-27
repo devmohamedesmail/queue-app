@@ -3,7 +3,7 @@ import { Div } from 'react-native-magnus'
 import FavouriteItem from './FavouriteItem'
 import { FlatList, SafeAreaView } from 'react-native'
 import colors from '../../config/colors'
-import places from '../../config/places'
+
 
 
 
