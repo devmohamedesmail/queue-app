@@ -11,9 +11,10 @@ const CustomAccountButton = ({ icon, title, onPress }) => {
   return (
     <Button
       onPress={onPress}
-      bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
-      borderBottomWidth={theme === 'light'? 1 : .3}
-      borderBottomColor='gray400'
+      mx={5}
+      bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark}
+      rounded={5}
+      mb={5}
       h={65}
     >
       <Div flexDir='row' w="100%">
@@ -27,7 +28,7 @@ const CustomAccountButton = ({ icon, title, onPress }) => {
           >{title}
           </Text>
         </Div>
-        <Entypo name="chevron-thin-right" size={20} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
+        <Entypo name="chevron-thin-right" size={17} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} />
 
       </Div>
     </Button>

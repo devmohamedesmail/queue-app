@@ -9,14 +9,14 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { InfoProvider } from './app/context/InfoContext';
 import { AuthProvider } from './app/context/AuthContext';
-import Toast from 'react-native-toast-message';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// import Toast from 'toastify-react-native';
 import { Provider } from 'react-redux';
 import { persistor, store } from './app/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar } from 'react-native';
-
+import ToastManager, { Toast } from 'toastify-react-native'
 
 
 
@@ -51,7 +51,7 @@ export default function App() {
                 <I18nextProvider i18n={i18n} >
                   <StatusBar hidden={true}  />
                   <AppNavigator />
-                  <Toast />
+                  <ToastManager />
                 </I18nextProvider>
                 </PersistGate>
                 

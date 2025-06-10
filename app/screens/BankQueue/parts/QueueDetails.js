@@ -50,7 +50,7 @@ const QueueDetails = ({waitingQueues,loading,book_new_queue}) => {
 
           <Text 
           fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-          fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.primary}>
+          fontWeight='bold' fontSize={20} color={theme === 'light' ? colors.lightTheme.primary : colors.lightTheme.white}>
               {`${Math.floor((waitingQueues ? waitingQueues.length : 0) * 15 / 60)}:${((waitingQueues ? waitingQueues.length : 0) * 15) % 60} H`}
           </Text>
         </Div>

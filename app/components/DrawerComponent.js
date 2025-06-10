@@ -24,7 +24,8 @@ import MyQueueComponent from './drawer_modals/MyQueueComponent';
 import SettingComponent from './drawer_modals/SettingComponent';
 import NotificationComponent from './drawer_modals/NotificationComponent';
 import { AuthContext } from '../context/AuthContext';
-import { StatusBar } from 'expo-status-bar';
+import { Toast } from 'toastify-react-native';
+
 
 
 
@@ -129,7 +130,7 @@ export default function DrawerComponent() {
                     </Div>
                     {/* ************************************** Boxes section End ************************************** */}
 
-                    <Div px={10} mt={20}>
+                    {/* <Div px={10} mt={20}>
                         <Button
                             w="100%"
                             h={50}
@@ -149,7 +150,7 @@ export default function DrawerComponent() {
                             <Text color='white' >3</Text>
                         </Div>
 
-                    </Div>
+                    </Div> */}
 
 
 
@@ -192,11 +193,11 @@ export default function DrawerComponent() {
                         />
 
 
-                        <CustomDrawerItem
+                        {/* <CustomDrawerItem
                             title={t('business')}
                             icon={<MaterialIcons name="business-center" size={20}
                                 color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
-                        />
+                        /> */}
 
                         <CustomDrawerItem
                             title={t('setting')}
@@ -208,7 +209,7 @@ export default function DrawerComponent() {
                             icon={<MaterialIcons name="language" size={20} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             onPress={toggleLanguage} />
 
-                        
+
                     </Div>
                     {/* ************************************** Items section End ************************************** */}
 
@@ -216,10 +217,11 @@ export default function DrawerComponent() {
 
 
                     {/* ************************************** How To use section Start ************************************** */}
-                    <Div px={10} position='absolute' bottom={50} right={0} left={0}>
+                    {/* <Div px={10} position='absolute' bottom={50} right={0} left={0}>
                         <CustomButton bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} title={t('how-to-use')} w="98%" />
-                    </Div>
+                    </Div> */}
                     {/* ************************************** How To use section End ************************************** */}
+
 
 
 

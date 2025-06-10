@@ -1,10 +1,17 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-toast-message';
+import Toast from 'toastify-react-native';
 import { useTranslation } from 'react-i18next';
 import { api } from '../config/api';
-// Create InfoContext using the Context API
+
+
+
+
+
+
+
+
 const AuthContext = createContext();
 
 // InfoContext provider component
@@ -32,8 +39,8 @@ const AuthProvider = ({ children }) => {
       // 🔐 Login function
       const login = async (email, password) => {
         try {
-            console.log('Logging in user:', { email, password });
-            const res = await axios.post('https://queue-app-express-js.onrender.com/api/v1/auth/login', {
+            
+            const res = await axios.post(`${api.url}api/v1/auth/login`, {
                 email,
                 password,
             });
@@ -41,9 +48,8 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
             setAuth(user);
             await AsyncStorage.setItem('user', JSON.stringify(user));
-            return { success: true, status: res.status , user: user };
+            return { user: user };
         } catch (error) {
-            console.error('Login error:', error.response?.data || error.message);
             return { success: false, error: error.response?.data?.message || 'Login failed' };
         }
     };
@@ -61,7 +67,7 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
             setAuth(user);
             await AsyncStorage.setItem('user', JSON.stringify(user));
-            return res.status;
+            return { user: user };
         } catch (error) {
             console.log('Register error:', error.response?.data || error.message);
             return { success: false, error: error.response?.data?.message || 'Registration failed' };
@@ -81,7 +87,7 @@ const AuthProvider = ({ children }) => {
             })
             return { success: true };
         } catch (error) {
-            console.error('Logout error:', error.message);
+            console.log('Logout error:', error.message);
             return { success: false, error: 'Logout failed' };
         }
     };

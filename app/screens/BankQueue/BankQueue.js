@@ -9,19 +9,18 @@ import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 import PlaceDetails from './parts/PlaceDetails'
 import { InfoContext } from '../../context/InfoContext'
-import Modal from 'react-native-modal';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import QueueDetails from './parts/QueueDetails'
 
 
 // functions
 import { fetch_place_services, get_all_waiting_queues } from '../../utils/bankQueuesFunctions'
 import { AuthContext } from '../../context/AuthContext'
-import Toast from 'react-native-toast-message'
+import Toast from 'toastify-react-native';
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import Book_btn from '../../components/Book_btn'
 import CustomText from '../../custom/CustomText'
 import { StatusBar } from 'expo-status-bar'
+import CustomHeader from '../../custom/CustomHeader';
 
 
 
@@ -44,10 +43,7 @@ export default function BankQueue({ route }) {
 
 
 
-    const toggleServicesModal = () => {
-        setServicesModalVisible(!servicesModalVisible);
-
-    };
+   
 
 
     // ********************************* Fetch Place Services Start **********************************
@@ -80,12 +76,6 @@ export default function BankQueue({ route }) {
 
 
             setLoading(true)
-
-
-
-
-
-
             let url = `${info.appUrl}/api/v1/queues/book/new/queue/${auth.user.user._id}/${place._id}`;
             if (serviceId) {
                 url += `/${serviceId}`;
@@ -126,12 +116,13 @@ export default function BankQueue({ route }) {
 
     return (
         <>
-            <StatusBar  hidden />
+            
 
 
             <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} h="100%">
 
-                <CloseBtn />
+                {/* <CloseBtn /> */}
+                <CustomHeader title={t('book-queue')} />
 
                 <Div h="80%" flexDir='column' justifyContent='space-evenly'>
                     <PlaceDetails place={place} />
@@ -184,15 +175,13 @@ export default function BankQueue({ route }) {
                 {place && place.services && place.services.map((service) => (
                     <Dropdown.Option
                         key={service._id}
-                        // py={20}
                         mb={5}
                         px="xl"
                         block
                         bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.dark}
-                        borderBottomColor={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
-                        borderBottomWidth={1}
-                        h={70}
-                        // shadow="sm"
+                        borderBottomColor={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.primary}
+                        borderBottomWidth={theme === 'light' ? 1 : 0}
+                        h={75}
                         onPress={() => {
                             setServiceId(service._id)
                             get_all_waiting_queues()
@@ -200,7 +189,13 @@ export default function BankQueue({ route }) {
                             dropdownRef.current.close();
                         }}>
                        
-                        <CustomText fontWeight="bold" fontSize={13}  w="100%" textAlign="center" content={i18n.language === "ar" ? service.nameAr : service.nameEn} />
+                        <CustomText 
+                        textTransform="uppercase"
+                        fontWeight="bold" 
+                        fontSize={15} 
+                        w="100%" 
+                        textAlign="center" 
+                        content={i18n.language === "ar" ? service.nameAr : service.nameEn} />
                     </Dropdown.Option>
                 ))}
                 

@@ -1,9 +1,7 @@
-import React from 'react'
+
 import colors from '../../../config/colors'
-import Modal from "react-native-modal";
-import { Div, Text, Button } from 'react-native-magnus';
+import { Div, Text} from 'react-native-magnus';
 import { useTheme } from '../../../context/ThemeContext';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomButton from '../../../custom/CustomButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';

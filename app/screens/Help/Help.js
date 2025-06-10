@@ -9,7 +9,7 @@ import CustomButton from '../../custom/CustomButton';
 import axios from 'axios';
 import { InfoContext } from '../../context/InfoContext';
 import { AuthContext } from '../../context/AuthContext';
-import Toast from 'react-native-toast-message';
+import { Toast } from 'toastify-react-native'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator';
 import CustomText from '../../custom/CustomText';
 import CloseBtn from '../../components/CloseBtn';
@@ -41,8 +41,16 @@ const Help = () => {
                 Toast.show({
                     type: 'success',
                     text1: t('help-send-success'),
+                    position: 'top',
+                    duration: 1000
 
                 })
+                setTopic('')
+                setMessage('')
+
+                setTimeout(() => {
+                    navigation.navigate('Inbox')
+                }, 1000)
 
             }
 
@@ -50,8 +58,11 @@ const Help = () => {
             Toast.show({
                 type: 'error',
                 text1: t('send-error'),
+                position: 'top',
+                duration: 1000
 
             })
+
         } finally {
             setLoading(false)
         }
@@ -89,7 +100,7 @@ const Help = () => {
                 </Div>
                 <Div w={"100%"} bottom={50} px={10} position='absolute'>
                     <CustomButton mb={10} title={t('inbox')} w="100%" onPress={() => navigation.navigate('Inbox')} />
-                    <CustomButton title={t('home')} w="100%" bg={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} onPress={() => navigation.navigate('Home')} />
+                    <CustomButton title={t('home')} w="100%" bg={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.dark} onPress={() => navigation.navigate('Home')} />
 
                 </Div>
             </Div>

@@ -1,6 +1,6 @@
 
 import React, { useMemo, useState, useEffect } from 'react'
-import { ScrollDiv,Div,Text } from 'react-native-magnus'
+import { ScrollDiv, Div, Text } from 'react-native-magnus'
 import colors from '../../../config/colors'
 import { useNavigation } from '@react-navigation/native'
 import { useTheme } from '../../../context/ThemeContext'
@@ -14,6 +14,7 @@ import * as Location from 'expo-location';
 import { getDistance } from 'geolib';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomText from '../../../custom/CustomText'
+import { getLimitedWords } from '../../../utils/getLimitedWords';
 
 export default function PlaceListSection({ places }) {
 
@@ -23,13 +24,13 @@ export default function PlaceListSection({ places }) {
   const snapPoints = useMemo(() => ['30%', '50%', '80%'], [])
   const [userLocation, setUserLocation] = useState(null);
   const dispatch = useDispatch();
-
   const items = useSelector((state) => state.wishlist.items);
 
 
   const handle_add_to_favorites = (place) => {
     dispatch(add_To_wishlist({
       id: place._id,
+      image: place.image,
       name_en: place.nameEn,
       name_ar: place.nameAr,
       address_en: place.addressEn,
@@ -83,8 +84,10 @@ export default function PlaceListSection({ places }) {
             return (
               <PlaceItem
                 key={place._id}
-                name={i18n.language === 'en' ? place.nameEn : place.nameAr}
-                address={i18n.language === 'en' ? place.addressEn : place.addressAr}
+                image={place.image}
+                getLimitedWords
+                name={getLimitedWords(i18n.language === 'en' ? place.nameEn : place.nameAr, 5)}
+                address={getLimitedWords(i18n.language === 'en' ? place.addressEn : place.addressAr, 5)}
                 distance={distance}
                 onPress={() => navigation.navigate("BankQueue", { place })}
                 add_to_favorites={() => handle_add_to_favorites(place)}
@@ -92,7 +95,7 @@ export default function PlaceListSection({ places }) {
               />
             );
           })}</>) : (
-          <Div  px={20} py={20}>
+          <Div px={20} py={20}>
             <AntDesign name="search1" size={40} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
           </Div>)}
 

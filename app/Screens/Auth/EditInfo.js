@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/AuthContext'
 import CustomButton from '../../custom/CustomButton'
 import { useTranslation } from 'react-i18next'
 import { InfoContext } from '../../context/InfoContext'
-import Toast from 'react-native-toast-message'
+import { Toast } from 'toastify-react-native'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
 import axios from 'axios'
 import CloseBtn from '../../components/CloseBtn'
@@ -20,9 +20,9 @@ const EditInfo = () => {
   const { t } = useTranslation()
   const { info } = useContext(InfoContext)
   const [name, setName] = useState(auth?.user?.user?.name || '');
-const [email, setEmail] = useState(auth?.user?.user?.email || '');
-const [phone, setPhone] = useState(auth?.user?.user?.phone || '');
-const [address, setAddress] = useState(auth?.user?.user?.address || '');
+  const [email, setEmail] = useState(auth?.user?.user?.email || '');
+  const [phone, setPhone] = useState(auth?.user?.user?.phone || '');
+  const [address, setAddress] = useState(auth?.user?.user?.address || '');
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false);
 
@@ -88,7 +88,7 @@ const [address, setAddress] = useState(auth?.user?.user?.address || '');
   return (
     <SafeAreaView>
       <Div bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background} h="100%">
-      <CloseBtn />
+        <CloseBtn />
 
         <Div px={20} py={30} h={'70%'}  >
           <Text textAlign='center' fontWeight='bold' mb={30} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary}>{t('update-your-information')}</Text>
@@ -101,7 +101,7 @@ const [address, setAddress] = useState(auth?.user?.user?.address || '');
         </Div>
         <Div px={10} w={'100%'}>
 
-        {loading ? <CustomActivityIndicator /> : <CustomButton w={'100%'} title={t('update')} onPress={update_user_info} />}
+          {loading ? <CustomActivityIndicator /> : <CustomButton w={'100%'} title={t('update')} onPress={update_user_info} />}
         </Div>
 
       </Div>

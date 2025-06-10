@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTheme } from '../../context/ThemeContext'
 import { useTranslation } from 'react-i18next';
 
-import { Modal, Div, Text } from 'react-native-magnus';
+import { Modal, Div, Text, ScrollDiv } from 'react-native-magnus';
 import colors from '../../config/colors';
 import { ScrollView } from 'react-native';
 import HistoryItem from '../../screens/HistoryLog/HistoryItem';
@@ -50,14 +50,14 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
                         fontWeight='bold'
                         fontSize={20}
                         textAlign='center'
-                        mb={20}
+                        mb={10}
                         fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                     >{t('history')}
                     </Text>
 
-                   
 
-                    <ScrollView>
+
+                    <ScrollDiv pb={100}  mb={60}>
                         {history.length > 0 ? (
                             history.map((item) => (
                                 <HistoryItem
@@ -76,15 +76,7 @@ const HistoryComponent = ({ historyModalVisible, setHistoryModalVisible }) => {
                             </Text>
                         )}
 
-                    </ScrollView>
-
-
-
-
-
-
-
-
+                    </ScrollDiv>
 
                 </Div>
 

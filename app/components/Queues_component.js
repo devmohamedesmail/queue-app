@@ -57,11 +57,11 @@ function Queues_component() {
         
                             <CustomText textAlign='center' fontWeight='bold' mt={30} fontSize={20} content={`${t('my-queues')} - ${queues.length} `} />
                             <Carousel
-                                bg="red600"
+                                
                                 width={width}
                                 height={600}
-                                loop={true}
-                                autoPlayReverse={true}
+                                loop={false}
+                                autoPlayReverse={false}
                                 data={queues}
                                 scrollAnimationDuration={500}
                                 renderItem={({ item }) => (
@@ -78,8 +78,8 @@ function Queues_component() {
                     ) : (
                         <Div>
                             <Image
-                                h={300}
-                                w='70%'
+                                h={350}
+                                w='80%'
                                 m={10}
                                 alignSelf='center'
                                 rounded="md"

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Div} from 'react-native-magnus'
+import { Div,Overlay} from 'react-native-magnus'
 import SearchComponent from '../../components/SearchComponent'
 import DrawerComponent from '../../components/DrawerComponent';
 import PlaceListSection from './parts/PlaceListSection';
 import MapViewSection from './parts/MapViewSection';
 import { api } from '../../config/api';
 import { ActivityIndicator } from 'react-native'
-import { Button, Overlay, Text } from 'react-native-magnus'
 import CustomText from '../../custom/CustomText';
 import { useTranslation } from 'react-i18next';
-import {darkMapStyle, lightMapStyle} from '../../config/mapStyles';
+
 
 export default function Home() {
   const [places, setPlaces] = useState([]);

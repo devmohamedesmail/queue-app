@@ -85,7 +85,13 @@
     "select-place":"Select Place",
     "booking....":"Booking .....",
     "queue-move-success":"Queue moved successfully",
-    "queue-move-error":"Error in moving queue"
+    "queue-move-error":"Error in moving queue",
+    "book-queue":"Book Queue",
+    "login-error":"Failed to Login",
+    "login-error-message":"Invalid email or password, please try again",
+    "register-error":"Error in registration",
+    "login-success-message":"Login successful, welcome back!",
+    "egister-error-message":" Please check your details and try again"
 
    
     

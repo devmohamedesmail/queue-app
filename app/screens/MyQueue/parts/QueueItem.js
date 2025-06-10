@@ -8,7 +8,7 @@ import { useTheme } from '../../../context/ThemeContext';
 import axios from 'axios';
 import { InfoContext } from '../../../context/InfoContext';
 import CustomActivityIndicator from '../../../custom/CustomActivityIndicator';
-import Toast from 'react-native-toast-message';
+import Toast from 'toastify-react-native';
 import CustomText from '../../../custom/CustomText';
 import Custom_modal from '../../../custom/Custom_modal';
 

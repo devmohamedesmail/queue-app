@@ -1,6 +1,6 @@
-import { SafeAreaView } from 'react-native'
+import { Alert, SafeAreaView } from 'react-native'
 import React, { useContext, useState } from 'react'
-import { Div, Image } from 'react-native-magnus'
+import { Button, Div, Image } from 'react-native-magnus'
 import CustomInput from '../../custom/CustomInput'
 import colors from '../../config/colors'
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -12,17 +12,11 @@ import { AuthContext } from '../../context/AuthContext'
 import CloseBtn from '../../components/CloseBtn'
 import { useNavigation } from '@react-navigation/native'
 import CustomActivityIndicator from '../../custom/CustomActivityIndicator'
-import Toast from 'react-native-toast-message'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { Toast } from 'toastify-react-native'
 
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  interpolate,
-} from 'react-native-reanimated'
-import { Easing } from 'react-native-reanimated'
+
 
 
 
@@ -55,28 +49,36 @@ const Login = () => {
       try {
         setLoading(true)
         const res = await login(values.email, values.password)
-
-        if (res.status === 200) {
+        if (res.user.status === 200 || res.user.status === 201 || res.user.status === "success") {
           Toast.show({
             type: 'success',
-            text1: t('login-success'),
-            text2: t('welcome-to-app'),
+            text1: `${t('login-success')}`,
+            text2: `${t('login-success-message')}`,
             position: 'top',
             visibilityTime: 3000,
             autoHide: true,
           })
-          navigation.navigate('Home')
-          setEmail('')
-          setPassword('')
+
+          setTimeout(() => {
+            navigation.navigate('Home');
+          }, 3000);
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: t('login-error'),
+            text2: t('login-error-message'),
+            position: 'top',
+            visibilityTime: 3000,
+            autoHide: true,
+          })
         }
 
+      } catch (error) {
 
-        setLoading(false)
-      } catch (err) {
         Toast.show({
           type: 'error',
           text1: t('login-error'),
-          text2: err.message,
+          text2: t('login-error-message'),
           position: 'top',
           visibilityTime: 3000,
           autoHide: true,
@@ -105,20 +107,31 @@ const Login = () => {
       try {
         setLoading(true);
         const res = await register(values.name, values.email, values.password)
-        if (res.status === 201) {
+        if (res.status === 200 || res.status === 201 || res.status === "success") {
           Toast.show({
             type: 'success',
             text1: t('register-success'),
             text2: t('register-success-message'),
             visibilityTime: 3000,
-            autoHide: true,
-            topOffset: 30,
-            bottomOffset: 40
+
           })
-          navigation.navigate('Home');
+
+          setTimeout(() => {
+            navigation.navigate('Home');
+          }, 3000);
+
           setName('')
           setEmail('')
           setPassword('')
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: t('register-error'),
+            text2: error.message,
+            position: 'top',
+            visibilityTime: 3000,
+            autoHide: true,
+          })
         }
 
         setLoading(false)
@@ -152,7 +165,7 @@ const Login = () => {
 
 
 
-        <Div mt={10} px={10}  py={10} >
+        <Div mt={10} px={10} py={10} >
 
           <Div>
             <Image
@@ -167,22 +180,22 @@ const Login = () => {
           <Div rounded={10} mb={20} px={5} py={5} bg={theme === 'light' ? colors.lightTheme.light : colors.darkTheme.dark} flexDir='row' justifyContent='space-between' alignItems='center'>
 
             <CustomButton
-              shadow={activeTab === 'login' ? 'lg': 'transparent'}
+              shadow={activeTab === 'login' ? 'lg' : 'transparent'}
               title={t('login')}
               bg={activeTab === 'login' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
               color={activeTab === 'login' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('login')}
-              
+
             />
             <CustomButton
-              shadow={activeTab === 'register' ? 'lg': 'transparent'}
+              shadow={activeTab === 'register' ? 'lg' : 'transparent'}
               title={t('register')}
               bg={activeTab === 'register' ? colors.lightTheme.primary : 'transparent'}
               w="48%"
               color={activeTab === 'register' ? colors.lightTheme.white : colors.lightTheme.white}
               onPress={() => setActiveTab('register')}
-              
+
             />
 
           </Div>
@@ -289,6 +302,7 @@ const Login = () => {
 
 
       </Div>
+
     </SafeAreaView>
   )
 }

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { useTranslation } from 'react-i18next';
-import Toast from 'react-native-toast-message';
+import { Toast } from 'toastify-react-native'
 import i18n from 'i18next';
 
 const initialState = {

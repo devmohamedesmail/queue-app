@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Header, Button, Icon, Text, Drawer } from 'react-native-magnus'
-import DrawerComponent from '../components/DrawerComponent';
 import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 
@@ -15,21 +14,16 @@ const CustomHeader = ({ title }) => {
             pt={25}
             px={15}
             p="lg"
-            bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
+            bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.dark}
             alignment="left"
             prefix={
                 <Button bg="transparent" onPress={() => navigation.goBack()}>
-                    <Icon name="arrow-left" color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light} fontFamily="Feather" fontSize="2xl"  />
+                    <Icon name="arrow-left" color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.light} fontFamily="Feather" fontSize="2xl"  />
                 </Button>
             }
-            // suffix={
-            //     <Button bg="transparent">
-            //         <Icon name="more-vertical" fontFamily="Feather" />
-            //     </Button>
-            //    <DrawerComponent />
-            // }
+            
         >
-            {title}
+           <Text color={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.light}>{title}</Text> 
         </Header>
     )
 }

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../context/ThemeContext';
 import CustomIconBtn from '../custom/CustomIconBtn';
 import { useTranslation } from 'react-i18next';
+import { getLimitedWords } from '../utils/getLimitedWords';
 
 
 
@@ -59,7 +60,7 @@ export default function SearchComponent({ places }) {
                         w="100%"
                         onChangeText={(text) => setSearchQuery(text)}
                         focusBorderColor={colors.primary}
-                        suffix={<Icon name="search" color="gray900" fontFamily="Feather" />}
+                        suffix={<AntDesign name="search1" size={20} color="black" />}
                     />
                 </Dropdown.Option>
 
@@ -74,8 +75,8 @@ export default function SearchComponent({ places }) {
                                     block
                                     key={index}
                                     bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}
-                                    borderBottomWidth={theme === 'light' ? 1 : 0.3}
-                                    borderBottomColor="gray300"
+                                    borderBottomWidth={theme === 'light' ? 1 : 0}
+                                    borderBottomColor={theme === 'light' ? 'gray300' : 'transparent'}
                                 >
                                     <Button
                                         onPress={() => navigation.navigate('BankQueue',{ place })}
@@ -89,18 +90,20 @@ export default function SearchComponent({ places }) {
                                             <Text
                                                 fontWeight="bold"
                                                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
-                                                color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}
+                                                color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary}
                                                 mb={5}
-                                                fontSize={12}
+                                                fontSize={14}
                                                 
                                             >
-                                                {i18n.language === 'ar' ? place.nameAr : place.nameEn}
+                                              
+                                                {getLimitedWords(i18n.language === 'ar' ? place.nameAr : place.nameEn, 8)}
                                             </Text>
                                             <Text 
                                                 fontSize={10}
                                                 fontFamily={i18n.language === 'en' ? 'poppins-regular' : 'cairo'}
                                                 color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.light}>
                                                 {i18n.language === 'ar' ? place.addressAr : place.addressEn}
+
                                             </Text>
                                         </Div>
                                     </Button>

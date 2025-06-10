@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Div, Button, Icon, Modal, ThemeProvider } from "react-native-magnus";
+import { Div, Button, Modal} from "react-native-magnus";
 import { useTheme } from '../context/ThemeContext';
 import colors from '../config/colors';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -12,7 +12,7 @@ export default function Custom_modal(
         children,
         animationIn = "lightSpeedIn",
         animationOut = "lightSpeedOut",
-        height = 300,
+        height = 350,
         ...props
     }
 ) {
@@ -21,7 +21,7 @@ export default function Custom_modal(
     const [visible, setVisible] = useState(false);
     return (
 
-        <Modal isVisible={isVisible} zIndex={1000} onBackdropPress={onClose} h={300} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}>
+        <Modal isVisible={isVisible} zIndex={1000} onBackdropPress={onClose} h={350} bg={theme === 'light' ? colors.lightTheme.white : colors.darkTheme.dark}>
             <Button
                 bg="gray400"
                 h={35}

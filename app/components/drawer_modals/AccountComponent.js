@@ -20,16 +20,16 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
     const { t, i18n } = useTranslation();
     const { auth, setAuth, login, register, logout } = useContext(AuthContext);
     const navigation = useNavigation();
-  
+
 
     return (
         <>
             <Modal
-            onBackdropPress={() => setAccountModalVisible(false)}
-            h="100%"
-            w="100%" 
-            isVisible={accountModalVisible} 
-            bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
+                onBackdropPress={() => setAccountModalVisible(false)}
+                h="100%"
+                w="100%"
+                isVisible={accountModalVisible}
+                bg={theme === 'light' ? colors.lightTheme.background : colors.darkTheme.background}
             >
 
                 <ModalCloseBtn onPress={() => setAccountModalVisible(false)} />
@@ -53,7 +53,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
 
 
                         <CustomAccountButton
-                            icon={<FontAwesome name="edit" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                            icon={<FontAwesome name="edit" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             title={t('update-your-information')}
                             onPress={() => {
                                 auth ? navigation.navigate('EditInfo') : navigation.navigate('Login')
@@ -63,7 +63,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
 
                         <CustomAccountButton
 
-                            icon={<MaterialIcons name="history" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                            icon={<MaterialIcons name="history" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             title={t('history')}
                             onPress={() => {
                                 auth ? navigation.navigate('History') : navigation.navigate('Login')
@@ -72,7 +72,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
 
 
                         <CustomAccountButton
-                            icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                            icon={<AntDesign name="hearto" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             title={t('favourite')}
                             onPress={() => {
                                 auth ? navigation.navigate('Favourite') : navigation.navigate('Login')
@@ -82,7 +82,7 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
 
 
                         <CustomAccountButton
-                            icon={<Feather name="help-circle" size={24} color={theme === 'light' ? colors.lightTheme.black : colors.darkTheme.primary} />}
+                            icon={<Feather name="help-circle" size={24} color={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />}
                             title={t('need-help')}
                             onPress={() => {
                                 auth ? navigation.navigate('Help') : navigation.navigate('Login')
@@ -102,13 +102,12 @@ const AccountComponent = ({ accountModalVisible, setAccountModalVisible }) => {
                                 <Div mb={10}>
                                     <CustomButton
                                         onPress={() => logout()}
-
                                         title={t('logout')} w="100%" bg={theme === 'light' ? colors.lightTheme.primary : colors.darkTheme.primary} />
                                 </Div>
 
-                                <Div mb={20}>
+                                {/* <Div mb={20}>
                                     <CustomButton title={t('delete-account')} w="100%" bg="red600" />
-                                </Div>
+                                </Div> */}
 
                             </>
 
