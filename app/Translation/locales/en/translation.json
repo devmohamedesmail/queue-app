@@ -91,7 +91,18 @@
     "login-error-message":"Invalid email or password, please try again",
     "register-error":"Error in registration",
     "login-success-message":"Login successful, welcome back!",
-    "egister-error-message":" Please check your details and try again"
+    "egister-error-message":" Please check your details and try again",
+    "delete-account-confirm":"Are you sure to delete your account ?",
+    "cancel":"Cancel",
+    "delete":"Delete",
+    "delete-error":"Error in Deleting Account",
+    "delete-error-message":"Please Try Again Later",
+    "delete-success":"Account Deleted Successfully",
+    "register-error-message":"Please check your details and try again",
+    "register-success-message":"Registration successful, welcome to our app!"
+ 
+
+
 
    
     

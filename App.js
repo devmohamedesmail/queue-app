@@ -50,6 +50,7 @@ export default function App() {
                 <PersistGate loading={null} persistor={persistor} >
                 <I18nextProvider i18n={i18n} >
                   <StatusBar hidden={true}  />
+                  
                   <AppNavigator />
                   <ToastManager />
                 </I18nextProvider>

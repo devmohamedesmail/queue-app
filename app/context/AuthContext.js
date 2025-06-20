@@ -67,9 +67,10 @@ const AuthProvider = ({ children }) => {
             const user = res.data;
             setAuth(user);
             await AsyncStorage.setItem('user', JSON.stringify(user));
+            console.log('Registered user:', user);
             return { user: user };
         } catch (error) {
-            console.log('Register error:', error.response?.data || error.message);
+            console.log('Register error from context:', error.response?.data || error.message);
             return { success: false, error: error.response?.data?.message || 'Registration failed' };
         }
     };

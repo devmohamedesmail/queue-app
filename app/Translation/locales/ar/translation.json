@@ -91,5 +91,13 @@
   "login-error-message": " البريد الإلكتروني أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى",
   "register-error": " خطأ في التسجيل",
   "login-success-message": " تسجيل الدخول ناجح، مرحبًا بعودتك!",
-  "egister-error-message": " يرجى التحقق من التفاصيل الخاصة بك والمحاولة مرة أخرى"
+  "egister-error-message": " يرجى التحقق من التفاصيل الخاصة بك والمحاولة مرة أخرى",
+  "delete-account-confirm": " هل تريد حذف حسابك؟",
+  "cancel": " الغاء ",
+  "delete": " حذف ",
+  "delete-error":" خطاء في حذف الحساب",
+    "delete-error-message":" يرجى المحاولة مرة اخرى لاحقا",
+    "delete-success":" تم حذف الحساب بنجاح",
+    "register-error-message":" يرجى التحقق من التفاصيل الخاصة بك والمحاولة مرة اخرى",
+    "register-success-message":" تسجيل الدخول ناجح، مرحبًا بعودتك!"
 }

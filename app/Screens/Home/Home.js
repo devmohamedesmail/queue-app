@@ -62,6 +62,8 @@ export default function Home() {
             <CustomText content={t('please-wait')} fontWeight='bold' textAlign='center'  mt={20} />
           </Overlay>
         </Div>
+       
+       
       )}
     </Div>
 

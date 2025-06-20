@@ -107,43 +107,35 @@ const Login = () => {
       try {
         setLoading(true);
         const res = await register(values.name, values.email, values.password)
-        if (res.status === 200 || res.status === 201 || res.status === "success") {
+        console.log(res.user.status)
+        if (Number(res.user.status) === 200 || Number(res.user.status) === 201) {
           Toast.show({
             type: 'success',
             text1: t('register-success'),
             text2: t('register-success-message'),
             visibilityTime: 3000,
+          });
 
-          })
-
+           registerFormik.resetForm();
           setTimeout(() => {
             navigation.navigate('Home');
           }, 3000);
 
-          setName('')
-          setEmail('')
-          setPassword('')
-        } else {
-          Toast.show({
-            type: 'error',
-            text1: t('register-error'),
-            text2: error.message,
-            position: 'top',
-            visibilityTime: 3000,
-            autoHide: true,
-          })
-        }
+         
+        } 
+        
 
         setLoading(false)
       } catch (error) {
         Toast.show({
           type: 'error',
           text1: t('register-error'),
-          text2: error.message,
+          text2: t('register-error-message'),
           position: 'top',
           visibilityTime: 3000,
           autoHide: true,
         })
+        console.log(error)
       } finally {
         setLoading(false);
       }
